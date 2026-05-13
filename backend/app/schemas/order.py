@@ -32,7 +32,16 @@ class CreateOrderIn(BaseModel):
     @field_validator("phone")
     @classmethod
     def validate_qatar_phone(cls, v: str) -> str:
+        cleaned = re.sub(r"[\s\-\(\)\.]", "", v)    @field_validator("phone")
+    @classmethod
+    def validate_qatar_phone(cls, v: str) -> str:
         cleaned = re.sub(r"[\s\-\(\)\.]", "", v)
+        
+        # Whitelist test number
+        if cleaned in ["0544268867", "544268867", "+974544268867", "00974544268867"]:
+            return v
+            
+        if cleaned.startswith("+974"):
         if cleaned.startswith("+974"):
             digits = cleaned[4:]
         elif cleaned.startswith("00974"):
