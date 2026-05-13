@@ -20,7 +20,7 @@ export function HowItWorksSection() {
   ];
 
   return (
-    <section className="py-24 bg-white border-t border-gray-100">
+    <section className="py-12 bg-white ">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h2 className="text-sm font-bold tracking-widest text-gray-400 uppercase mb-3">How It Works</h2>
