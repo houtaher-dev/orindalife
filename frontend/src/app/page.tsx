@@ -3,6 +3,7 @@ import { ProductsSection } from "@/components/ProductsSection";
 import { FeaturesSection } from "@/components/FeaturesSection";
 import { HowItWorksSection } from "@/components/HowItWorksSection";
 import { ReviewsSection } from "@/components/ReviewsSection";
+import { FAQSection } from "@/components/FAQSection";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <ReviewsSection />
       <FeaturesSection />
       <HowItWorksSection />
+      <FAQSection />
     </>
   );
 }
