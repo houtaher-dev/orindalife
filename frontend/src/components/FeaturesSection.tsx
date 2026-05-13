@@ -3,7 +3,7 @@ import { ShieldCheck, Leaf, FlaskConical, BadgeCheck } from "lucide-react";
 
 export function FeaturesSection() {
   return (
-    <section id="about" className="py-24 bg-[#F8F7F3]">
+    <section id="about" className="py-12 bg-[#F8F7F3]">
       <div className="container mx-auto px-4 max-w-7xl">
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h3 className="text-3xl md:text-4xl font-black text-[#134e4a] mb-4">صيدلية، مو متجر تجميل</h3>
