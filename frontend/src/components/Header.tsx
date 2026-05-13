@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { ShoppingBag, Menu, ShieldCheck, Truck, Handshake, Leaf } from "lucide-react";
+import { ShoppingBag, Menu, X, ShieldCheck, Truck, Handshake, Leaf } from "lucide-react";
 import { useCartStore } from "@/lib/cartStore";
 
 const ANNOUNCEMENTS = [
@@ -24,6 +24,8 @@ export function Header() {
   const { getCartCount, setIsOpen } = useCartStore();
   const count = getCartCount();
   const [announcementIndex, setAnnouncementIndex] = useState(0);
+
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -76,12 +78,27 @@ export function Header() {
               )}
             </button>
             {/* Mobile Menu Button */}
-            <button className="md:hidden p-2 -ml-2 text-gray-800 hover:text-[#134e4a] transition-colors">
-              <Menu className="w-7 h-7" strokeWidth={2} />
+            <button 
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 -ml-2 text-gray-800 hover:text-[#134e4a] transition-colors"
+            >
+              {mobileMenuOpen ? <X className="w-7 h-7" strokeWidth={2} /> : <Menu className="w-7 h-7" strokeWidth={2} />}
             </button>
           </div>
 
         </div>
+
+        {/* Mobile Navigation Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-white border-t border-gray-100 py-4 px-4 shadow-lg absolute w-full left-0 top-[80px]">
+            <nav className="flex flex-col gap-4 text-lg font-bold text-gray-800 text-center">
+              <Link href="/" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#134e4a] py-2 border-b border-gray-50">الرئيسية</Link>
+              <Link href="/#products" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#134e4a] py-2 border-b border-gray-50">المجموعة</Link>
+              <Link href="/#about" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#134e4a] py-2 border-b border-gray-50">عن أوريندا</Link>
+              <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="hover:text-[#134e4a] py-2">تواصل معنا</Link>
+            </nav>
+          </div>
+        )}
       </header>
 
       {/* Announcement Bar (Dark Green) - Non-sticky, scrolls away */}
