@@ -6,7 +6,7 @@ import { ArrowLeft, Star } from "lucide-react";
 
 export function ProductsSection() {
   return (
-    <section id="products" className="py-24 bg-white">
+    <section id="products" className="py-12 bg-white">
       <div className="container mx-auto px-4 max-w-7xl">
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h2 className="text-sm font-bold tracking-widest text-gray-400 uppercase mb-3">Our Formulations</h2>
