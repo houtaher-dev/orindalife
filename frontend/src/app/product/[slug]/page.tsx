@@ -397,12 +397,12 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
            <div className="text-xs text-gray-500 font-bold mb-0.5">يبدأ من</div>
            <div className="font-black text-gray-900 text-lg">199 ر.ق</div>
         </div>
-        <button 
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="px-8 py-3 bg-[#134e4a] text-white font-bold rounded-xl shadow-lg shadow-[#134e4a]/20"
+        <a 
+          href="#"
+          className="px-8 py-3 bg-[#134e4a] text-white font-bold rounded-xl shadow-lg shadow-[#134e4a]/20 flex items-center justify-center"
         >
           اختاري العرض
-        </button>
+        </a>
       </div>
 
     </div>
