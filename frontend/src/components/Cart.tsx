@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useCartStore } from "@/lib/cartStore";
-import { PRODUCTS } from "@/lib/products";
-import { X, Plus, Minus, ShoppingBag, ShieldCheck, CheckCircle2, Loader2 } from "lucide-react";
+import { PRODUCTS, Product } from "@/lib/products";
+import { X, Plus, Minus, ShoppingBag, ShieldCheck, CheckCircle2, Loader2, AlertCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { api } from "@/lib/api/client";
 import { generateEventId } from "@/lib/tracking/pixels";
@@ -20,9 +20,36 @@ export function Cart() {
   const [phone, setPhone] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Upsell State
+  const [upsellStep, setUpsellStep] = useState<0 | 1 | 2>(0);
+  const [countdown, setCountdown] = useState(30);
+  const [upsellProduct1, setUpsellProduct1] = useState<Product | null>(null);
+  const [upsellProduct2, setUpsellProduct2] = useState<Product | null>(null);
+
   // Find cross-sells (products not in cart)
   const cartProductIds = items.map(item => item.product.id);
   const crossSells = PRODUCTS.filter(p => !cartProductIds.includes(p.id));
+
+  useEffect(() => {
+    if (!isCheckoutOpen) {
+      setUpsellStep(0);
+      setCountdown(30);
+    }
+  }, [isCheckoutOpen]);
+
+  useEffect(() => {
+    if (upsellStep === 0) return;
+    
+    if (countdown > 0) {
+      const timer = setTimeout(() => setCountdown(c => c - 1), 1000);
+      return () => clearTimeout(timer);
+    } else {
+      // time ran out
+      if (upsellStep === 1 || upsellStep === 2) {
+        submitOrderFinal();
+      }
+    }
+  }, [upsellStep, countdown]);
 
   const handleCheckoutSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,28 +58,52 @@ export function Cart() {
       return;
     }
 
+    // Determine upsell products
+    const inCartIds = items.map(i => i.product.id);
+    const availableCrossSells = PRODUCTS.filter(p => !inCartIds.includes(p.id));
+    
+    // Fallback to random if all are in cart
+    const p1 = availableCrossSells.length > 0 ? availableCrossSells[0] : PRODUCTS[0];
+    const p2 = availableCrossSells.length > 1 ? availableCrossSells[1] : (availableCrossSells.length === 1 ? PRODUCTS.find(p => p.id !== p1.id)! : PRODUCTS[1]);
+    
+    setUpsellProduct1(p1);
+    setUpsellProduct2(p2);
+    setUpsellStep(1);
+    setCountdown(30);
+  };
+
+  const submitOrderFinal = async () => {
+    if (isSubmitting) return;
     setIsSubmitting(true);
     
     try {
       const browserEventId = generateEventId();
+      // Get LATEST state from Zustand to include accepted upsells
+      const latestItems = useCartStore.getState().items;
+      const latestTotal = useCartStore.getState().getCartTotal();
+
       const orderPayload = {
         customer_name: name,
         phone: phone,
-        items: items.map(item => {
-          // Calculate unit price per item in the bundle
+        items: latestItems.map(item => {
           const unitPrice = item.bundlePrice / item.bundleQuantity;
-          const bundleNameStr = item.bundleQuantity > 1 ? ` (${item.bundleQuantity} حبات)` : "";
+          let bundleNameStr = "";
+          if (item.isUpsell) {
+             bundleNameStr = " (عرض خاص)";
+          } else if (item.bundleQuantity > 1) {
+             bundleNameStr = ` (${item.bundleQuantity} حبات)`;
+          }
           
           return {
             product_id: item.product.id,
             product_slug: item.product.slug,
             product_name_ar: item.product.name_ar + bundleNameStr,
-            quantity: item.quantity * item.bundleQuantity, // Total items
+            quantity: item.quantity * item.bundleQuantity,
             unit_price: unitPrice,
-            line_total: item.bundlePrice * item.quantity // Total price for this line
+            line_total: item.bundlePrice * item.quantity
           };
         }),
-        subtotal: getCartTotal(),
+        subtotal: latestTotal,
         browser_event_id: browserEventId,
         user_agent: navigator.userAgent
       };
@@ -62,13 +113,38 @@ export function Cart() {
       clearCart();
       setCheckoutOpen(false);
       setIsOpen(false);
+      setUpsellStep(0);
       router.push("/thank-you");
     } catch (error: any) {
       console.error(error);
       alert(error.message || "حدث خطأ في الاتصال، المرجو المحاولة مرة أخرى");
+      setUpsellStep(0); // return to checkout form on error
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleAcceptUpsell1 = () => {
+    if (upsellProduct1) {
+      useCartStore.getState().addItem(upsellProduct1, 1, 99, true);
+    }
+    setUpsellStep(2);
+    setCountdown(30);
+  };
+
+  const handleDeclineUpsell1 = () => {
+    submitOrderFinal();
+  };
+
+  const handleAcceptUpsell2 = () => {
+    if (upsellProduct2) {
+      useCartStore.getState().addItem(upsellProduct2, 1, 79, true);
+    }
+    submitOrderFinal();
+  };
+
+  const handleDeclineUpsell2 = () => {
+    submitOrderFinal();
   };
 
   if (!isOpen) return null;
@@ -203,8 +279,12 @@ export function Cart() {
             {/* Header */}
             <div className="bg-gray-50 p-6 border-b border-gray-100 flex justify-between items-center sticky top-0 z-20">
               <div>
-                <h3 className="text-xl font-black text-gray-900">أكّد طلبك الآن</h3>
-                <p className="text-sm text-gray-500 mt-1">لن تدفع شيء الآن. الدفع عند الاستلام.</p>
+                <h3 className="text-xl font-black text-gray-900">
+                  {upsellStep === 0 ? "أكّد طلبك الآن" : "عرض خاص لك!"}
+                </h3>
+                {upsellStep === 0 && (
+                  <p className="text-sm text-gray-500 mt-1">لن تدفع شيء الآن. الدفع عند الاستلام.</p>
+                )}
               </div>
               <button onClick={() => setCheckoutOpen(false)} className="p-2 bg-white hover:bg-gray-100 rounded-full transition-colors border border-gray-200">
                 <X className="w-5 h-5 text-gray-500" />
@@ -212,58 +292,161 @@ export function Cart() {
             </div>
 
             {/* Content */}
-            <div className="p-6 overflow-y-auto flex-1">
-              <div className="bg-green-50 text-green-800 p-3 rounded-xl text-sm font-medium flex items-center gap-2 mb-6 border border-green-100">
-                <CheckCircle2 className="w-5 h-5" />
-                شحن مجاني لطلبك ({getCartTotal()} ر.ق)
+            {upsellStep === 0 ? (
+              <div className="p-6 overflow-y-auto flex-1">
+                <div className="bg-green-50 text-green-800 p-3 rounded-xl text-sm font-medium flex items-center gap-2 mb-6 border border-green-100">
+                  <CheckCircle2 className="w-5 h-5" />
+                  شحن مجاني لطلبك ({getCartTotal()} ر.ق)
+                </div>
+
+                <form onSubmit={handleCheckoutSubmit} className="space-y-5">
+                  <div>
+                    <label className="block text-sm font-bold text-gray-700 mb-2">الاسم الكامل</label>
+                    <input 
+                      type="text" 
+                      required 
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all bg-gray-50 focus:bg-white"
+                      placeholder="أدخل اسمك الكامل"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-bold text-gray-700 mb-2">رقم الهاتف (قطر)</label>
+                    <input 
+                      type="tel" 
+                      required 
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      dir="ltr"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all bg-gray-50 focus:bg-white text-left"
+                      placeholder="0XXXXXXXX"
+                    />
+                    <p className="text-xs text-gray-500 mt-2 text-right">مثال: 033123456 (يبدأ بـ 0)</p>
+                  </div>
+
+                  <div className="pt-4 sticky bottom-0 bg-white pb-2">
+                    <button 
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full px-8 py-4 bg-gray-900 text-white font-bold text-lg rounded-xl hover:bg-gray-800 transition-colors shadow-lg shadow-gray-200 flex justify-center items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                    >
+                      {isSubmitting ? (
+                        <><Loader2 className="w-5 h-5 animate-spin" /> جاري التحقق...</>
+                      ) : (
+                        <><CheckCircle2 className="w-5 h-5" /> أرسل الطلب للدفع عند الاستلام</>
+                      )}
+                    </button>
+                    <div className="flex items-center justify-center gap-1.5 mt-4 text-xs text-gray-500 font-medium">
+                      <ShieldCheck className="w-4 h-4 text-green-600" />
+                      معلوماتك آمنة ولن تشارك مع أي طرف
+                    </div>
+                  </div>
+                </form>
               </div>
-
-              <form onSubmit={handleCheckoutSubmit} className="space-y-5">
-                <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">الاسم الكامل</label>
-                  <input 
-                    type="text" 
-                    required 
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all bg-gray-50 focus:bg-white"
-                    placeholder="أدخل اسمك الكامل"
-                  />
+            ) : upsellStep === 1 && upsellProduct1 ? (
+              <div className="p-6 overflow-y-auto flex-1 flex flex-col items-center text-center">
+                <div className="bg-green-50 text-green-800 px-4 py-1.5 rounded-full text-xs font-bold mb-5 border border-green-100 flex items-center gap-1.5">
+                  <AlertCircle className="w-3.5 h-3.5" />
+                  عرض خاص • مرة واحدة
                 </div>
-                
-                <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">رقم الهاتف (قطر)</label>
-                  <input 
-                    type="tel" 
-                    required 
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    dir="ltr"
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all bg-gray-50 focus:bg-white text-left"
-                    placeholder="0XXXXXXXX"
-                  />
-                  <p className="text-xs text-gray-500 mt-2 text-right">مثال: 033123456 (يبدأ بـ 0)</p>
-                </div>
+                <h3 className="text-2xl font-black text-gray-900 mb-2 leading-tight">
+                  قبل ما نأكد طلبك... أضف روتين مكمل بـ 99 ريال فقط
+                </h3>
+                <p className="text-sm text-gray-500 mb-6 px-2 leading-relaxed">
+                  لأنك اخترت روتينك الأساسي، نقدم لك إضافة واحدة بسعر خاص تظهر مرة واحدة قبل تأكيد الطلب.
+                </p>
 
-                <div className="pt-4 sticky bottom-0 bg-white pb-2">
-                  <button 
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full px-8 py-4 bg-gray-900 text-white font-bold text-lg rounded-xl hover:bg-gray-800 transition-colors shadow-lg shadow-gray-200 flex justify-center items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
-                  >
-                    {isSubmitting ? (
-                      <><Loader2 className="w-5 h-5 animate-spin" /> جاري تأكيد الطلب...</>
-                    ) : (
-                      <><CheckCircle2 className="w-5 h-5" /> أرسل الطلب للدفع عند الاستلام</>
-                    )}
-                  </button>
-                  <div className="flex items-center justify-center gap-1.5 mt-4 text-xs text-gray-500 font-medium">
-                    <ShieldCheck className="w-4 h-4 text-green-600" />
-                    معلوماتك آمنة ولن تشارك مع أي طرف
+                <div className="bg-gray-50 p-4 rounded-2xl w-full mb-6 border border-gray-200 flex gap-4 items-center text-right shadow-inner">
+                  <div className={`w-24 h-24 rounded-xl flex items-center justify-center flex-shrink-0 bg-gradient-to-tr ${upsellProduct1.theme.from} ${upsellProduct1.theme.to} relative overflow-hidden shadow-sm`}>
+                    <Image src={upsellProduct1.image_url} alt={upsellProduct1.name_ar} fill className="object-contain p-2 relative z-10" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-bold text-gray-900 mb-1 leading-tight">{upsellProduct1.name_ar}</h4>
+                    <p className="text-xs text-gray-500 line-clamp-2 leading-snug">{upsellProduct1.description_ar}</p>
+                    <div className="mt-2 flex items-center gap-2">
+                      <span className="text-lg font-black text-primary">99 ر.ق</span>
+                      <span className="text-xs text-gray-400 line-through decoration-gray-300">199 ر.ق</span>
+                    </div>
                   </div>
                 </div>
-              </form>
-            </div>
+
+                <div className="text-sm font-bold text-gray-500 mb-5 flex items-center justify-center gap-2 bg-gray-50 py-2 px-4 rounded-lg border border-gray-100 w-full">
+                  ينتهي العرض خلال <span className="text-red-600 font-black text-lg w-6 inline-block text-center">{countdown}</span> ثانية
+                </div>
+
+                <button 
+                  onClick={handleAcceptUpsell1}
+                  disabled={isSubmitting}
+                  className="w-full px-6 py-4 bg-[#134e4a] text-white font-bold text-lg rounded-xl hover:bg-[#0f3d3a] transition-all shadow-lg shadow-[#134e4a]/20 mb-4 transform hover:scale-[1.02] flex items-center justify-center gap-2"
+                >
+                  <Plus className="w-5 h-5" />
+                  أضفه لطلبي بـ 99 ريال
+                </button>
+                
+                <button 
+                  onClick={handleDeclineUpsell1}
+                  disabled={isSubmitting}
+                  className="text-sm text-gray-400 font-bold hover:text-gray-600 transition-colors"
+                >
+                  لا، أكمل طلبي بدون الإضافة
+                </button>
+              </div>
+            ) : upsellStep === 2 && upsellProduct2 ? (
+              <div className="p-6 overflow-y-auto flex-1 flex flex-col items-center text-center">
+                <div className="bg-red-50 text-red-600 px-4 py-1.5 rounded-full text-xs font-bold mb-5 border border-red-100 flex items-center gap-1.5 animate-pulse">
+                  <AlertCircle className="w-3.5 h-3.5" />
+                  الفرصة الأخيرة!
+                </div>
+                <h3 className="text-2xl font-black text-gray-900 mb-2 leading-tight">
+                  عرض إضافي استثنائي... بـ 79 ريال فقط!
+                </h3>
+                <p className="text-sm text-gray-500 mb-6 px-2 leading-relaxed">
+                  أكمل مجموعتك بالكامل بأفضل سعر ممكن. هذا العرض لن يتكرر أبداً.
+                </p>
+
+                <div className="bg-gray-50 p-4 rounded-2xl w-full mb-6 border border-gray-200 flex gap-4 items-center text-right shadow-inner">
+                  <div className={`w-24 h-24 rounded-xl flex items-center justify-center flex-shrink-0 bg-gradient-to-tr ${upsellProduct2.theme.from} ${upsellProduct2.theme.to} relative overflow-hidden shadow-sm`}>
+                    <Image src={upsellProduct2.image_url} alt={upsellProduct2.name_ar} fill className="object-contain p-2 relative z-10" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-bold text-gray-900 mb-1 leading-tight">{upsellProduct2.name_ar}</h4>
+                    <p className="text-xs text-gray-500 line-clamp-2 leading-snug">{upsellProduct2.description_ar}</p>
+                    <div className="mt-2 flex items-center gap-2">
+                      <span className="text-lg font-black text-primary">79 ر.ق</span>
+                      <span className="text-xs text-gray-400 line-through decoration-gray-300">199 ر.ق</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="text-sm font-bold text-gray-500 mb-5 flex items-center justify-center gap-2 bg-gray-50 py-2 px-4 rounded-lg border border-gray-100 w-full">
+                  ينتهي العرض خلال <span className="text-red-600 font-black text-lg w-6 inline-block text-center">{countdown}</span> ثانية
+                </div>
+
+                <button 
+                  onClick={handleAcceptUpsell2}
+                  disabled={isSubmitting}
+                  className="w-full px-6 py-4 bg-[#134e4a] text-white font-bold text-lg rounded-xl hover:bg-[#0f3d3a] transition-all shadow-lg shadow-[#134e4a]/20 mb-4 transform hover:scale-[1.02] flex items-center justify-center gap-2"
+                >
+                  <Plus className="w-5 h-5" />
+                  أضفه لطلبي بـ 79 ريال
+                </button>
+                
+                <button 
+                  onClick={handleDeclineUpsell2}
+                  disabled={isSubmitting}
+                  className="text-sm text-gray-400 font-bold hover:text-gray-600 transition-colors"
+                >
+                  لا، أكمل طلبي الآن
+                </button>
+              </div>
+            ) : (
+              <div className="p-6 flex flex-col items-center justify-center h-full text-center">
+                <Loader2 className="w-8 h-8 animate-spin text-primary mb-4" />
+                <p className="text-gray-500 font-bold">جاري تأكيد الطلب...</p>
+              </div>
+            )}
           </div>
         </div>
       )}

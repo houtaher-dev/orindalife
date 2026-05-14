@@ -8,13 +8,14 @@ export interface CartItem {
   quantity: number; // how many times this bundle is added
   bundleQuantity: number; // 1, 2, or 5
   bundlePrice: number; // 199, 279, 349
+  isUpsell?: boolean;
 }
 
 interface CartStore {
   items: CartItem[];
   isOpen: boolean;
   isCheckoutOpen: boolean;
-  addItem: (product: Product, bundleQuantity: number, bundlePrice: number) => void;
+  addItem: (product: Product, bundleQuantity: number, bundlePrice: number, isUpsell?: boolean) => void;
   removeItem: (itemId: string) => void;
   updateQuantity: (itemId: string, quantity: number) => void;
   clearCart: () => void;
@@ -31,9 +32,9 @@ export const useCartStore = create<CartStore>()(
       isOpen: false,
       isCheckoutOpen: false,
 
-      addItem: (product, bundleQuantity, bundlePrice) => {
+      addItem: (product, bundleQuantity, bundlePrice, isUpsell = false) => {
         set((state) => {
-          const itemId = `${product.id}-${bundleQuantity}`;
+          const itemId = isUpsell ? `${product.id}-upsell-${bundlePrice}` : `${product.id}-${bundleQuantity}`;
           const existingItem = state.items.find((item) => item.id === itemId);
           if (existingItem) {
             return {
@@ -46,7 +47,7 @@ export const useCartStore = create<CartStore>()(
             };
           }
           return { 
-            items: [...state.items, { id: itemId, product, quantity: 1, bundleQuantity, bundlePrice }], 
+            items: [...state.items, { id: itemId, product, quantity: 1, bundleQuantity, bundlePrice, isUpsell }], 
             isOpen: true 
           };
         });
