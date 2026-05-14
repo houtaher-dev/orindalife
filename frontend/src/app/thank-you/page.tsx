@@ -102,8 +102,9 @@ export default function ThankYouPage() {
             {crossSells.map((p) => (
               <div key={p.id} className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm flex flex-col justify-between">
                 <div className="flex gap-4">
-                  <div className={`w-24 h-24 rounded-2xl bg-gradient-to-tr ${p.theme.from} ${p.theme.to} flex items-center justify-center text-3xl flex-shrink-0`}>
-                    {p.theme.icon}
+                  <div className={`w-24 h-24 rounded-2xl bg-gradient-to-tr ${p.theme.from} ${p.theme.to} flex items-center justify-center text-3xl flex-shrink-0 relative overflow-hidden`}>
+                    <div className="absolute inset-0 opacity-20 flex items-center justify-center">{p.theme.icon}</div>
+                    <Image src={p.image_url} alt={p.name_ar} fill className="object-contain p-2 relative z-10" />
                   </div>
                   <div>
                     <div className="flex text-yellow-400 mb-1">
