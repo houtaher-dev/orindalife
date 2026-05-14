@@ -22,7 +22,7 @@ export function ProductOptions({ product }: { product: Product }) {
   return (
     <div className="mt-8">
       <div className="flex items-center gap-2 mb-4">
-        <span className="text-gray-500 font-bold">اختاري العرض:</span>
+        <span className="text-gray-500 font-bold">اختر العرض:</span>
       </div>
 
       <div className="space-y-3 mb-6">
@@ -67,7 +67,7 @@ export function ProductOptions({ product }: { product: Product }) {
         className="w-full flex items-center justify-center gap-2 px-8 py-5 bg-[#134e4a] text-white font-bold text-xl rounded-2xl hover:bg-[#0f3d3a] transition-all shadow-lg shadow-[#134e4a]/20 transform hover:scale-[1.02]"
       >
         <ShoppingBag className="w-6 h-6" />
-        أكملي روتين الجمال بـ {selectedBundle.price} ر.ق
+        أكمل روتينك بـ {selectedBundle.price} ر.ق
       </button>
 
       <div className="flex justify-center items-center gap-4 mt-4 text-xs font-bold text-gray-400">

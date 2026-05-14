@@ -94,8 +94,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       <section className="py-20 md:py-32 bg-white">
         <div className="container mx-auto px-4 max-w-5xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-black text-[#134e4a] mb-4">مشاكل تعرفينها — وحلول من الداخل</h2>
-            <p className="text-gray-600 font-medium">مو ذنبك، السبب هو الروتين الغلط... غيريه للأبد</p>
+            <h2 className="text-3xl md:text-4xl font-black text-[#134e4a] mb-4">مشاكل تعرفها — وحلول من الداخل</h2>
+            <p className="text-gray-600 font-medium">مو ذنبك، السبب هو الروتين الغلط... غيّره للأبد</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -107,8 +107,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                     <X className="w-5 h-5 text-red-600" />
                   </div>
                   <div>
-                    <p className="font-bold text-gray-900 mb-1 text-sm md:text-base">تعب وإرهاق دائم، مهما نمتي تحسين لسا تعبانة؟</p>
-                    <p className="text-sm text-gray-600">هذا دليل على نقص الفيتامينات والمعادن الأساسية، جسمك يطلب المساعدة من الداخل.</p>
+                    <p className="font-bold text-gray-900 mb-1 text-sm md:text-base">تعب وإرهاق دائم، مهما نمت تحس لسا تعبان؟</p>
+                    <p className="text-sm text-gray-600">هذا دليل على نقص الفيتامينات والمعادن الأساسية، الجسم يطلب المساعدة من الداخل.</p>
                   </div>
                 </div>
               </div>
@@ -238,7 +238,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
              <div className="flex-1">
                 <h3 className="text-2xl font-black mb-4 flex items-center justify-center md:justify-start gap-3">
                   <ShieldCheck className="w-8 h-8 text-[#d4af37]" />
-                  شحنتنا السعودية مضمونة
+                  شحنتنا لقطر مضمونة
                 </h3>
                 <p className="text-white/80 leading-relaxed">
                   "التركيبة اللي بين يديك مدعومة بتجارب سريرية موثقة. مو مجرد خلطة عشوائية، بل نسب دقيقة مصممة لتعطي أقصى فعالية وامتصاص. استثمارك في صحتك في مكانه الصح."
@@ -264,7 +264,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           <div className="mb-4 inline-block px-4 py-1.5 bg-[#134e4a]/10 text-[#134e4a] font-bold text-sm rounded-full">
             من أول شهر استخدام
           </div>
-          <h2 className="text-3xl md:text-4xl font-black text-[#134e4a] mb-16">وش راح تشوفين خلال أول 30 يوم؟</h2>
+          <h2 className="text-3xl md:text-4xl font-black text-[#134e4a] mb-16">وش راح تشوف خلال أول 30 يوم؟</h2>
 
           <div className="grid md:grid-cols-3 gap-8 relative">
             {/* Connecting Line (Desktop) */}
@@ -276,7 +276,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               <div className="bg-white p-8 rounded-3xl shadow-sm border border-[#eae6de] h-full">
                 <h3 className="text-xl font-black text-gray-900 mb-3">أول 3 أيام</h3>
                 <p className="text-gray-600 text-sm leading-relaxed">
-                  امتصاص سريع للمكونات النشطة. تبدأين بملاحظة تحسن في مستويات الطاقة وانخفاض ملحوظ في التعب العام.
+                  امتصاص سريع للمكونات النشطة. تبدأ بملاحظة تحسن في مستويات الطاقة وانخفاض ملحوظ في التعب العام.
                 </p>
               </div>
             </div>
@@ -322,13 +322,13 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
              </div>
              <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-4">30 يوم — أو فلوسك ترجع. بدون أسئلة.</h2>
              <p className="text-gray-600 leading-relaxed">
-               حنا واثقين تماماً من التركيبة. إذا استخدمتي العلبة كاملة والتزمتي بالروتين وما شفتي فرق واضح في صحتك وحيويتك، فلوسك ترجع لك فوراً. استثمارك في أمان تام.
+               حنا واثقين تماماً من التركيبة. إذا استخدمت العلبة كاملة والتزمت بالروتين وما شفت فرق واضح في صحتك وحيويتك، فلوسك ترجع لك فوراً. استثمارك في أمان تام.
              </p>
            </div>
 
            {/* Routine */}
            <div>
-             <h2 className="text-2xl md:text-3xl font-black text-[#134e4a] mb-12">أبسط روتين عمرك جربتيه</h2>
+             <h2 className="text-2xl md:text-3xl font-black text-[#134e4a] mb-12">أبسط روتين عمرك جربته</h2>
              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="bg-white p-6 rounded-2xl border border-[#eae6de]">
                    <div className="font-black text-3xl text-[#134e4a] mb-2">2</div>
@@ -346,8 +346,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                    <p className="text-xs text-gray-500">الكورس الكامل لشهرين يعطي أفضل نتيجة.</p>
                 </div>
                 <div className="bg-[#134e4a] text-white p-6 rounded-2xl flex flex-col justify-center items-center">
-                   <div className="font-black text-lg mb-1">استعيدي توازنك</div>
-                   <p className="text-xs text-white/80">ابدأي روتينك الجديد اليوم</p>
+                   <div className="font-black text-lg mb-1">استعد توازنك</div>
+                   <p className="text-xs text-white/80">ابدأ روتينك الجديد اليوم</p>
                 </div>
              </div>
            </div>
@@ -365,7 +365,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         <div className="container mx-auto px-4 max-w-5xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-black text-gray-900">منتجات أخرى من أوريندا</h2>
-            <p className="text-gray-600 mt-3 font-medium">كل مشكلة تركيبة حلها متخصصة — اختاري ما يوافقك</p>
+            <p className="text-gray-600 mt-3 font-medium">كل مشكلة تركيبة حلها متخصصة — اختر ما يناسبك</p>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
@@ -381,7 +381,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                   <div className="flex items-center justify-between mt-auto">
                     <span className="font-black text-xl text-[#134e4a]">{p.price} ر.ق</span>
                     <span className="text-sm font-bold bg-[#f4f2ec] text-[#134e4a] px-4 py-2 rounded-xl group-hover:bg-[#134e4a] group-hover:text-white transition-colors">
-                      اكتشفي المزيد
+                      اكتشف المزيد
                     </span>
                   </div>
                 </div>
@@ -401,7 +401,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           href="#"
           className="px-8 py-3 bg-[#134e4a] text-white font-bold rounded-xl shadow-lg shadow-[#134e4a]/20 flex items-center justify-center"
         >
-          اختاري العرض
+          اختر العرض
         </a>
       </div>
 
