@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-tajawal), "sans-serif";
+  --color-primary: #d4af37;
+  --color-primary-dark: #b5952f;
+  --color-secondary: #111111;
+}
+
+@layer base {
+  body {
+    @apply bg-[#FAFAFA] text-gray-900;
+  }
+}
+
+@layer utilities {
+  @keyframes fadeUp {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-up {
+    animation: fadeUp 0.5s ease-out forwards;
+  }
+}
