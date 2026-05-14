@@ -391,18 +391,37 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
-      {/* Sticky Bottom Bar for Mobile (Optional, but good for CRO) */}
-      <div className="fixed bottom-0 inset-x-0 bg-white border-t border-gray-200 p-4 z-40 md:hidden flex justify-between items-center shadow-[0_-10px_40px_-10px_rgba(0,0,0,0.1)]">
-        <div>
-           <div className="text-xs text-gray-500 font-bold mb-0.5">يبدأ من</div>
-           <div className="font-black text-gray-900 text-lg">199 ر.ق</div>
+      {/* Sticky Bottom Bar */}
+      <div className="fixed bottom-0 inset-x-0 bg-[#134e4a] text-white z-50 border-t border-[#0f3d3a] shadow-[0_-10px_40px_-10px_rgba(0,0,0,0.2)]">
+        <div className="container mx-auto px-4 max-w-6xl py-3 flex justify-between items-center">
+          
+          {/* Right side: Product Info */}
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-lg bg-white p-1 hidden sm:block flex-shrink-0">
+              <Image 
+                src={product.image_url} 
+                alt={product.name_ar}
+                width={48}
+                height={48}
+                className="object-contain w-full h-full"
+              />
+            </div>
+            <div>
+              <div className="font-bold text-sm md:text-base line-clamp-1">{product.name_ar}</div>
+              <div className="text-xs text-white/80 font-medium mt-0.5" dir="rtl">يبدأ من 199 ريال قطري • الدفع عند الاستلام</div>
+            </div>
+          </div>
+
+          {/* Left side: Button */}
+          <a 
+            href="#"
+            className="px-5 py-2.5 md:px-8 md:py-3 bg-white text-[#134e4a] font-bold rounded-xl shadow-lg hover:bg-gray-50 transition-colors flex items-center gap-2 text-sm md:text-base flex-shrink-0"
+          >
+            <ChevronDown className="w-4 h-4 rotate-180" />
+            ابدأ روتينك الآن
+          </a>
+
         </div>
-        <a 
-          href="#"
-          className="px-8 py-3 bg-[#134e4a] text-white font-bold rounded-xl shadow-lg shadow-[#134e4a]/20 flex items-center justify-center"
-        >
-          اختر العرض
-        </a>
       </div>
 
     </div>
