@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="مكملات غذائية عالية الجودة — ليست أدوية. متجر يضم ثلاثة منتجات مختارة."
+    />
+    <title>مكملك — مكملات غذائية</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">تخطي إلى المحتوى</a>
+
+    <header class="header">
+      <div class="header__inner">
+        <a href="#" class="logo">
+          <span class="logo__mark" aria-hidden="true"></span>
+          <span class="logo__text">مكملك</span>
+        </a>
+        <nav class="nav" aria-label="رئيسي">
+          <a href="#products">المنتجات</a>
+          <a href="#disclaimer">تنويه</a>
+          <a href="#contact" class="nav__cta">تواصل</a>
+        </nav>
+        <button
+          type="button"
+          class="nav-toggle"
+          aria-expanded="false"
+          aria-controls="nav-menu"
+          aria-label="فتح القائمة"
+        >
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <div id="nav-menu" class="nav-mobile" hidden>
+        <a href="#products">المنتجات</a>
+        <a href="#disclaimer">تنويه</a>
+        <a href="#contact">تواصل</a>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero">
+        <div class="hero__content">
+          <p class="hero__eyebrow">مكملات غذائية — وليست أدوية</p>
+          <h1 class="hero__title">عناية يومية بسيطة، بجودة تثق بها</h1>
+          <p class="hero__lead">
+            نختار لك ثلاثة مكملات تدعم نمط حياتك. تسويقنا واضح: منتجات غذائية
+            تكميلية فقط، بعيداً عن أي وعود علاجية.
+          </p>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#products">تصفح المنتجات</a>
+            <a class="btn btn--ghost" href="#disclaimer">اقرأ التنويه</a>
+          </div>
+        </div>
+        <div class="hero__visual" aria-hidden="true">
+          <div class="hero__orb"></div>
+        </div>
+      </section>
+
+      <section id="products" class="products">
+        <div class="section-head">
+          <h2>ثلاثة منتجات، بعناية</h2>
+          <p>أسعار إرشادية — يمكن تعديلها حسب تسعيرك الفعلي.</p>
+        </div>
+
+        <ul class="product-grid">
+          <li class="product-card">
+            <div class="product-card__media product-card__media--1">
+              <span class="product-card__badge">مكمل غذائي</span>
+            </div>
+            <div class="product-card__body">
+              <h3>أوميغا 3 — أحماض دهنية</h3>
+              <p class="product-card__desc">
+                كبسولات زيت سمك نقي لدعم النظام الغذائي اليومي. ليست دواء.
+              </p>
+              <p class="product-card__price" data-price="85">85 د.ل</p>
+              <button
+                type="button"
+                class="btn btn--primary btn--block product-order"
+                data-product="أوميغا 3 — أحماض دهنية"
+                data-price="85 د.ل"
+              >
+                اطلب عبر واتساب
+              </button>
+            </div>
+          </li>
+
+          <li class="product-card">
+            <div class="product-card__media product-card__media--2">
+              <span class="product-card__badge">مكمل غذائي</span>
+            </div>
+            <div class="product-card__body">
+              <h3>فيتامين د3</h3>
+              <p class="product-card__desc">
+                لتعزيز تناول فيتامين د مع الغذاء. يُستعمل كمكمّل فقط.
+              </p>
+              <p class="product-card__price" data-price="65">65 د.ل</p>
+              <button
+                type="button"
+                class="btn btn--primary btn--block product-order"
+                data-product="فيتامين د3"
+                data-price="65 د.ل"
+              >
+                اطلب عبر واتساب
+              </button>
+            </div>
+          </li>
+
+          <li class="product-card">
+            <div class="product-card__media product-card__media--3">
+              <span class="product-card__badge">مكمل غذائي</span>
+            </div>
+            <div class="product-card__body">
+              <h3>متعدد الفيتامينات</h3>
+              <p class="product-card__desc">
+                خليط فيتامينات ومعادن مع الوجبات. لا يغني عن تنوع الغذاء.
+              </p>
+              <p class="product-card__price" data-price="95">95 د.ل</p>
+              <button
+                type="button"
+                class="btn btn--primary btn--block product-order"
+                data-product="متعدد الفيتامينات"
+                data-price="95 د.ل"
+              >
+                اطلب عبر واتساب
+              </button>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <section id="disclaimer" class="disclaimer">
+        <div class="disclaimer__box">
+          <h2>تنويه هام</h2>
+          <ul>
+            <li>
+              المنتجات المعروضة هي <strong>مكملات غذائية</strong> فقط، وليست
+              أدوية ولا لعلاج أو منع أي مرض.
+            </li>
+            <li>
+              استشر مختصاً رعاية صحية عند الحمل، الرضاعة، أو إن كنت تتناول
+              أدوية.
+            </li>
+            <li>
+              التسويق هنا يلتزم بهذا الإطار؛ أي مزايا صحية يجب أن تبقى عامة
+              ومتوافقة مع التوسيم الرسمي للمنتج.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="contact" class="contact">
+        <h2>تواصل معنا</h2>
+        <p>للاستفسارات أو الطلبات المخصصة.</p>
+        <a
+          class="btn btn--primary"
+          id="whatsapp-general"
+          href="#"
+          data-msg="مرحبا، أود الاستفسار عن مكملات مكملك."
+          >واتساب</a
+        >
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p><strong>مكملك</strong> — مكملات غذائية</p>
+      <p class="footer__small">© <span id="year"></span> جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -95,67 +95,35 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         <div className="container mx-auto px-4 max-w-5xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-black text-[#134e4a] mb-4">مشاكل تعرفها — وحلول من الداخل</h2>
-            <p className="text-gray-600 font-medium">مو ذنبك، السبب هو الروتين الغلط... غيّره للأبد</p>
+            <p className="text-gray-600 font-medium">مو نخفف الأعراض. نحل السبب الجذري — مكون لكل مشكلة.</p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-4">
-              {/* Problem 1 */}
-              <div className="bg-[#fcfbf9] p-5 rounded-2xl border border-[#eae6de]">
-                <div className="flex gap-4">
-                  <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0 mt-1">
-                    <X className="w-5 h-5 text-red-600" />
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+            <div className="space-y-8">
+              {product.problems_solutions.map((item, index) => (
+                <div key={index} className="space-y-2">
+                  {/* Problem Box */}
+                  <div className="bg-white p-5 rounded-xl border border-red-100 flex items-center gap-4 shadow-sm">
+                    <div className="w-8 h-8 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0">
+                      <X className="w-5 h-5 text-red-500" />
+                    </div>
+                    <p className="font-bold text-gray-800 text-sm md:text-base">{item.problem}</p>
                   </div>
-                  <div>
-                    <p className="font-bold text-gray-900 mb-1 text-sm md:text-base">تعب وإرهاق دائم، مهما نمت تحس لسا تعبان؟</p>
-                    <p className="text-sm text-gray-600">هذا دليل على نقص الفيتامينات والمعادن الأساسية، الجسم يطلب المساعدة من الداخل.</p>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Problem 2 */}
-              <div className="bg-[#fcfbf9] p-5 rounded-2xl border border-[#eae6de]">
-                <div className="flex gap-4">
-                  <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0 mt-1">
-                    <X className="w-5 h-5 text-red-600" />
-                  </div>
-                  <div>
-                    <p className="font-bold text-gray-900 mb-1 text-sm md:text-base">بشرة باهتة وتساقط بالشعر؟ الكريمات ما تنفع؟</p>
-                    <p className="text-sm text-gray-600">الكريمات تعالج الطبقة الخارجية فقط، الحل الجذري يبدأ بتغذية الخلايا من الداخل.</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Problem 3 */}
-              <div className="bg-[#fcfbf9] p-5 rounded-2xl border border-[#eae6de]">
-                <div className="flex gap-4">
-                  <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0 mt-1">
-                    <X className="w-5 h-5 text-red-600" />
-                  </div>
-                  <div>
-                    <p className="font-bold text-gray-900 mb-1 text-sm md:text-base">صعوبة بالتركيز وتقلبات بالمزاج طول اليوم؟</p>
-                    <p className="text-sm text-gray-600">الجهاز العصبي يحتاج لدعم طبيعي، هذي علامة واضحة على الإجهاد الداخلي المستمر.</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Solution */}
-              <div className="bg-[#134e4a] p-6 rounded-2xl mt-8">
-                <div className="flex gap-4">
-                  <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0 mt-1">
-                    <Check className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <p className="font-bold text-white mb-2 text-lg">الحل: {product.name_ar}</p>
-                    <p className="text-white/80 text-sm leading-relaxed">
-                      تركيبة متطورة تعوض النقص، تدعم وظائف الجسم الحيوية، وتعيد لك حيويتك وتوازنك من أول شهر استخدام.
+                  
+                  {/* Solution Box */}
+                  <div className="bg-[#f4f2ec] p-5 rounded-xl border border-[#134e4a]/10 flex items-start gap-4">
+                    <div className="w-8 h-8 rounded-full bg-[#134e4a]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Check className="w-5 h-5 text-[#134e4a]" />
+                    </div>
+                    <p className="text-sm md:text-base text-gray-800 font-medium leading-relaxed">
+                      {item.solution}
                     </p>
                   </div>
                 </div>
-              </div>
+              ))}
             </div>
 
-            <div className="relative aspect-[3/4] md:aspect-square rounded-3xl overflow-hidden bg-gray-100">
+            <div className="relative aspect-[3/4] md:aspect-[4/5] rounded-3xl overflow-hidden bg-gray-100 sticky top-24">
                <Image 
                   src={product.image_url} 
                   alt={product.name_ar}
