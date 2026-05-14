@@ -11,14 +11,23 @@ export interface CartItem {
   isUpsell?: boolean;
 }
 
+export interface LastOrder {
+  customerName: string;
+  total: number;
+  items: CartItem[];
+}
+
 interface CartStore {
   items: CartItem[];
+  lastOrder: LastOrder | null;
   isOpen: boolean;
   isCheckoutOpen: boolean;
   addItem: (product: Product, bundleQuantity: number, bundlePrice: number, isUpsell?: boolean) => void;
   removeItem: (itemId: string) => void;
   updateQuantity: (itemId: string, quantity: number) => void;
   clearCart: () => void;
+  setLastOrder: (order: LastOrder) => void;
+  clearLastOrder: () => void;
   setIsOpen: (isOpen: boolean) => void;
   setCheckoutOpen: (isOpen: boolean) => void;
   getCartTotal: () => number;
@@ -29,6 +38,7 @@ export const useCartStore = create<CartStore>()(
   persist(
     (set, get) => ({
       items: [],
+      lastOrder: null,
       isOpen: false,
       isCheckoutOpen: false,
 
@@ -68,6 +78,9 @@ export const useCartStore = create<CartStore>()(
       },
 
       clearCart: () => set({ items: [] }),
+      
+      setLastOrder: (order) => set({ lastOrder: order }),
+      clearLastOrder: () => set({ lastOrder: null }),
       
       setIsOpen: (isOpen) => set({ isOpen }),
       

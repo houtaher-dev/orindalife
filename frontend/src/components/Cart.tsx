@@ -110,6 +110,13 @@ export function Cart() {
 
       await api.orders.create(orderPayload);
 
+      // Save order details for Thank You page
+      useCartStore.getState().setLastOrder({
+        customerName: name,
+        total: latestTotal,
+        items: latestItems
+      });
+
       clearCart();
       setCheckoutOpen(false);
       setIsOpen(false);
