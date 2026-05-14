@@ -3,17 +3,20 @@ import { persist } from 'zustand/middleware';
 import { Product } from '@/lib/products';
 
 export interface CartItem {
+  id: string; // unique id for cart item (product_id + bundle_price)
   product: Product;
-  quantity: number;
+  quantity: number; // how many times this bundle is added
+  bundleQuantity: number; // 1, 2, or 5
+  bundlePrice: number; // 199, 279, 349
 }
 
 interface CartStore {
   items: CartItem[];
   isOpen: boolean;
   isCheckoutOpen: boolean;
-  addItem: (product: Product) => void;
-  removeItem: (productId: number) => void;
-  updateQuantity: (productId: number, quantity: number) => void;
+  addItem: (product: Product, bundleQuantity: number, bundlePrice: number) => void;
+  removeItem: (itemId: string) => void;
+  updateQuantity: (itemId: string, quantity: number) => void;
   clearCart: () => void;
   setIsOpen: (isOpen: boolean) => void;
   setCheckoutOpen: (isOpen: boolean) => void;
@@ -28,33 +31,37 @@ export const useCartStore = create<CartStore>()(
       isOpen: false,
       isCheckoutOpen: false,
 
-      addItem: (product) => {
+      addItem: (product, bundleQuantity, bundlePrice) => {
         set((state) => {
-          const existingItem = state.items.find((item) => item.product.id === product.id);
+          const itemId = `${product.id}-${bundleQuantity}`;
+          const existingItem = state.items.find((item) => item.id === itemId);
           if (existingItem) {
             return {
               items: state.items.map((item) =>
-                item.product.id === product.id
+                item.id === itemId
                   ? { ...item, quantity: item.quantity + 1 }
                   : item
               ),
               isOpen: true,
             };
           }
-          return { items: [...state.items, { product, quantity: 1 }], isOpen: true };
+          return { 
+            items: [...state.items, { id: itemId, product, quantity: 1, bundleQuantity, bundlePrice }], 
+            isOpen: true 
+          };
         });
       },
 
-      removeItem: (productId) => {
+      removeItem: (itemId) => {
         set((state) => ({
-          items: state.items.filter((item) => item.product.id !== productId),
+          items: state.items.filter((item) => item.id !== itemId),
         }));
       },
 
-      updateQuantity: (productId, quantity) => {
+      updateQuantity: (itemId, quantity) => {
         set((state) => ({
           items: state.items.map((item) =>
-            item.product.id === productId ? { ...item, quantity: Math.max(1, quantity) } : item
+            item.id === itemId ? { ...item, quantity: Math.max(1, quantity) } : item
           ),
         }));
       },
@@ -66,7 +73,7 @@ export const useCartStore = create<CartStore>()(
       setCheckoutOpen: (isCheckoutOpen) => set({ isCheckoutOpen }),
 
       getCartTotal: () => {
-        return get().items.reduce((total, item) => total + item.product.price * item.quantity, 0);
+        return get().items.reduce((total, item) => total + item.bundlePrice * item.quantity, 0);
       },
 
       getCartCount: () => {
@@ -74,7 +81,7 @@ export const useCartStore = create<CartStore>()(
       },
     }),
     {
-      name: 'orindalife-cart',
+      name: 'orindalife-cart-v2',
     }
   )
 );

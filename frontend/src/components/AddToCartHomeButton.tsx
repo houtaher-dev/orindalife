@@ -10,7 +10,7 @@ export function AddToCartHomeButton({ product }: { product: Product }) {
 
   return (
     <button 
-      onClick={() => addItem(product)}
+      onClick={() => addItem(product, 1, product.price)}
       className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-8 py-4 bg-gray-900 text-white font-bold rounded-lg hover:bg-gray-800 transition-colors"
     >
       <ShoppingBag className="w-5 h-5" />

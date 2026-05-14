@@ -38,14 +38,20 @@ export function Cart() {
       const orderPayload = {
         customer_name: name,
         phone: phone,
-        items: items.map(item => ({
-          product_id: item.product.id,
-          product_slug: item.product.slug,
-          product_name_ar: item.product.name_ar,
-          quantity: item.quantity,
-          unit_price: item.product.price,
-          line_total: item.product.price * item.quantity
-        })),
+        items: items.map(item => {
+          // Calculate unit price per item in the bundle
+          const unitPrice = item.bundlePrice / item.bundleQuantity;
+          const bundleNameStr = item.bundleQuantity > 1 ? ` (${item.bundleQuantity} حبات)` : "";
+          
+          return {
+            product_id: item.product.id,
+            product_slug: item.product.slug,
+            product_name_ar: item.product.name_ar + bundleNameStr,
+            quantity: item.quantity * item.bundleQuantity, // Total items
+            unit_price: unitPrice,
+            line_total: item.bundlePrice * item.quantity // Total price for this line
+          };
+        }),
         subtotal: getCartTotal(),
         browser_event_id: browserEventId,
         user_agent: navigator.userAgent
@@ -105,26 +111,33 @@ export function Cart() {
           ) : (
             <div className="space-y-6">
               {items.map((item) => (
-                <div key={item.product.id} className="flex gap-4 items-center">
+                <div key={item.id} className="flex gap-4 items-center">
                   <div className={`w-20 h-20 rounded-xl flex items-center justify-center text-3xl flex-shrink-0 bg-gradient-to-tr ${item.product.theme.from} ${item.product.theme.to} relative overflow-hidden`}>
                     <div className="absolute inset-0 opacity-20 flex items-center justify-center">{item.product.theme.icon}</div>
                     <Image src={item.product.image_url} alt={item.product.name_ar} fill className="object-contain p-2 relative z-10" />
                   </div>
                   <div className="flex-1">
                     <div className="flex justify-between items-start">
-                      <h4 className="font-bold text-gray-900 line-clamp-1">{item.product.name_ar}</h4>
-                      <button onClick={() => removeItem(item.product.id)} className="text-gray-400 hover:text-red-500">
+                      <div>
+                        <h4 className="font-bold text-gray-900 line-clamp-1">{item.product.name_ar}</h4>
+                        {item.bundleQuantity > 1 && (
+                          <span className="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded mt-1 inline-block">
+                            عرض {item.bundleQuantity} حبات
+                          </span>
+                        )}
+                      </div>
+                      <button onClick={() => removeItem(item.id)} className="text-gray-400 hover:text-red-500 mr-2">
                         <X className="w-4 h-4" />
                       </button>
                     </div>
-                    <div className="text-sm font-bold text-gray-900 mt-1">{item.product.price} ر.ق</div>
+                    <div className="text-sm font-bold text-gray-900 mt-2">{item.bundlePrice} ر.ق</div>
                     <div className="flex items-center gap-3 mt-2">
                       <div className="flex items-center bg-gray-50 rounded-lg border border-gray-100">
-                        <button onClick={() => updateQuantity(item.product.id, item.quantity - 1)} className="p-1.5 text-gray-500 hover:text-gray-900">
+                        <button onClick={() => updateQuantity(item.id, item.quantity - 1)} className="p-1.5 text-gray-500 hover:text-gray-900">
                           <Minus className="w-4 h-4" />
                         </button>
                         <span className="w-8 text-center font-bold text-sm">{item.quantity}</span>
-                        <button onClick={() => updateQuantity(item.product.id, item.quantity + 1)} className="p-1.5 text-gray-500 hover:text-gray-900">
+                        <button onClick={() => updateQuantity(item.id, item.quantity + 1)} className="p-1.5 text-gray-500 hover:text-gray-900">
                           <Plus className="w-4 h-4" />
                         </button>
                       </div>
@@ -149,7 +162,7 @@ export function Cart() {
                           <div className="text-xs text-gray-500">{p.price} ر.ق</div>
                         </div>
                         <button 
-                          onClick={() => useCartStore.getState().addItem(p)}
+                          onClick={() => useCartStore.getState().addItem(p, 1, p.price)}
                           className="p-2 bg-white border border-gray-200 rounded-lg text-gray-900 hover:bg-gray-50 transition-colors"
                         >
                           <Plus className="w-4 h-4" />
