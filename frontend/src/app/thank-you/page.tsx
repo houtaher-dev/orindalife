@@ -74,46 +74,75 @@ export default function ThankYouPage() {
           </div>
         )}
 
-        {/* Order Summary */}
+        {/* Order Summary — جدول احترافي */}
         {lastOrder && (
-          <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
-            <h3 className="font-bold text-[#134e4a] mb-4 flex items-center gap-2">
-              <ShoppingBag className="w-5 h-5 opacity-70" />
-              ملخص الطلب
-            </h3>
-            
-            <div className="space-y-4">
-              {lastOrder.items.map((item, index) => (
-                <div key={index} className="flex gap-4 items-center">
-                  <div className={`w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 bg-gradient-to-tr ${item.product.theme.from} ${item.product.theme.to} relative overflow-hidden border border-gray-100`}>
-                    <div className="absolute inset-0 opacity-20 flex items-center justify-center">{item.product.theme.icon}</div>
-                    <Image src={item.product.image_url} alt={item.product.name_ar} fill className="object-contain p-2 relative z-10" />
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="font-bold text-sm text-gray-900">
-                      {item.product.name_ar}
-                    </h4>
-                    <div className="text-xs text-gray-500 mt-1 flex items-center gap-2">
-                      الكمية: {item.quantity * item.bundleQuantity} 
-                      {item.isUpsell && <span className="text-[10px] font-bold text-red-500 bg-red-50 px-1.5 py-0.5 rounded">عرض خاص</span>}
-                      {item.bundleQuantity > 1 && !item.isUpsell && <span className="text-[10px] font-bold text-[#d4af37] bg-[#d4af37]/10 px-1.5 py-0.5 rounded">عرض {item.bundleQuantity} حبات</span>}
-                    </div>
-                  </div>
-                  <div className="font-black text-sm text-gray-900">
-                    {item.bundlePrice * item.quantity} ر.ق
-                  </div>
-                </div>
-              ))}
+          <div className="rounded-2xl border border-[#134e4a]/12 overflow-hidden shadow-[0_12px_40px_-12px_rgba(19,78,74,0.18)] bg-white">
+            <div className="bg-gradient-to-l from-[#134e4a] via-[#175c57] to-[#0f3d3a] px-5 py-4 flex items-center gap-3 border-b border-[#d4af37]/30">
+              <div className="h-10 w-10 rounded-xl bg-white/10 flex items-center justify-center backdrop-blur-sm">
+                <ShoppingBag className="w-5 h-5 text-[#d4af37]" />
+              </div>
+              <div>
+                <h3 className="text-white font-black text-base">ملخص الطلب</h3>
+                <p className="text-emerald-100/90 text-xs font-medium mt-0.5">تفاصيل المنتجات والأسعار</p>
+              </div>
             </div>
 
-            <div className="mt-5 pt-5 border-t border-gray-100">
-              <div className="flex justify-between items-center mb-2 text-sm text-gray-500">
-                <span>الشحن</span>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm min-w-[320px] border-collapse">
+                <thead>
+                  <tr className="bg-[#f7f6f2] text-[#134e4a] text-xs font-bold uppercase tracking-wide border-b border-[#e5e2d9]">
+                    <th className="text-right px-4 py-3 w-[52px]">صورة</th>
+                    <th className="text-right px-4 py-3">المنتج</th>
+                    <th className="text-center px-3 py-3 whitespace-nowrap">الكمية</th>
+                    <th className="text-left px-4 py-3 whitespace-nowrap">السعر</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {lastOrder.items.map((item, index) => (
+                    <tr
+                      key={index}
+                      className={index % 2 === 0 ? "bg-white" : "bg-[#fafaf8]"}
+                    >
+                      <td className="px-4 py-3 align-middle border-t border-[#eeece6]">
+                        <div className={`relative h-14 w-14 mx-auto rounded-xl overflow-hidden bg-gradient-to-tr ${item.product.theme.from} ${item.product.theme.to} ring-2 ring-[#d4af37]/25 shadow-sm`}>
+                          <Image src={item.product.image_url} alt={item.product.name_ar} fill className="object-contain p-1.5" />
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 align-middle border-t border-[#eeece6] text-right">
+                        <span className="font-bold text-gray-900 leading-snug">{item.product.name_ar}</span>
+                        <div className="flex flex-wrap gap-1.5 mt-2 justify-end">
+                          {item.isUpsell && (
+                            <span className="text-[10px] font-bold text-amber-800 bg-amber-100/90 px-2 py-0.5 rounded-full border border-amber-200/80">عرض خاص</span>
+                          )}
+                          {item.bundleQuantity > 1 && !item.isUpsell && (
+                            <span className="text-[10px] font-bold text-[#134e4a] bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">عرض {item.bundleQuantity} حبات</span>
+                          )}
+                        </div>
+                      </td>
+                      <td className="px-3 py-3 align-middle border-t border-[#eeece6] text-center font-bold tabular-nums text-gray-800">
+                        {item.quantity * item.bundleQuantity}
+                      </td>
+                      <td className="px-4 py-3 align-middle border-t border-[#eeece6] text-left">
+                        <span className="font-black text-[#134e4a] tabular-nums">{item.bundlePrice * item.quantity}</span>
+                        <span className="text-[11px] text-gray-500 font-bold mr-1">ر.ق</span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="px-5 py-4 bg-gradient-to-l from-[#f7f6f2] to-white border-t-2 border-[#d4af37]/35">
+              <div className="flex justify-between items-center text-sm text-gray-600 mb-2">
+                <span className="font-medium">الشحن</span>
                 <span className="font-bold text-[#134e4a]">مجاني</span>
               </div>
-              <div className="flex justify-between items-center text-lg">
-                <span className="font-bold text-gray-900">الإجمالي</span>
-                <span className="font-black text-[#134e4a]">{lastOrder.total} ر.ق</span>
+              <div className="flex justify-between items-center gap-4">
+                <span className="font-black text-gray-900">الإجمالي</span>
+                <div className="flex items-baseline gap-1 rounded-xl bg-[#134e4a] text-white px-4 py-2 shadow-lg shadow-[#134e4a]/25">
+                  <span className="text-xl font-black tabular-nums">{lastOrder.total}</span>
+                  <span className="text-xs font-bold text-emerald-200">ر.ق</span>
+                </div>
               </div>
             </div>
           </div>

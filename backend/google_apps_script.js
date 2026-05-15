@@ -1,50 +1,174 @@
+/**
+ * Orendalife → Google Sheets (Webhook)
+ * انسخ هذا الملف إلى: الإضافات → Apps Script → الصق وفعل النشر كتطبيق ويب (Anyone).
+ *
+ * الحمولة المتوقعة من FastAPI تطابق app/services/sheets.py
+ */
+
+var NUM_COLS = 8;
+
+var HEADERS = [
+  "التاريخ",
+  "رقم الطلب",
+  "الاسم",
+  "رقم الهاتف",
+  "المنتجات",
+  "المجموع (ر.ق)",
+  "عرض إضافي",
+  "الحالة",
+];
+
+// ألوان أوريندا: أخضر غابات + ذهبي + كريمي
+var C_HEADER_BG = "#134e4a";
+var C_HEADER_FG = "#ffffff";
+var C_BORDER_GOLD = "#c9a961";
+var C_BORDER_SOFT = "#e5e2d9";
+var C_ROW_WHITE = "#ffffff";
+var C_ROW_ALT = "#f7f6f2";
+var C_TOTAL = "#134e4a";
+
+function doGet() {
+  return ContentService.createTextOutput(
+    "Orendalife webhook: استخدم POST بصيغة JSON."
+  ).setMimeType(ContentService.MimeType.TEXT);
+}
+
 function doPost(e) {
   try {
-    // 1. Get the active sheet
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-    
-    // 2. Parse the JSON payload coming from the server
-    var data = JSON.parse(e.postData.contents);
-    
-    // 3. Format the items list nicely as a string
-    var itemsFormatted = "";
-    if (data.items && data.items.length > 0) {
-      itemsFormatted = data.items.map(function(item) {
-        return item.qty + "x " + item.name + " (" + item.price + " ر.ق)";
-      }).join("\n");
+    var raw = e.postData && e.postData.contents ? e.postData.contents : "{}";
+    var data = JSON.parse(raw);
+
+    ensureHeaders_(sheet);
+
+    var itemsText = "";
+    if (data.items && data.items.length) {
+      itemsText = data.items
+        .map(function (item) {
+          return (
+            "• " +
+            item.name +
+            " ×" +
+            item.qty +
+            " — " +
+            (item.total != null ? item.total : "?") +
+            " ر.ق"
+          );
+        })
+        .join("\n");
     }
-    
-    // 4. Format the timestamp
-    var date = new Date(data.timestamp);
-    var formattedDate = Utilities.formatDate(date, "Asia/Qatar", "yyyy-MM-dd HH:mm:ss");
-    
-    // 5. Create the row array in the exact order you want columns
+
+    var ts = data.timestamp ? new Date(data.timestamp) : new Date();
+    var formattedDate = Utilities.formatDate(ts, "Asia/Qatar", "yyyy-MM-dd HH:mm");
+
+    var upsellNote = data.upsell_accepted
+      ? "نعم — +" + String(data.upsell_amount || 0) + " ر.ق"
+      : "لا";
+
     var rowData = [
-      data.order_number || "",             // Column A: Order ID
-      formattedDate || "",                 // Column B: Date
-      data.customer_name || "",            // Column C: Customer Name
-      data.phone || "",                    // Column D: Phone Number
-      itemsFormatted || "",                // Column E: Products
-      data.total || 0,                     // Column F: Total Amount
-      data.upsell_accepted ? "نعم" : "لا", // Column G: Upsell Accepted?
-      data.status || "pending"             // Column H: Status
+      formattedDate,
+      data.order_number || "—",
+      data.customer_name || "—",
+      data.phone || "—",
+      itemsText || "—",
+      data.total != null ? data.total : data.subtotal || 0,
+      upsellNote,
+      data.status || "—",
     ];
-    
-    // 6. Append the row to the sheet
+
     sheet.appendRow(rowData);
-    
-    // 7. Return success response
-    return ContentService.createTextOutput(JSON.stringify({"status": "success", "message": "Order added"}))
-      .setMimeType(ContentService.MimeType.JSON);
-      
-  } catch(error) {
-    // Return error if something goes wrong
-    return ContentService.createTextOutput(JSON.stringify({"status": "error", "message": error.toString()}))
-      .setMimeType(ContentService.MimeType.JSON);
+    var row = sheet.getLastRow();
+    formatDataRow_(sheet, row);
+
+    return ContentService.createTextOutput(
+      JSON.stringify({ status: "success" })
+    ).setMimeType(ContentService.MimeType.JSON);
+  } catch (err) {
+    return ContentService.createTextOutput(
+      JSON.stringify({ status: "error", message: String(err) })
+    ).setMimeType(ContentService.MimeType.JSON);
   }
 }
 
-// Just to handle GET requests gracefully (e.g. if you open the URL in browser)
-function doGet(e) {
-  return ContentService.createTextOutput("Webhook is running! Send a POST request to add data.");
+function ensureHeaders_(sheet) {
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(HEADERS);
+    formatHeader_(sheet.getRange(1, 1, 1, NUM_COLS));
+    sheet.setFrozenRows(1);
+    applySheetChrome_(sheet);
+    return;
+  }
+
+  var firstCell = sheet.getRange(1, 1).getValue();
+  if (!firstCell || String(firstCell).trim() === "") {
+    sheet.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]);
+  }
+
+  formatHeader_(sheet.getRange(1, 1, 1, NUM_COLS));
+  sheet.setFrozenRows(1);
+  applySheetChrome_(sheet);
+}
+
+function formatHeader_(range) {
+  range.setBackground(C_HEADER_BG);
+  range.setFontColor(C_HEADER_FG);
+  range.setFontWeight("bold");
+  range.setFontSize(11);
+  range.setHorizontalAlignment("center");
+  range.setVerticalAlignment("middle");
+  range.setWrap(true);
+  range.setBorder(
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    C_BORDER_GOLD,
+    SpreadsheetApp.BorderStyle.SOLID_MEDIUM
+  );
+}
+
+function formatDataRow_(sheet, row) {
+  var rng = sheet.getRange(row, 1, row, NUM_COLS);
+  var alt = row % 2 === 0;
+  rng.setBackground(alt ? C_ROW_ALT : C_ROW_WHITE);
+  rng.setFontSize(10);
+  rng.setVerticalAlignment("middle");
+  rng.setWrap(true);
+  rng.setBorder(
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    C_BORDER_SOFT,
+    SpreadsheetApp.BorderStyle.SOLID
+  );
+
+  sheet.getRange(row, 1).setHorizontalAlignment("right");
+  sheet.getRange(row, 2, row, 4).setHorizontalAlignment("center");
+  sheet.getRange(row, 5).setHorizontalAlignment("right");
+
+  var totalCell = sheet.getRange(row, 6);
+  totalCell.setHorizontalAlignment("center");
+  totalCell.setFontWeight("bold");
+  totalCell.setFontColor(C_TOTAL);
+  totalCell.setBackground("#eef6f4");
+
+  sheet.getRange(row, 7, row, 8).setHorizontalAlignment("center");
+
+  sheet.setRowHeight(row, Math.max(sheet.getRowHeight(row), 72));
+}
+
+function applySheetChrome_(sheet) {
+  sheet.setColumnWidth(1, 150);
+  sheet.setColumnWidth(2, 160);
+  sheet.setColumnWidth(3, 130);
+  sheet.setColumnWidth(4, 120);
+  sheet.setColumnWidth(5, 320);
+  sheet.setColumnWidth(6, 110);
+  sheet.setColumnWidth(7, 120);
+  sheet.setColumnWidth(8, 100);
 }
