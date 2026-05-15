@@ -17,7 +17,12 @@ UPSELL_PRICE = 99.0
 
 
 @router.post("/", response_model=OrderOut, status_code=201)
-def create_order(payload: CreateOrderIn, request: Request, db: Session = Depends(get_db)):
+async def create_order(
+    payload: CreateOrderIn,
+    request: Request,
+    background_tasks: BackgroundTasks,
+    db: Session = Depends(get_db),
+):
     phone_normalized = normalize_phone_qa(payload.phone)
     ip_address = payload.ip_address or (str(request.client.host) if request.client else "")
 
@@ -56,7 +61,8 @@ def create_order(payload: CreateOrderIn, request: Request, db: Session = Depends
         browser_event_id=payload.browser_event_id,
         ip_address=ip_address,
         user_agent=payload.user_agent or request.headers.get("user-agent", ""),
-        status="pending",
+        # Upsell هي فالفرونت (سلة واحدة)، الطلب الواحد هو النسخة النهائية لهذا الزبون
+        status="confirmed",
     )
     db.add(order)
     db.flush()
@@ -75,6 +81,7 @@ def create_order(payload: CreateOrderIn, request: Request, db: Session = Depends
 
     db.commit()
     db.refresh(order)
+    background_tasks.add_task(_dispatch_webhooks, order.id)
     return order
 
 
