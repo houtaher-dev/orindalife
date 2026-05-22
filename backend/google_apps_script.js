@@ -172,3 +172,41 @@ function applySheetChrome_(sheet) {
   sheet.setColumnWidth(7, 120);
   sheet.setColumnWidth(8, 100);
 }
+
+/**
+ * الطلبيات القديمة ما كانتش كتتلون تلقائياً غير الطلبيات الجاية من الويبهوك.
+ * شغّل هاد الدالة مرة واحدة لتنسيق كل الصفوف الموجودة دابا:
+ * الطريقة أ: من ورقة الجدول → حدّث الصفحة → القائمة "أوريندا الحياة" → تحسين شكل الجدول
+ * الطريقة ب: من Apps Script → اختر الدالة beautifyAllOrders من القائمة فوق ثم ▶️ تشغيل
+ */
+function beautifyAllOrders() {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var last = sheet.getLastRow();
+  if (last < 1) {
+    return;
+  }
+
+  formatHeader_(sheet.getRange(1, 1, 1, NUM_COLS));
+  sheet.setFrozenRows(1);
+  applySheetChrome_(sheet);
+
+  var r;
+  for (r = 2; r <= last; r++) {
+    formatDataRow_(sheet, r);
+  }
+
+  try {
+    SpreadsheetApp.getUi().alert(
+      "تم تطبيق التنسيق على الصف الأول + كل صفوف الطلبيات الموجودة."
+    );
+  } catch (e) {
+    // يشتغل حتى من تشغيل مباشر بدون واجهة
+  }
+}
+
+function onOpen() {
+  SpreadsheetApp.getUi()
+    .createMenu("أوريندا الحياة")
+    .addItem("تحسين شكل الجدول (كل الصفوف)", "beautifyAllOrders")
+    .addToUi();
+}

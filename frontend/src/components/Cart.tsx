@@ -20,13 +20,11 @@ export function Cart() {
   const [phone, setPhone] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Upsell State
   const [upsellStep, setUpsellStep] = useState<0 | 1 | 2>(0);
   const [countdown, setCountdown] = useState(30);
   const [upsellProduct1, setUpsellProduct1] = useState<Product | null>(null);
   const [upsellProduct2, setUpsellProduct2] = useState<Product | null>(null);
 
-  // Find cross-sells (products not in cart)
   const cartProductIds = items.map(item => item.product.id);
   const crossSells = PRODUCTS.filter(p => !cartProductIds.includes(p.id));
 
@@ -39,33 +37,33 @@ export function Cart() {
 
   useEffect(() => {
     if (upsellStep === 0) return;
-    
+
     if (countdown > 0) {
       const timer = setTimeout(() => setCountdown(c => c - 1), 1000);
       return () => clearTimeout(timer);
-    } else {
-      // time ran out
-      if (upsellStep === 1 || upsellStep === 2) {
-        submitOrderFinal();
-      }
+    } else if (upsellStep === 1 || upsellStep === 2) {
+      submitOrderFinal();
     }
   }, [upsellStep, countdown]);
 
-  const handleCheckoutSubmit = async (e: React.FormEvent) => {
+  const handleCheckoutSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !phone.startsWith("0")) {
       alert("المرجو إدخال الاسم ورقم هاتف صحيح يبدأ بـ 0");
       return;
     }
 
-    // Determine upsell products
     const inCartIds = items.map(i => i.product.id);
     const availableCrossSells = PRODUCTS.filter(p => !inCartIds.includes(p.id));
-    
-    // Fallback to random if all are in cart
+
     const p1 = availableCrossSells.length > 0 ? availableCrossSells[0] : PRODUCTS[0];
-    const p2 = availableCrossSells.length > 1 ? availableCrossSells[1] : (availableCrossSells.length === 1 ? PRODUCTS.find(p => p.id !== p1.id)! : PRODUCTS[1]);
-    
+    const p2 =
+      availableCrossSells.length > 1
+        ? availableCrossSells[1]
+        : availableCrossSells.length === 1
+          ? PRODUCTS.find(p => p.id !== p1.id)!
+          : PRODUCTS[1];
+
     setUpsellProduct1(p1);
     setUpsellProduct2(p2);
     setUpsellStep(1);
@@ -75,10 +73,9 @@ export function Cart() {
   const submitOrderFinal = async () => {
     if (isSubmitting) return;
     setIsSubmitting(true);
-    
+
     try {
       const browserEventId = generateEventId();
-      // Get LATEST state from Zustand to include accepted upsells
       const latestItems = useCartStore.getState().items;
       const latestTotal = useCartStore.getState().getCartTotal();
 
@@ -89,32 +86,30 @@ export function Cart() {
           const unitPrice = item.bundlePrice / item.bundleQuantity;
           let bundleNameStr = "";
           if (item.isUpsell) {
-             bundleNameStr = " (عرض خاص)";
+            bundleNameStr = " (عرض خاص)";
           } else if (item.bundleQuantity > 1) {
-             bundleNameStr = ` (${item.bundleQuantity} حبات)`;
+            bundleNameStr = ` (${item.bundleQuantity} حبات)`;
           }
-          
+
           return {
             product_id: item.product.id,
             product_slug: item.product.slug,
             product_name_ar: item.product.name_ar + bundleNameStr,
             quantity: item.quantity * item.bundleQuantity,
             unit_price: unitPrice,
-            line_total: item.bundlePrice * item.quantity
+            line_total: item.bundlePrice * item.quantity,
           };
         }),
         subtotal: latestTotal,
         browser_event_id: browserEventId,
-        user_agent: navigator.userAgent
+        user_agent: navigator.userAgent,
       };
 
-      await api.orders.create(orderPayload);
-
-      // Save order details for Thank You page
+      useCartStore.getState().setOrderSubmitError(null);
       useCartStore.getState().setLastOrder({
         customerName: name,
         total: latestTotal,
-        items: latestItems
+        items: latestItems,
       });
 
       clearCart();
@@ -122,10 +117,16 @@ export function Cart() {
       setIsOpen(false);
       setUpsellStep(0);
       router.push("/thank-you");
-    } catch (error: any) {
-      console.error(error);
-      alert(error.message || "حدث خطأ في الاتصال، المرجو المحاولة مرة أخرى");
-      setUpsellStep(0); // return to checkout form on error
+
+      try {
+        await api.orders.create(orderPayload);
+      } catch (orderErr: any) {
+        console.error(orderErr);
+        const msg =
+          orderErr?.message || "حدث خطأ في الاتصال، المرجو المحاولة مرة أخرى";
+        useCartStore.getState().setOrderSubmitError(msg);
+        useCartStore.setState({ items: latestItems });
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -167,7 +168,6 @@ export function Cart() {
       {/* Cart Drawer */}
       <div className={`fixed inset-y-0 right-0 w-full md:w-[480px] bg-white z-[60] shadow-2xl flex flex-col transform transition-transform duration-300 ${isCheckoutOpen ? 'translate-x-full md:translate-x-0 md:opacity-50 pointer-events-none' : 'translate-x-0'}`}>
         
-        {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-100">
           <h2 className="text-xl font-black text-gray-900 flex items-center gap-2">
             <ShoppingBag className="w-5 h-5" />
@@ -178,7 +178,6 @@ export function Cart() {
           </button>
         </div>
 
-        {/* Cart Items */}
         <div className="flex-1 overflow-y-auto p-6">
           {items.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-center text-gray-500 space-y-4">
@@ -229,7 +228,6 @@ export function Cart() {
                 </div>
               ))}
 
-              {/* Cross-sells in Cart */}
               {crossSells.length > 0 && (
                 <div className="mt-8 pt-8 border-t border-gray-100">
                   <h4 className="text-sm font-bold text-gray-500 mb-4">أضف لروتينك (شحن مجاني):</h4>
@@ -259,7 +257,6 @@ export function Cart() {
           )}
         </div>
 
-        {/* Footer */}
         {items.length > 0 && (
           <div className="p-6 border-t border-gray-100 bg-gray-50">
             <div className="flex justify-between items-center mb-4">
@@ -277,13 +274,11 @@ export function Cart() {
         )}
       </div>
 
-      {/* Checkout Popup Overlay */}
       {isCheckoutOpen && (
         <div className="fixed inset-0 z-[70] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-gray-900/60 backdrop-blur-sm" onClick={() => setCheckoutOpen(false)} />
           
           <div className="bg-white w-full max-w-md rounded-3xl shadow-2xl relative z-10 overflow-hidden flex flex-col max-h-[90vh]">
-            {/* Header */}
             <div className="bg-gray-50 p-6 border-b border-gray-100 flex justify-between items-center sticky top-0 z-20">
               <div>
                 <h3 className="text-xl font-black text-gray-900">
@@ -298,7 +293,6 @@ export function Cart() {
               </button>
             </div>
 
-            {/* Content */}
             {upsellStep === 0 ? (
               <div className="p-6 overflow-y-auto flex-1">
                 <div className="bg-green-50 text-green-800 p-3 rounded-xl text-sm font-medium flex items-center gap-2 mb-6 border border-green-100">
@@ -449,7 +443,7 @@ export function Cart() {
                 </button>
               </div>
             ) : (
-              <div className="p-6 flex flex-col items-center justify-center h-full text-center">
+              <div className="p-6 flex flex-col items-center justify-center min-h-[200px] text-center">
                 <Loader2 className="w-8 h-8 animate-spin text-primary mb-4" />
                 <p className="text-gray-500 font-bold">جاري تأكيد الطلب...</p>
               </div>

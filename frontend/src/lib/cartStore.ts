@@ -20,6 +20,8 @@ export interface LastOrder {
 interface CartStore {
   items: CartItem[];
   lastOrder: LastOrder | null;
+  /** Set when POST /orders fails after navigating to thank-you (not persisted). */
+  orderSubmitError: string | null;
   isOpen: boolean;
   isCheckoutOpen: boolean;
   addItem: (product: Product, bundleQuantity: number, bundlePrice: number, isUpsell?: boolean) => void;
@@ -28,6 +30,7 @@ interface CartStore {
   clearCart: () => void;
   setLastOrder: (order: LastOrder) => void;
   clearLastOrder: () => void;
+  setOrderSubmitError: (message: string | null) => void;
   setIsOpen: (isOpen: boolean) => void;
   setCheckoutOpen: (isOpen: boolean) => void;
   getCartTotal: () => number;
@@ -39,6 +42,7 @@ export const useCartStore = create<CartStore>()(
     (set, get) => ({
       items: [],
       lastOrder: null,
+      orderSubmitError: null,
       isOpen: false,
       isCheckoutOpen: false,
 
@@ -81,6 +85,7 @@ export const useCartStore = create<CartStore>()(
       
       setLastOrder: (order) => set({ lastOrder: order }),
       clearLastOrder: () => set({ lastOrder: null }),
+      setOrderSubmitError: (message) => set({ orderSubmitError: message }),
       
       setIsOpen: (isOpen) => set({ isOpen }),
       
@@ -96,6 +101,12 @@ export const useCartStore = create<CartStore>()(
     }),
     {
       name: 'orindalife-cart-v2',
+      partialize: (state) => ({
+        items: state.items,
+        lastOrder: state.lastOrder,
+        isOpen: state.isOpen,
+        isCheckoutOpen: state.isCheckoutOpen,
+      }),
     }
   )
 );

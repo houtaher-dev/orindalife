@@ -3,26 +3,47 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { CheckCircle2, Truck, ShieldCheck, Star, ShoppingBag, PhoneCall, MapPin, Package, CheckCircle, CreditCard, ArrowRight } from "lucide-react";
+import { CheckCircle2, Truck, ShieldCheck, Star, ShoppingBag, PhoneCall, MapPin, Package, CheckCircle, CreditCard, ArrowRight, AlertTriangle, X } from "lucide-react";
 import { PRODUCTS } from "@/lib/products";
 import { useCartStore } from "@/lib/cartStore";
 import { ReviewsSection } from "@/components/ReviewsSection";
 import { FAQSection } from "@/components/FAQSection";
 
 export default function ThankYouPage() {
-  const [isMounted, setIsMounted] = useState(false);
   const lastOrder = useCartStore((state) => state.lastOrder);
+  const orderSubmitError = useCartStore((state) => state.orderSubmitError);
+  const setOrderSubmitError = useCartStore((state) => state.setOrderSubmitError);
+
+  const [orderReference, setOrderReference] = useState<string | null>(null);
 
   useEffect(() => {
-    setIsMounted(true);
+    setOrderReference(String(Math.floor(100000 + Math.random() * 900000)));
   }, []);
 
   const crossSells = PRODUCTS.slice(0, 3); // Showing 3 products to match the screenshot layout
 
-  if (!isMounted) return null;
-
   return (
     <div className="bg-[#FAF9F6] min-h-screen pb-24">
+      {orderSubmitError && (
+        <div className="bg-red-50 border-b border-red-100 text-red-900">
+          <div className="container mx-auto px-4 max-w-2xl py-4 flex gap-3 items-start">
+            <AlertTriangle className="w-5 h-5 shrink-0 mt-0.5" />
+            <div className="flex-1 min-w-0 space-y-1">
+              <p className="font-bold text-sm">تعذر تأكيد الطلب على السيرفر</p>
+              <p className="text-sm text-red-800/90 leading-relaxed">{orderSubmitError}</p>
+              <p className="text-xs text-red-700/80">إذا ظهرت لك هذه الرسالة، المرجو المحاولة مرة أخرى من السلة أو التواصل معنا.</p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setOrderSubmitError(null)}
+              className="p-1.5 rounded-lg hover:bg-red-100/80 transition-colors shrink-0"
+              aria-label="إغلاق"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      )}
       {/* Top Header */}
       <div className="bg-white border-b border-gray-100 py-8 mb-8 shadow-sm">
         <div className="container mx-auto px-4 max-w-2xl text-center flex flex-col items-center">
@@ -32,7 +53,14 @@ export default function ThankYouPage() {
           <h1 className="text-2xl md:text-3xl font-black text-gray-900 flex items-center justify-center gap-3">
             طلبك محجوز — في انتظار تأكيده
           </h1>
-          <p className="text-gray-500 mt-2 font-medium">رقم الطلب #{Math.floor(100000 + Math.random() * 900000)}</p>
+          <p className="text-gray-500 mt-2 font-medium">
+            رقم الطلب
+            {orderReference ? (
+              <> #{orderReference}</>
+            ) : (
+              <span className="inline-block mr-1 h-4 w-20 bg-gray-200/80 rounded align-middle animate-pulse" aria-hidden />
+            )}
+          </p>
         </div>
       </div>
 
