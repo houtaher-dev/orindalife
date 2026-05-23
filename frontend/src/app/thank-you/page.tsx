@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { CheckCircle2, Truck, ShieldCheck, Star, ShoppingBag, PhoneCall, MapPin, Package, CheckCircle, CreditCard, ArrowRight, AlertTriangle, X } from "lucide-react";
+import { CheckCircle2, Truck, ShieldCheck, Star, ShoppingBag, PhoneCall, MapPin, Package, CheckCircle, CreditCard, ArrowRight, AlertTriangle, X, Shield, HandCoins, BadgeCheck } from "lucide-react";
 import { PRODUCTS } from "@/lib/products";
 import { useCartStore } from "@/lib/cartStore";
 import { ReviewsSection } from "@/components/ReviewsSection";
@@ -23,8 +23,9 @@ export default function ThankYouPage() {
   const crossSells = PRODUCTS.slice(0, 3); // Showing 3 products to match the screenshot layout
 
   return (
-    <div className="bg-[#FAF9F6] min-h-screen pb-24">
-      {orderSubmitError && (
+    <div className="bg-[#FAF9F6] min-h-screen flex flex-col">
+      <div className="flex-grow pb-12">
+        {orderSubmitError && (
         <div className="bg-red-50 border-b border-red-100 text-red-900">
           <div className="container mx-auto px-4 max-w-2xl py-4 flex gap-3 items-start">
             <AlertTriangle className="w-5 h-5 shrink-0 mt-0.5" />
@@ -299,6 +300,56 @@ export default function ThankYouPage() {
           <ArrowRight className="w-4 h-4" />
           العودة لمجموعة أوريندا
         </Link>
+      </div>
+      </div>
+
+      {/* Trust Banner */}
+      <div className="border-t border-gray-200 bg-white mt-auto">
+        <div className="container mx-auto px-4 max-w-6xl py-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 divide-y md:divide-y-0 md:divide-x md:divide-x-reverse divide-gray-100">
+            
+            <div className="flex items-center gap-4 px-4 pt-4 md:pt-0 first:pt-0">
+              <div className="w-12 h-12 rounded-xl bg-[#f8fcfb] border border-[#e2f0ef] flex items-center justify-center shrink-0">
+                <Truck className="w-6 h-6 text-[#134e4a]" />
+              </div>
+              <div className="text-right">
+                <h4 className="font-bold text-gray-900 text-sm mb-1">شحن سريع داخل قطر</h4>
+                <p className="text-xs text-gray-500">توصيل من 1 إلى 3 أيام عمل لجميع المناطق</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4 px-4 pt-4 md:pt-0">
+              <div className="w-12 h-12 rounded-xl bg-[#f8fcfb] border border-[#e2f0ef] flex items-center justify-center shrink-0">
+                <HandCoins className="w-6 h-6 text-[#134e4a]" />
+              </div>
+              <div className="text-right">
+                <h4 className="font-bold text-gray-900 text-sm mb-1">الدفع عند الاستلام</h4>
+                <p className="text-xs text-gray-500">ادفعوا بعد ما يوصلكم الطلب لباب البيت</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4 px-4 pt-4 md:pt-0">
+              <div className="w-12 h-12 rounded-xl bg-[#f8fcfb] border border-[#e2f0ef] flex items-center justify-center shrink-0">
+                <ShieldCheck className="w-6 h-6 text-[#134e4a]" />
+              </div>
+              <div className="text-right">
+                <h4 className="font-bold text-gray-900 text-sm mb-1">ضمان استرجاع 30 يوم</h4>
+                <p className="text-xs text-gray-500">ما حسيتوا بفرق؟ نرجع لكم المبلغ كامل</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4 px-4 pt-4 md:pt-0">
+              <div className="w-12 h-12 rounded-xl bg-[#f8fcfb] border border-[#e2f0ef] flex items-center justify-center shrink-0">
+                <BadgeCheck className="w-6 h-6 text-[#134e4a]" />
+              </div>
+              <div className="text-right">
+                <h4 className="font-bold text-gray-900 text-sm mb-1">مرخّص من SFDA • حلال 100%</h4>
+                <p className="text-xs text-gray-500">تركيبات مفحوصة من هيئة الغذاء والدواء</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
       </div>
 
     </div>
