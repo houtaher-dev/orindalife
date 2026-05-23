@@ -46,7 +46,7 @@ export function Header() {
           <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
             {/* Logo Image */}
             <div className="relative w-12 h-12 flex items-center justify-center group-hover:scale-105 transition-transform">
-              <img src="/images/logo.png" alt="Orenda Life Logo" className="w-full h-full object-contain drop-shadow-[0_0_8px_rgba(212,175,55,0.5)]" />
+              <img src="/images/logo.webp" alt="Orenda Life Logo" className="w-full h-full object-contain drop-shadow-[0_0_8px_rgba(212,175,55,0.5)]" />
             </div>
             {/* Logo Text */}
             <div className="flex flex-col items-start">
