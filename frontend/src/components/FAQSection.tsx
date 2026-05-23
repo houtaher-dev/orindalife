@@ -26,7 +26,7 @@ const FAQS = [
   }
 ];
 
-export function FAQSection() {
+export function FAQSection({ isDark = false }: { isDark?: boolean }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggleFAQ = (index: number) => {
@@ -38,27 +38,29 @@ export function FAQSection() {
       <div className="w-full">
         
         <div className="text-center mb-10">
-          <h3 className="text-xl font-black text-gray-900">
+          <h3 className={`text-xl font-black ${isDark ? 'text-white' : 'text-gray-900'}`}>
             أسئلة سريعة
           </h3>
         </div>
 
-        <div className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden mb-8">
+        <div className={`${isDark ? 'bg-[#141414] border-[#333333] shadow-black/50' : 'bg-white border-gray-100 shadow-sm'} rounded-3xl border overflow-hidden mb-8`}>
           {FAQS.map((faq, index) => (
             <div 
               key={index}
-              className={`border-b border-gray-100 last:border-0 transition-all duration-300 ${
-                openIndex === index ? "bg-gray-50/50" : "bg-white hover:bg-gray-50/30"
+              className={`border-b ${isDark ? 'border-[#333333]' : 'border-gray-100'} last:border-0 transition-all duration-300 ${
+                openIndex === index 
+                  ? (isDark ? 'bg-[#1a1a1a]' : 'bg-gray-50/50') 
+                  : (isDark ? 'bg-[#141414] hover:bg-[#1a1a1a]/50' : 'bg-white hover:bg-gray-50/30')
               }`}
             >
               <button
                 onClick={() => toggleFAQ(index)}
                 className="w-full px-6 py-4 flex items-center justify-between text-right"
               >
-                <span className="font-bold text-sm text-gray-800">
+                <span className={`font-bold text-sm ${isDark ? 'text-gray-200' : 'text-gray-800'}`}>
                   {faq.question}
                 </span>
-                <div className="text-gray-400">
+                <div className={isDark ? 'text-[#D4AF37]' : 'text-gray-400'}>
                   {openIndex === index ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                 </div>
               </button>
@@ -68,7 +70,7 @@ export function FAQSection() {
                   openIndex === index ? "max-h-40 pb-4 opacity-100" : "max-h-0 opacity-0"
                 }`}
               >
-                <p className="text-gray-500 text-sm leading-relaxed pt-2">
+                <p className={`${isDark ? 'text-gray-400' : 'text-gray-500'} text-sm leading-relaxed pt-2`}>
                   {faq.answer}
                 </p>
               </div>
@@ -78,21 +80,21 @@ export function FAQSection() {
 
         {/* Trust Badges */}
         <div className="flex flex-wrap items-center justify-center gap-3 mb-8" dir="rtl">
-          <div className="bg-white rounded-xl border border-gray-100 py-3 px-4 flex items-center justify-center gap-2 shadow-sm">
-            <ShieldCheck className="w-4 h-4 text-[#134e4a]" />
-            <span className="text-xs font-bold text-gray-800">مرخّص SFDA</span>
+          <div className={`${isDark ? 'bg-[#141414] border-[#333333]' : 'bg-white border-gray-100'} rounded-xl border py-3 px-4 flex items-center justify-center gap-2 shadow-sm`}>
+            <ShieldCheck className={`w-4 h-4 ${isDark ? 'text-[#D4AF37]' : 'text-[#134e4a]'}`} />
+            <span className={`text-xs font-bold ${isDark ? 'text-gray-300' : 'text-gray-800'}`}>مرخّص SFDA</span>
           </div>
-          <div className="bg-white rounded-xl border border-gray-100 py-3 px-4 flex items-center justify-center gap-2 shadow-sm">
-            <CheckCircle2 className="w-4 h-4 text-[#134e4a]" />
-            <span className="text-xs font-bold text-gray-800">حلال 100%</span>
+          <div className={`${isDark ? 'bg-[#141414] border-[#333333]' : 'bg-white border-gray-100'} rounded-xl border py-3 px-4 flex items-center justify-center gap-2 shadow-sm`}>
+            <CheckCircle2 className={`w-4 h-4 ${isDark ? 'text-[#D4AF37]' : 'text-[#134e4a]'}`} />
+            <span className={`text-xs font-bold ${isDark ? 'text-gray-300' : 'text-gray-800'}`}>حلال 100%</span>
           </div>
-          <div className="bg-white rounded-xl border border-gray-100 py-3 px-4 flex items-center justify-center gap-2 shadow-sm">
-            <Truck className="w-4 h-4 text-[#134e4a]" />
-            <span className="text-xs font-bold text-gray-800">شحن مجاني</span>
+          <div className={`${isDark ? 'bg-[#141414] border-[#333333]' : 'bg-white border-gray-100'} rounded-xl border py-3 px-4 flex items-center justify-center gap-2 shadow-sm`}>
+            <Truck className={`w-4 h-4 ${isDark ? 'text-[#D4AF37]' : 'text-[#134e4a]'}`} />
+            <span className={`text-xs font-bold ${isDark ? 'text-gray-300' : 'text-gray-800'}`}>شحن مجاني</span>
           </div>
-          <div className="bg-white rounded-xl border border-gray-100 py-3 px-4 flex items-center justify-center gap-2 shadow-sm">
-            <CheckCircle className="w-4 h-4 text-[#134e4a]" />
-            <span className="text-xs font-bold text-gray-800">ضمان 30 يوم</span>
+          <div className={`${isDark ? 'bg-[#141414] border-[#333333]' : 'bg-white border-gray-100'} rounded-xl border py-3 px-4 flex items-center justify-center gap-2 shadow-sm`}>
+            <CheckCircle className={`w-4 h-4 ${isDark ? 'text-[#D4AF37]' : 'text-[#134e4a]'}`} />
+            <span className={`text-xs font-bold ${isDark ? 'text-gray-300' : 'text-gray-800'}`}>ضمان 30 يوم</span>
           </div>
         </div>
 
