@@ -110,41 +110,41 @@ export default function ThankYouPage() {
         
         {/* Call Details Box */}
         <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
-          <div className="flex items-center justify-end gap-3 mb-6">
-            <h3 className="font-black text-gray-900 text-xl">وش يحصل في المكالمة؟</h3>
+          <div className="flex items-center gap-3 mb-6">
             <div className="bg-green-50 p-2 rounded-xl text-[#134e4a]">
               <PhoneCall className="w-6 h-6" />
             </div>
+            <h3 className="font-black text-gray-900 text-xl">وش يحصل في المكالمة؟</h3>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-right">
             <div className="space-y-6">
-              <div className="flex items-start justify-end gap-3">
-                <div>
-                  <p className="text-gray-600 font-medium text-sm">أقل من دقيقتين — نأكد العنوان فقط.</p>
-                </div>
+              <div className="flex items-start gap-3">
                 <div className="text-gray-400 mt-0.5"><CheckCircle2 className="w-5 h-5" /></div>
+                <div>
+                  <p className="text-gray-600 font-medium text-sm text-right">أقل من دقيقتين — نأكد العنوان فقط.</p>
+                </div>
               </div>
-              <div className="flex items-start justify-end gap-3">
-                <div>
-                  <p className="text-gray-600 font-medium text-sm">لو لم تردوا، نحاول مرتين + رسالة واتساب. ما نلغي طلبكم بسهولة.</p>
-                </div>
+              <div className="flex items-start gap-3">
                 <div className="text-gray-400 mt-0.5"><CheckCircle2 className="w-5 h-5" /></div>
+                <div>
+                  <p className="text-gray-600 font-medium text-sm text-right">لو لم تردوا، نحاول مرتين + رسالة واتساب. ما نلغي طلبكم بسهولة.</p>
+                </div>
               </div>
             </div>
             
             <div className="space-y-6">
-              <div className="flex items-start justify-end gap-3">
-                <div>
-                  <p className="text-gray-600 font-medium text-sm">فريق متخصص يتكلم بهدوء.</p>
-                </div>
+              <div className="flex items-start gap-3">
                 <div className="text-gray-400 mt-0.5"><CheckCircle2 className="w-5 h-5" /></div>
+                <div>
+                  <p className="text-gray-600 font-medium text-sm text-right">فريق متخصص يتكلم بهدوء.</p>
+                </div>
               </div>
-              <div className="flex items-start justify-end gap-3">
-                <div>
-                  <p className="text-gray-600 font-medium text-sm">ما نطلب بطاقة بنكية ولا تحويل — كاش/شبكة عند الاستلام.</p>
-                </div>
+              <div className="flex items-start gap-3">
                 <div className="text-gray-400 mt-0.5"><CheckCircle2 className="w-5 h-5" /></div>
+                <div>
+                  <p className="text-gray-600 font-medium text-sm text-right">ما نطلب بطاقة بنكية ولا تحويل — كاش/شبكة عند الاستلام.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -154,7 +154,7 @@ export default function ThankYouPage() {
         <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm overflow-hidden">
           <h3 className="font-black text-gray-900 text-xl text-right mb-8">رحلة طلبكم</h3>
           
-          <div className="relative flex justify-between items-start flex-row-reverse">
+          <div className="relative flex justify-between items-start">
             {/* Connecting Line */}
             <div className="absolute top-6 left-[10%] right-[10%] h-0.5 bg-gray-100 -z-10"></div>
             
@@ -198,37 +198,37 @@ export default function ThankYouPage() {
 
         {/* Expected Results Box */}
         <div className="bg-[#f8fcfb] rounded-3xl p-6 border border-[#e2f0ef] shadow-sm">
-          <div className="flex items-center justify-end gap-2 mb-6">
-            <h3 className="font-black text-[#134e4a] text-lg">نتيجتكم المتوقعة مع روتين أوريندا</h3>
+          <div className="flex items-center gap-2 mb-6">
             <Star className="w-5 h-5 text-[#b5952f]" />
+            <h3 className="font-black text-[#134e4a] text-lg">نتيجتكم المتوقعة مع روتين أوريندا</h3>
           </div>
 
-          <div className="space-y-6 relative before:absolute before:right-3.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-gray-200">
+          <div className="space-y-6 relative before:absolute before:right-4 before:top-2 before:bottom-2 before:w-0.5 before:bg-gray-200">
             {/* Week 1 */}
-            <div className="relative flex justify-end items-start gap-4">
+            <div className="relative flex items-start gap-4">
+              <div className="w-8 h-8 rounded-full bg-[#134e4a] text-white font-bold flex items-center justify-center shrink-0 z-10 border-4 border-[#f8fcfb]">1</div>
               <div className="text-right pt-1">
                 <h4 className="font-black text-gray-900 text-base mb-1">أول 7 أيام</h4>
                 <p className="text-sm text-gray-600 leading-relaxed">نضارة ولمعان واضحين من اليوم الثالث، بشرتكم أصفى وأنعم، والمكياج يثبت أحسن. مضادات الأكسدة بدأت تشتغل من اليوم الأول.</p>
               </div>
-              <div className="w-8 h-8 rounded-full bg-[#134e4a] text-white font-bold flex items-center justify-center shrink-0 z-10 border-4 border-[#f8fcfb]">1</div>
             </div>
 
             {/* Week 2 */}
-            <div className="relative flex justify-end items-start gap-4">
+            <div className="relative flex items-start gap-4">
+              <div className="w-8 h-8 rounded-full bg-[#134e4a] text-white font-bold flex items-center justify-center shrink-0 z-10 border-4 border-[#f8fcfb]">2</div>
               <div className="text-right pt-1">
                 <h4 className="font-black text-gray-900 text-base mb-1">الأسبوع الثاني</h4>
                 <p className="text-sm text-gray-600 leading-relaxed">الخطوط الدقيقة حول العين تخف بشكل ملحوظ، علامات الإرهاق تختفي، والبشرة ممتلئة أكثر. تبدأ التعليقات: «وجهكم مرتاح اليوم».</p>
               </div>
-              <div className="w-8 h-8 rounded-full bg-[#134e4a] text-white font-bold flex items-center justify-center shrink-0 z-10 border-4 border-[#f8fcfb]">2</div>
             </div>
 
             {/* End of Box 1 */}
-            <div className="relative flex justify-end items-start gap-4">
+            <div className="relative flex items-start gap-4">
+              <div className="w-8 h-8 rounded-full bg-[#134e4a] text-white font-bold flex items-center justify-center shrink-0 z-10 border-4 border-[#f8fcfb]">3</div>
               <div className="text-right pt-1">
                 <h4 className="font-black text-gray-900 text-base mb-1">نهاية العلبة الأولى</h4>
                 <p className="text-sm text-gray-600 leading-relaxed">الفرق واضح في صورة قبل وبعد. تجاعيد أقل، بشرة مشدودة، ومظهر أصغر سناً. العلبة الثانية والثالثة تثبّت النتيجة وتمنع رجوعها.</p>
               </div>
-              <div className="w-8 h-8 rounded-full bg-[#134e4a] text-white font-bold flex items-center justify-center shrink-0 z-10 border-4 border-[#f8fcfb]">3</div>
             </div>
           </div>
 
@@ -239,9 +239,9 @@ export default function ThankYouPage() {
 
         {/* Preparation / Unboxing Box */}
         <div className="bg-[#fdfbf7] rounded-3xl p-6 border border-[#f0eadd] shadow-sm">
-          <div className="flex items-center justify-end gap-2 mb-6">
-            <h3 className="font-black text-gray-900 text-lg">استعدوا لاستلامه</h3>
+          <div className="flex items-center gap-2 mb-6">
             <Star className="w-5 h-5 text-[#b5952f]" />
+            <h3 className="font-black text-gray-900 text-lg">استعدوا لاستلامه</h3>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
