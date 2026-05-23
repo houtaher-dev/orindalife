@@ -126,19 +126,6 @@ export default function ThankYouPage() {
             </div>
           )}
           
-          {lastOrder && (
-            <div className="mt-6 bg-gray-50 rounded-xl p-4 border border-gray-100 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <PhoneCall className="w-4 h-4 text-gray-400" />
-                <span className="text-gray-500 text-sm">رقم التواصل:</span>
-                <span className="font-bold text-gray-900 text-lg tracking-wider" dir="ltr">{lastOrder.phone || "تم الحفظ"}</span>
-              </div>
-              <button className="flex items-center gap-2 text-[#134e4a] bg-white px-4 py-2 rounded-lg font-bold text-sm hover:bg-gray-50 transition-colors border border-gray-200 shadow-sm">
-                <span className="transform -rotate-90">✎</span>
-                تعديل
-              </button>
-            </div>
-          )}
         </div>
 
         {/* Customer Info Box (Hidden as per new design, replaced by the above and below sections) */}
