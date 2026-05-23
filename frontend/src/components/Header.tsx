@@ -44,10 +44,9 @@ export function Header() {
           
           {/* Right side: Logo */}
           <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
-            {/* Logo Icon */}
-            <div className="w-12 h-12 rounded-full border-2 border-[#D4AF37]/50 flex items-center justify-center bg-gradient-to-br from-[#D4AF37] to-[#B8860B] text-[#0a0a0a] shadow-[0_0_15px_rgba(212,175,55,0.3)] relative overflow-hidden group-hover:scale-105 transition-transform">
-              <Leaf className="w-6 h-6" strokeWidth={1.5} />
-              <div className="absolute top-2 right-2 w-1.5 h-1.5 bg-white/50 rounded-full"></div>
+            {/* Logo Image */}
+            <div className="relative w-12 h-12 flex items-center justify-center group-hover:scale-105 transition-transform">
+              <img src="/images/logo.webp" alt="Orenda Life Logo" className="w-full h-full object-contain" />
             </div>
             {/* Logo Text */}
             <div className="flex flex-col items-start">
