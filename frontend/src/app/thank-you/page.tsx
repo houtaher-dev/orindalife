@@ -320,7 +320,7 @@ export default function ThankYouPage() {
           <p className="text-gray-500 text-sm mt-2">إليكم منتجات تكمل روتينكم (الشحن مجاني لطلبكم الحالي)</p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" dir="rtl">
           {crossSells.map((p) => (
             <div key={p.id} className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm flex flex-col items-center text-center hover:shadow-md transition-all">
               <div className={`w-full h-40 rounded-xl bg-gradient-to-tr ${p.theme.from} ${p.theme.to} flex items-center justify-center text-4xl mb-4 relative overflow-hidden`}>
