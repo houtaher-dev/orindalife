@@ -22,6 +22,10 @@ class Settings(BaseSettings):
     MAXMIND_ACCOUNT_ID: str = ""
     MAXMIND_LICENSE_KEY: str = ""
 
+    ADMIN_USERNAME: str = "admin"
+    ADMIN_PASSWORD: str = "changeme"
+    ADMIN_JWT_SECRET: str = "change-this-to-a-random-secret-key"
+
     ENVIRONMENT: str = "production"
 
     @property

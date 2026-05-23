@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Tajawal } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
-import { Cart } from "@/components/Cart";
+import { StoreShell } from "@/components/StoreShell";
 
 const tajawal = Tajawal({
   subsets: ["arabic", "latin"],
@@ -24,12 +22,7 @@ export default function RootLayout({
   return (
     <html lang="ar" dir="rtl" className="scroll-smooth">
       <body className={`${tajawal.variable} font-sans antialiased text-gray-900 bg-[#FAFAFA] flex flex-col min-h-screen`}>
-        <Header />
-        <Cart />
-        <main className="flex-1">
-          {children}
-        </main>
-        <Footer />
+        <StoreShell>{children}</StoreShell>
       </body>
     </html>
   );

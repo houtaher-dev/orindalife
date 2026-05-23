@@ -53,21 +53,8 @@ export function Cart() {
       return;
     }
 
-    const inCartIds = items.map(i => i.product.id);
-    const availableCrossSells = PRODUCTS.filter(p => !inCartIds.includes(p.id));
-
-    const p1 = availableCrossSells.length > 0 ? availableCrossSells[0] : PRODUCTS[0];
-    const p2 =
-      availableCrossSells.length > 1
-        ? availableCrossSells[1]
-        : availableCrossSells.length === 1
-          ? PRODUCTS.find(p => p.id !== p1.id)!
-          : PRODUCTS[1];
-
-    setUpsellProduct1(p1);
-    setUpsellProduct2(p2);
-    setUpsellStep(1);
-    setCountdown(30);
+    // Skip upsells entirely and submit order directly
+    submitOrderFinal();
   };
 
   const submitOrderFinal = async () => {
@@ -108,27 +95,33 @@ export function Cart() {
       useCartStore.getState().setOrderSubmitError(null);
       useCartStore.getState().setLastOrder({
         customerName: name,
+        phone: phone,
         total: latestTotal,
         items: latestItems,
       });
 
-      clearCart();
-      setCheckoutOpen(false);
-      setIsOpen(false);
-      setUpsellStep(0);
+      // Navigate to thank-you page immediately without waiting for API
+      // Do this BEFORE clearing the cart and closing the UI to avoid seeing the background page
       router.push("/thank-you");
 
-      try {
-        await api.orders.create(orderPayload);
-      } catch (orderErr: any) {
+      // Small timeout to allow navigation to start before wiping state
+      setTimeout(() => {
+        clearCart();
+        setCheckoutOpen(false);
+        setIsOpen(false);
+      }, 50);
+
+      // Fire API call in background
+      api.orders.create(orderPayload).catch((orderErr: any) => {
         console.error(orderErr);
-        const msg =
-          orderErr?.message || "حدث خطأ في الاتصال، المرجو المحاولة مرة أخرى";
+        const msg = orderErr?.message || "حدث خطأ في الاتصال، المرجو المحاولة مرة أخرى";
         useCartStore.getState().setOrderSubmitError(msg);
-        useCartStore.setState({ items: latestItems });
-      }
+      });
+      
     } finally {
-      setIsSubmitting(false);
+      // We don't really need to set this to false since we're navigating away,
+      // but keeping it for safety in case navigation fails
+      setTimeout(() => setIsSubmitting(false), 1000);
     }
   };
 

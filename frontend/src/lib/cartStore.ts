@@ -13,6 +13,7 @@ export interface CartItem {
 
 export interface LastOrder {
   customerName: string;
+  phone?: string;
   total: number;
   items: CartItem[];
 }

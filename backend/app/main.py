@@ -6,7 +6,7 @@ from app.config import settings
 from app.database import engine, Base
 from app import models  # noqa – ensures all models are registered
 from app.seed import run_seed
-from app.routers import products, orders
+from app.routers import products, orders, admin, tracking
 
 
 @asynccontextmanager
@@ -37,6 +37,8 @@ app.add_middleware(
 
 app.include_router(products.router, prefix="/api")
 app.include_router(orders.router, prefix="/api")
+app.include_router(admin.router, prefix="/api")
+app.include_router(tracking.router, prefix="/api")
 
 
 @app.get("/health")
