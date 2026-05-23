@@ -10,10 +10,20 @@ export default function Home() {
     <>
       <Hero />
       <ProductsSection />
-      <ReviewsSection />
+      <div className="bg-[#141414] py-8 border-y border-[#333333]">
+        <div className="dark-theme-override">
+          <ReviewsSection isDark={true} />
+        </div>
+      </div>
       <FeaturesSection />
       <HowItWorksSection />
-      <FAQSection />
+      <div className="bg-[#0a0a0a] py-8">
+        <div className="container mx-auto px-4 max-w-2xl">
+          <div className="dark-theme-override">
+            <FAQSection isDark={true} />
+          </div>
+        </div>
+      </div>
     </>
   );
 }

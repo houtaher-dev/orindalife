@@ -19,69 +19,72 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const crossSells = PRODUCTS.filter((p) => p.id !== product.id);
 
   return (
-    <div className="bg-[#f9f8f6] min-h-screen">
+    <div className="bg-[#0a0a0a] min-h-screen font-sans selection:bg-[#D4AF37]/30">
       
       {/* 1. Hero Section */}
-      <section className="bg-[#f4f2ec] py-12 md:py-24 border-b border-[#e5e0d8]">
-        <div className="container mx-auto px-4 max-w-6xl">
+      <section className="bg-[#141414] py-12 md:py-24 border-b border-[#333333] relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#D4AF37]/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
+        <div className="container mx-auto px-4 max-w-6xl relative z-10">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             
             {/* Right: Text & Options */}
             <div>
-              <h1 className="text-4xl md:text-5xl font-black text-[#134e4a] mb-4 leading-tight">
+              <h1 className="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#F3E5AB] via-[#D4AF37] to-[#B8860B] mb-4 leading-tight">
                 {product.name_ar}
                 <br />
-                <span className="text-2xl text-gray-600 font-medium">السبب مو منك، السبب من الروتين</span>
+                <span className="text-2xl text-gray-400 font-medium">السبب مو منك، السبب من الروتين</span>
               </h1>
               
-              <p className="text-lg text-gray-700 mb-6 leading-relaxed">
+              <p className="text-lg text-gray-300 mb-6 leading-relaxed">
                 {product.description_ar}
               </p>
 
               <div className="flex items-center gap-2 mb-8">
-                <div className="flex text-amber-400">
+                <div className="flex text-[#D4AF37]">
                   <Star className="w-5 h-5 fill-current" />
                   <Star className="w-5 h-5 fill-current" />
                   <Star className="w-5 h-5 fill-current" />
                   <Star className="w-5 h-5 fill-current" />
                   <Star className="w-5 h-5 fill-current" />
                 </div>
-                <span className="text-sm font-bold text-gray-900">4.9</span>
-                <span className="text-sm text-gray-500 underline">+487 تقييم موثق</span>
+                <span className="text-sm font-bold text-white">4.9</span>
+                <span className="text-sm text-[#D4AF37] underline">+487 تقييم موثق</span>
               </div>
 
               {/* Add To Cart Options */}
-              <ProductOptions product={product} />
+              <div className="dark-theme-override">
+                <ProductOptions product={product} />
+              </div>
 
             </div>
 
             {/* Left: Product Image */}
-            <div className="relative aspect-square md:aspect-[4/5] rounded-3xl overflow-hidden bg-white shadow-xl shadow-gray-200/50">
+            <div className="relative aspect-square md:aspect-[4/5] rounded-3xl overflow-hidden bg-[#1a1a1a] shadow-lg shadow-black/50 border border-[#333333]">
               <Image 
                 src={product.image_url} 
                 alt={product.name_ar}
                 fill
                 className="object-cover"
               />
-              <div className="absolute bottom-0 inset-x-0 bg-white/90 backdrop-blur py-4 px-6 flex justify-between items-center border-t border-gray-100">
+              <div className="absolute bottom-0 inset-x-0 bg-[#0a0a0a]/90 backdrop-blur py-4 px-6 flex justify-between items-center border-t border-[#333333]">
                  <div className="text-center">
                    <div className="text-xs text-gray-500 font-bold mb-1">مرخص من</div>
-                   <div className="font-black text-gray-900">SFDA</div>
+                   <div className="font-black text-[#D4AF37]">SFDA</div>
                  </div>
-                 <div className="w-px h-8 bg-gray-200"></div>
+                 <div className="w-px h-8 bg-[#333333]"></div>
                  <div className="text-center">
                    <div className="text-xs text-gray-500 font-bold mb-1">صنع في</div>
-                   <div className="font-black text-gray-900">حلال</div>
+                   <div className="font-black text-[#D4AF37]">حلال</div>
                  </div>
-                 <div className="w-px h-8 bg-gray-200"></div>
+                 <div className="w-px h-8 bg-[#333333]"></div>
                  <div className="text-center">
                    <div className="text-xs text-gray-500 font-bold mb-1">الكمية</div>
-                   <div className="font-black text-gray-900">30 حبة</div>
+                   <div className="font-black text-[#D4AF37]">30 حبة</div>
                  </div>
-                 <div className="w-px h-8 bg-gray-200"></div>
+                 <div className="w-px h-8 bg-[#333333]"></div>
                  <div className="text-center">
                    <div className="text-xs text-gray-500 font-bold mb-1">يكفي لمدة</div>
-                   <div className="font-black text-gray-900">شهر</div>
+                   <div className="font-black text-[#D4AF37]">شهر</div>
                  </div>
               </div>
             </div>
@@ -91,11 +94,11 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       </section>
 
       {/* 2. Problems & Solutions Section */}
-      <section className="py-20 md:py-32 bg-white">
+      <section className="py-20 md:py-32 bg-[#0a0a0a]">
         <div className="container mx-auto px-4 max-w-5xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-black text-[#134e4a] mb-4">مشاكل تعرفها — وحلول من الداخل</h2>
-            <p className="text-gray-600 font-medium">مو نخفف الأعراض. نحل السبب الجذري — مكون لكل مشكلة.</p>
+            <h2 className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#F3E5AB] via-[#D4AF37] to-[#B8860B] mb-4">مشاكل تعرفها — وحلول من الداخل</h2>
+            <p className="text-gray-400 font-medium">مو نخفف الأعراض. نحل السبب الجذري — مكون لكل مشكلة.</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-12 items-start">
@@ -103,19 +106,19 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               {product.problems_solutions.map((item, index) => (
                 <div key={index} className="space-y-2">
                   {/* Problem Box */}
-                  <div className="bg-white p-5 rounded-xl border border-red-100 flex items-center gap-4 shadow-sm">
-                    <div className="w-8 h-8 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0">
+                  <div className="bg-[#141414] p-5 rounded-xl border border-red-900/50 flex items-center gap-4 shadow-sm">
+                    <div className="w-8 h-8 rounded-full bg-red-950/50 flex items-center justify-center flex-shrink-0">
                       <X className="w-5 h-5 text-red-500" />
                     </div>
-                    <p className="font-bold text-gray-800 text-sm md:text-base">{item.problem}</p>
+                    <p className="font-bold text-gray-300 text-sm md:text-base">{item.problem}</p>
                   </div>
                   
                   {/* Solution Box */}
-                  <div className="bg-[#f4f2ec] p-5 rounded-xl border border-[#134e4a]/10 flex items-start gap-4">
-                    <div className="w-8 h-8 rounded-full bg-[#134e4a]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <Check className="w-5 h-5 text-[#134e4a]" />
+                  <div className="bg-[#1a1a1a] p-5 rounded-xl border border-[#D4AF37]/20 flex items-start gap-4">
+                    <div className="w-8 h-8 rounded-full bg-[#D4AF37]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Check className="w-5 h-5 text-[#D4AF37]" />
                     </div>
-                    <p className="text-sm md:text-base text-gray-800 font-medium leading-relaxed">
+                    <p className="text-sm md:text-base text-gray-300 font-medium leading-relaxed">
                       {item.solution}
                     </p>
                   </div>
@@ -123,7 +126,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               ))}
             </div>
 
-            <div className="relative aspect-[3/4] md:aspect-[4/5] rounded-3xl overflow-hidden bg-gray-100 sticky top-24">
+            <div className="relative aspect-[3/4] md:aspect-[4/5] rounded-3xl overflow-hidden bg-[#141414] border border-[#333333] sticky top-24 shadow-lg shadow-black/50">
                <Image 
                   src={product.image_url} 
                   alt={product.name_ar}
@@ -136,37 +139,37 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       </section>
 
       {/* 3. Ingredients Section */}
-      <section className="py-20 md:py-32 bg-[#f4f2ec]">
+      <section className="py-20 md:py-32 bg-[#141414] border-t border-[#333333]">
         <div className="container mx-auto px-4 max-w-5xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-black text-[#134e4a] mb-4">السر في التركيبة، مو في القائمة</h2>
-            <p className="text-gray-600 font-medium">كل مكون مختار بعناية وبجرعة مدروسة لتوفير أقصى فائدة، مو مجرد حشو.</p>
+            <h2 className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#F3E5AB] via-[#D4AF37] to-[#B8860B] mb-4">السر في التركيبة، مو في القائمة</h2>
+            <p className="text-gray-400 font-medium">كل مكون مختار بعناية وبجرعة مدروسة لتوفير أقصى فائدة، مو مجرد حشو.</p>
           </div>
 
           <div className="grid md:grid-cols-5 gap-12 items-center">
-            <div className="md:col-span-2 relative aspect-[4/5] rounded-3xl overflow-hidden bg-white shadow-lg">
-               <div className={`absolute inset-0 bg-gradient-to-tr ${product.theme.from} ${product.theme.to} opacity-10`}></div>
+            <div className="md:col-span-2 relative aspect-[4/5] rounded-3xl overflow-hidden bg-[#1a1a1a] shadow-lg shadow-black/50 border border-[#333333]">
+               <div className={`absolute inset-0 bg-gradient-to-tr ${product.theme.from} ${product.theme.to} opacity-5`}></div>
                <Image 
                   src={product.image_url} 
                   alt="مكونات المنتج"
                   fill
-                  className="object-contain p-8"
+                  className="object-contain p-8 relative z-10"
                 />
             </div>
 
             <div className="md:col-span-3 space-y-6">
               {product.ingredients.map((ing, i) => (
-                <div key={i} className="bg-white p-6 rounded-2xl border border-[#eae6de] shadow-sm">
+                <div key={i} className="bg-[#1a1a1a] p-6 rounded-2xl border border-[#333333] shadow-sm hover:border-[#D4AF37]/30 transition-colors">
                   <div className="flex justify-between items-start mb-3">
-                    <h3 className="text-xl font-black text-gray-900">{ing.name_ar}</h3>
-                    <div className="px-3 py-1 bg-[#134e4a]/10 text-[#134e4a] text-xs font-bold rounded-full">
+                    <h3 className="text-xl font-black text-white">{ing.name_ar}</h3>
+                    <div className="px-3 py-1 bg-[#D4AF37]/10 text-[#D4AF37] text-xs font-bold rounded-full border border-[#D4AF37]/20">
                       {ing.name_en}
                     </div>
                   </div>
-                  <p className="text-gray-600 leading-relaxed text-sm md:text-base">
+                  <p className="text-gray-400 leading-relaxed text-sm md:text-base">
                     {ing.description}
                   </p>
-                  <div className="mt-4 flex items-center gap-2 text-[#134e4a] text-sm font-bold">
+                  <div className="mt-4 flex items-center gap-2 text-[#D4AF37] text-sm font-bold">
                     <CheckCircle2 className="w-4 h-4" />
                     <span>فعالية مثبتة علمياً، نقاء عالي الجودة</span>
                   </div>
@@ -178,48 +181,48 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       </section>
 
       {/* 4. Trust Section */}
-      <section className="py-16 bg-white border-y border-[#eae6de]">
+      <section className="py-16 bg-[#0a0a0a] border-y border-[#333333]">
         <div className="container mx-auto px-4 max-w-4xl text-center">
-           <h2 className="text-2xl font-black text-gray-900 mb-2">تركيبة سريرية، مو وعود فاضية</h2>
-           <p className="text-gray-600 mb-10">مرخصة من الجهات الرسمية ومصنوعة بأعلى معايير الجودة العالمية</p>
+           <h2 className="text-2xl font-black text-white mb-2">تركيبة سريرية، مو وعود فاضية</h2>
+           <p className="text-gray-400 mb-10">مرخصة من الجهات الرسمية ومصنوعة بأعلى معايير الجودة العالمية</p>
 
            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 mb-12">
-              <div className="border border-[#eae6de] rounded-2xl p-6 bg-[#fcfbf9]">
-                 <div className="font-black text-xl text-[#134e4a] mb-2">SFDA</div>
-                 <div className="text-xs text-gray-600 font-bold">هيئة الغذاء والدواء</div>
+              <div className="border border-[#333333] rounded-2xl p-6 bg-[#141414] hover:border-[#D4AF37]/30 transition-colors">
+                 <div className="font-black text-xl text-[#D4AF37] mb-2">SFDA</div>
+                 <div className="text-xs text-gray-400 font-bold">هيئة الغذاء والدواء</div>
               </div>
-              <div className="border border-[#eae6de] rounded-2xl p-6 bg-[#fcfbf9]">
-                 <div className="font-black text-xl text-[#134e4a] mb-2">GMP</div>
-                 <div className="text-xs text-gray-600 font-bold">ممارسات التصنيع</div>
+              <div className="border border-[#333333] rounded-2xl p-6 bg-[#141414] hover:border-[#D4AF37]/30 transition-colors">
+                 <div className="font-black text-xl text-[#D4AF37] mb-2">GMP</div>
+                 <div className="text-xs text-gray-400 font-bold">ممارسات التصنيع</div>
               </div>
-              <div className="border border-[#eae6de] rounded-2xl p-6 bg-[#fcfbf9]">
-                 <div className="font-black text-xl text-[#134e4a] mb-2">حلال</div>
-                 <div className="text-xs text-gray-600 font-bold">موثق حلال عالمياً</div>
+              <div className="border border-[#333333] rounded-2xl p-6 bg-[#141414] hover:border-[#D4AF37]/30 transition-colors">
+                 <div className="font-black text-xl text-[#D4AF37] mb-2">حلال</div>
+                 <div className="text-xs text-gray-400 font-bold">موثق حلال عالمياً</div>
               </div>
-              <div className="border border-[#eae6de] rounded-2xl p-6 bg-[#fcfbf9]">
-                 <div className="font-black text-xl text-[#134e4a] mb-2">ISO 22000</div>
-                 <div className="text-xs text-gray-600 font-bold">سلامة الغذاء</div>
+              <div className="border border-[#333333] rounded-2xl p-6 bg-[#141414] hover:border-[#D4AF37]/30 transition-colors">
+                 <div className="font-black text-xl text-[#D4AF37] mb-2">ISO 22000</div>
+                 <div className="text-xs text-gray-400 font-bold">سلامة الغذاء</div>
               </div>
            </div>
 
-           <div className="bg-[#134e4a] text-white rounded-3xl p-8 md:p-12 text-center md:text-right flex flex-col md:flex-row items-center gap-8 shadow-xl">
+           <div className="bg-gradient-to-br from-[#141414] to-[#1a1a1a] border border-[#D4AF37]/20 text-white rounded-3xl p-8 md:p-12 text-center md:text-right flex flex-col md:flex-row items-center gap-8 shadow-xl shadow-black/50">
              <div className="flex-1">
-                <h3 className="text-2xl font-black mb-4 flex items-center justify-center md:justify-start gap-3">
-                  <ShieldCheck className="w-8 h-8 text-[#d4af37]" />
+                <h3 className="text-2xl font-black mb-4 flex items-center justify-center md:justify-start gap-3 text-transparent bg-clip-text bg-gradient-to-r from-[#F3E5AB] via-[#D4AF37] to-[#B8860B]">
+                  <ShieldCheck className="w-8 h-8 text-[#D4AF37]" />
                   شحنتنا لقطر مضمونة
                 </h3>
-                <p className="text-white/80 leading-relaxed">
+                <p className="text-gray-300 leading-relaxed">
                   "التركيبة اللي بين يديك مدعومة بتجارب سريرية موثقة. مو مجرد خلطة عشوائية، بل نسب دقيقة مصممة لتعطي أقصى فعالية وامتصاص. استثمارك في صحتك في مكانه الصح."
                 </p>
              </div>
              <div className="grid grid-cols-2 gap-4 flex-shrink-0 w-full md:w-auto">
-                <div className="bg-white/10 rounded-2xl p-4 text-center">
-                  <div className="font-black text-2xl mb-1 text-[#d4af37]">+4.9</div>
-                  <div className="text-xs font-medium">متوسط تقييم العملاء</div>
+                <div className="bg-[#0a0a0a] border border-[#333333] rounded-2xl p-4 text-center">
+                  <div className="font-black text-2xl mb-1 text-[#D4AF37]">+4.9</div>
+                  <div className="text-xs font-medium text-gray-400">متوسط تقييم العملاء</div>
                 </div>
-                <div className="bg-white/10 rounded-2xl p-4 text-center">
-                  <div className="font-black text-2xl mb-1 text-[#d4af37]">+60</div>
-                  <div className="text-xs font-medium">تركيبة مدروسة ومطورة</div>
+                <div className="bg-[#0a0a0a] border border-[#333333] rounded-2xl p-4 text-center">
+                  <div className="font-black text-2xl mb-1 text-[#D4AF37]">+60</div>
+                  <div className="text-xs font-medium text-gray-400">تركيبة مدروسة ومطورة</div>
                 </div>
              </div>
            </div>
@@ -227,23 +230,23 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       </section>
 
       {/* 5. What to expect in 30 days */}
-      <section className="py-20 md:py-32 bg-[#f4f2ec]">
+      <section className="py-20 md:py-32 bg-[#141414]">
         <div className="container mx-auto px-4 max-w-4xl text-center">
-          <div className="mb-4 inline-block px-4 py-1.5 bg-[#134e4a]/10 text-[#134e4a] font-bold text-sm rounded-full">
+          <div className="mb-4 inline-block px-4 py-1.5 bg-[#D4AF37]/10 border border-[#D4AF37]/20 text-[#D4AF37] font-bold text-sm rounded-full">
             من أول شهر استخدام
           </div>
-          <h2 className="text-3xl md:text-4xl font-black text-[#134e4a] mb-16">وش راح تشوف خلال أول 30 يوم؟</h2>
+          <h2 className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#F3E5AB] via-[#D4AF37] to-[#B8860B] mb-16">وش راح تشوف خلال أول 30 يوم؟</h2>
 
           <div className="grid md:grid-cols-3 gap-8 relative">
             {/* Connecting Line (Desktop) */}
-            <div className="hidden md:block absolute top-8 left-1/6 right-1/6 h-0.5 bg-[#eae6de] z-0"></div>
+            <div className="hidden md:block absolute top-8 left-1/6 right-1/6 h-0.5 bg-[#333333] z-0"></div>
 
             {/* Step 1 */}
             <div className="relative z-10">
-              <div className="w-16 h-16 rounded-full bg-[#134e4a] text-white flex items-center justify-center text-xl font-black mx-auto mb-6 shadow-lg shadow-[#134e4a]/20">1</div>
-              <div className="bg-white p-8 rounded-3xl shadow-sm border border-[#eae6de] h-full">
-                <h3 className="text-xl font-black text-gray-900 mb-3">أول 3 أيام</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
+              <div className="w-16 h-16 rounded-full bg-[#1a1a1a] border-2 border-[#D4AF37] text-[#D4AF37] flex items-center justify-center text-xl font-black mx-auto mb-6 shadow-[0_0_15px_rgba(212,175,55,0.2)]">1</div>
+              <div className="bg-[#1a1a1a] p-8 rounded-3xl shadow-sm border border-[#333333] h-full hover:border-[#D4AF37]/30 transition-colors">
+                <h3 className="text-xl font-black text-white mb-3">أول 3 أيام</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">
                   امتصاص سريع للمكونات النشطة. تبدأ بملاحظة تحسن في مستويات الطاقة وانخفاض ملحوظ في التعب العام.
                 </p>
               </div>
@@ -251,10 +254,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
             {/* Step 2 */}
             <div className="relative z-10 mt-8 md:mt-0">
-              <div className="w-16 h-16 rounded-full bg-[#134e4a] text-white flex items-center justify-center text-xl font-black mx-auto mb-6 shadow-lg shadow-[#134e4a]/20">2</div>
-              <div className="bg-white p-8 rounded-3xl shadow-sm border border-[#eae6de] h-full">
-                <h3 className="text-xl font-black text-gray-900 mb-3">الأسبوع الثاني</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
+              <div className="w-16 h-16 rounded-full bg-[#1a1a1a] border-2 border-[#D4AF37] text-[#D4AF37] flex items-center justify-center text-xl font-black mx-auto mb-6 shadow-[0_0_15px_rgba(212,175,55,0.2)]">2</div>
+              <div className="bg-[#1a1a1a] p-8 rounded-3xl shadow-sm border border-[#333333] h-full hover:border-[#D4AF37]/30 transition-colors">
+                <h3 className="text-xl font-black text-white mb-3">الأسبوع الثاني</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">
                   توازن داخلي أوضح. تحسن في جودة النوم، مزاج أكثر استقراراً، وبداية ملاحظة نضارة في البشرة بفضل التغذية الخلوية.
                 </p>
               </div>
@@ -262,10 +265,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
             {/* Step 3 */}
             <div className="relative z-10 mt-8 md:mt-0">
-              <div className="w-16 h-16 rounded-full bg-[#134e4a] text-white flex items-center justify-center text-xl font-black mx-auto mb-6 shadow-lg shadow-[#134e4a]/20">3</div>
-              <div className="bg-white p-8 rounded-3xl shadow-sm border border-[#eae6de] h-full">
-                <h3 className="text-xl font-black text-gray-900 mb-3">نهاية الشهر الأول</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#B8860B] text-[#0a0a0a] flex items-center justify-center text-xl font-black mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.4)] border-2 border-[#141414]">3</div>
+              <div className="bg-[#1a1a1a] p-8 rounded-3xl shadow-sm border border-[#333333] h-full hover:border-[#D4AF37]/30 transition-colors">
+                <h3 className="text-xl font-black text-[#D4AF37] mb-3">نهاية الشهر الأول</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">
                   النتيجة الكبرى. توازن مستدام، طاقة عالية طوال اليوم، وتغيير جذري في صحتك من الداخل ينعكس بوضوح على الخارج.
                 </p>
               </div>
@@ -275,47 +278,50 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       </section>
 
       {/* 6. Reviews */}
-      <div className="bg-white border-b border-[#eae6de]">
-         <ReviewsSection />
+      <div className="bg-[#0a0a0a] border-y border-[#333333]">
+         <div className="dark-theme-override">
+           <ReviewsSection isDark={true} />
+         </div>
       </div>
 
       {/* 7. Money Back Guarantee & Simple Routine */}
-      <section className="py-20 md:py-32 bg-[#f4f2ec]">
+      <section className="py-20 md:py-32 bg-[#141414]">
         <div className="container mx-auto px-4 max-w-4xl text-center space-y-16">
            
            {/* Guarantee */}
-           <div className="bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-[#eae6de] max-w-2xl mx-auto">
-             <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6">
-                <ShieldCheck className="w-8 h-8 text-green-600" />
+           <div className="bg-[#1a1a1a] p-8 md:p-12 rounded-3xl shadow-lg shadow-black/50 border border-[#D4AF37]/20 max-w-2xl mx-auto relative overflow-hidden">
+             <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4AF37]/5 blur-[50px] rounded-full pointer-events-none"></div>
+             <div className="w-16 h-16 bg-[#0a0a0a] border border-[#D4AF37]/30 rounded-full flex items-center justify-center mx-auto mb-6 relative z-10">
+                <ShieldCheck className="w-8 h-8 text-[#D4AF37]" />
              </div>
-             <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-4">30 يوم — أو فلوسك ترجع. بدون أسئلة.</h2>
-             <p className="text-gray-600 leading-relaxed">
+             <h2 className="text-2xl md:text-3xl font-black text-white mb-4 relative z-10">30 يوم — أو فلوسك ترجع. بدون أسئلة.</h2>
+             <p className="text-gray-400 leading-relaxed relative z-10">
                حنا واثقين تماماً من التركيبة. إذا استخدمت العلبة كاملة والتزمت بالروتين وما شفت فرق واضح في صحتك وحيويتك، فلوسك ترجع لك فوراً. استثمارك في أمان تام.
              </p>
            </div>
 
            {/* Routine */}
            <div>
-             <h2 className="text-2xl md:text-3xl font-black text-[#134e4a] mb-12">أبسط روتين عمرك جربته</h2>
+             <h2 className="text-2xl md:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#F3E5AB] via-[#D4AF37] to-[#B8860B] mb-12">أبسط روتين عمرك جربته</h2>
              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="bg-white p-6 rounded-2xl border border-[#eae6de]">
-                   <div className="font-black text-3xl text-[#134e4a] mb-2">2</div>
-                   <div className="font-bold text-gray-900 mb-1">حبة كل يوم</div>
+                <div className="bg-[#1a1a1a] p-6 rounded-2xl border border-[#333333] hover:border-[#D4AF37]/30 transition-colors">
+                   <div className="font-black text-3xl text-[#D4AF37] mb-2">2</div>
+                   <div className="font-bold text-gray-200 mb-1">حبة كل يوم</div>
                    <p className="text-xs text-gray-500">حبتين مع كوب ماء يومياً لنتائج مثالية.</p>
                 </div>
-                <div className="bg-white p-6 rounded-2xl border border-[#eae6de]">
-                   <div className="font-black text-3xl text-[#134e4a] mb-2">30</div>
-                   <div className="font-bold text-gray-900 mb-1">يومياً بدون انقطاع</div>
+                <div className="bg-[#1a1a1a] p-6 rounded-2xl border border-[#333333] hover:border-[#D4AF37]/30 transition-colors">
+                   <div className="font-black text-3xl text-[#D4AF37] mb-2">30</div>
+                   <div className="font-bold text-gray-200 mb-1">يومياً بدون انقطاع</div>
                    <p className="text-xs text-gray-500">الاستمرارية هي سر التغيير الجذري.</p>
                 </div>
-                <div className="bg-white p-6 rounded-2xl border border-[#eae6de]">
-                   <div className="font-black text-3xl text-[#134e4a] mb-2">+60</div>
-                   <div className="font-bold text-gray-900 mb-1">يوم للنتائج التامة</div>
+                <div className="bg-[#1a1a1a] p-6 rounded-2xl border border-[#333333] hover:border-[#D4AF37]/30 transition-colors">
+                   <div className="font-black text-3xl text-[#D4AF37] mb-2">+60</div>
+                   <div className="font-bold text-gray-200 mb-1">يوم للنتائج التامة</div>
                    <p className="text-xs text-gray-500">الكورس الكامل لشهرين يعطي أفضل نتيجة.</p>
                 </div>
-                <div className="bg-[#134e4a] text-white p-6 rounded-2xl flex flex-col justify-center items-center">
+                <div className="bg-gradient-to-br from-[#D4AF37] to-[#B8860B] text-[#0a0a0a] p-6 rounded-2xl flex flex-col justify-center items-center shadow-[0_0_15px_rgba(212,175,55,0.3)]">
                    <div className="font-black text-lg mb-1">استعد توازنك</div>
-                   <p className="text-xs text-white/80">ابدأ روتينك الجديد اليوم</p>
+                   <p className="text-xs font-bold opacity-80">ابدأ روتينك الجديد اليوم</p>
                 </div>
              </div>
            </div>
@@ -324,31 +330,33 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       </section>
 
       {/* 8. FAQ */}
-      <div className="bg-white border-b border-[#eae6de]">
-         <FAQSection />
+      <div className="bg-[#0a0a0a] border-b border-[#333333]">
+         <div className="dark-theme-override">
+           <FAQSection isDark={true} />
+         </div>
       </div>
 
       {/* 9. Cross-sells Section */}
-      <section className="py-20 md:py-32 bg-white">
+      <section className="py-20 md:py-32 bg-[#141414]">
         <div className="container mx-auto px-4 max-w-5xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-black text-gray-900">منتجات أخرى من أوريندا</h2>
-            <p className="text-gray-600 mt-3 font-medium">كل مشكلة تركيبة حلها متخصصة — اختر ما يناسبك</p>
+            <h2 className="text-3xl font-black text-white">منتجات أخرى من أوريندا</h2>
+            <p className="text-gray-400 mt-3 font-medium">كل مشكلة تركيبة حلها متخصصة — اختر ما يناسبك</p>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
             {crossSells.map((p) => (
-              <Link href={`/product/${p.slug}`} key={p.id} className="group bg-white rounded-3xl p-6 border border-gray-100 shadow-sm hover:shadow-xl transition-all flex flex-col">
-                <div className={`w-full aspect-square rounded-2xl bg-gradient-to-tr ${p.theme.from} ${p.theme.to} flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300 relative overflow-hidden mb-6`}>
-                  <div className="absolute inset-0 opacity-20 flex items-center justify-center text-8xl">{p.theme.icon}</div>
+              <Link href={`/product/${p.slug}`} key={p.id} className="group bg-[#1a1a1a] rounded-3xl p-6 border border-[#333333] shadow-lg shadow-black/50 hover:border-[#D4AF37]/40 hover:-translate-y-1 transition-all flex flex-col">
+                <div className={`w-full aspect-square rounded-2xl bg-[#0a0a0a] border border-[#333333] flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300 relative overflow-hidden mb-6`}>
+                  <div className="absolute inset-0 opacity-10 flex items-center justify-center text-8xl text-[#D4AF37]">{p.theme.icon}</div>
                   <Image src={p.image_url} alt={p.name_ar} fill className="object-contain p-8 relative z-10" />
                 </div>
                 <div className="flex-1 flex flex-col">
-                  <h4 className="text-xl font-bold text-gray-900 mb-2">{p.name_ar}</h4>
-                  <p className="text-sm text-gray-500 mb-6 line-clamp-2 leading-relaxed flex-1">{p.description_ar}</p>
+                  <h4 className="text-xl font-bold text-gray-200 mb-2">{p.name_ar}</h4>
+                  <p className="text-sm text-gray-400 mb-6 line-clamp-2 leading-relaxed flex-1">{p.description_ar}</p>
                   <div className="flex items-center justify-between mt-auto">
-                    <span className="font-black text-xl text-[#134e4a]">{p.price} ر.ق</span>
-                    <span className="text-sm font-bold bg-[#f4f2ec] text-[#134e4a] px-4 py-2 rounded-xl group-hover:bg-[#134e4a] group-hover:text-white transition-colors">
+                    <span className="font-black text-xl text-[#D4AF37]">{p.price} ر.ق</span>
+                    <span className="text-sm font-bold bg-[#0a0a0a] border border-[#D4AF37]/30 text-[#D4AF37] px-4 py-2 rounded-xl group-hover:bg-gradient-to-r group-hover:from-[#D4AF37] group-hover:to-[#B8860B] group-hover:text-[#0a0a0a] transition-all">
                       اكتشف المزيد
                     </span>
                   </div>
@@ -360,12 +368,12 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       </section>
 
       {/* Sticky Bottom Bar */}
-      <div className="fixed bottom-0 inset-x-0 bg-[#134e4a] text-white z-50 border-t border-[#0f3d3a] shadow-[0_-10px_40px_-10px_rgba(0,0,0,0.2)]">
+      <div className="fixed bottom-0 inset-x-0 bg-[#0a0a0a]/95 backdrop-blur-md text-white z-50 border-t border-[#D4AF37]/20 shadow-[0_-10px_40px_-10px_rgba(0,0,0,0.5)]">
         <div className="container mx-auto px-4 max-w-6xl py-3 flex justify-between items-center">
           
           {/* Right side: Product Info */}
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-lg bg-white p-1 hidden sm:block flex-shrink-0">
+            <div className="w-12 h-12 rounded-lg bg-[#1a1a1a] border border-[#333333] p-1 hidden sm:block flex-shrink-0">
               <Image 
                 src={product.image_url} 
                 alt={product.name_ar}
@@ -375,15 +383,15 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               />
             </div>
             <div>
-              <div className="font-bold text-sm md:text-base line-clamp-1">{product.name_ar}</div>
-              <div className="text-xs text-white/80 font-medium mt-0.5" dir="rtl">يبدأ من 199 ريال قطري • الدفع عند الاستلام</div>
+              <div className="font-bold text-sm md:text-base line-clamp-1 text-white">{product.name_ar}</div>
+              <div className="text-xs text-[#D4AF37] font-medium mt-0.5" dir="rtl">يبدأ من 199 ريال قطري • الدفع عند الاستلام</div>
             </div>
           </div>
 
           {/* Left side: Button */}
           <a 
             href="#"
-            className="px-5 py-2.5 md:px-8 md:py-3 bg-white text-[#134e4a] font-bold rounded-xl shadow-lg hover:bg-gray-50 transition-colors flex items-center gap-2 text-sm md:text-base flex-shrink-0"
+            className="px-5 py-2.5 md:px-8 md:py-3 bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-[#0a0a0a] font-black rounded-xl shadow-[0_0_15px_rgba(212,175,55,0.3)] hover:opacity-90 transition-opacity flex items-center gap-2 text-sm md:text-base flex-shrink-0"
           >
             <ChevronDown className="w-4 h-4 rotate-180" />
             ابدأ روتينك الآن

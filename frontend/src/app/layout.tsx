@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl" className="scroll-smooth">
-      <body className={`${tajawal.variable} font-sans antialiased text-gray-900 bg-[#FAFAFA] flex flex-col min-h-screen`}>
+      <body className={`${tajawal.variable} font-sans antialiased text-gray-200 bg-[#0a0a0a] flex flex-col min-h-screen selection:bg-[#D4AF37]/30 selection:text-[#F3E5AB]`}>
         <StoreShell>{children}</StoreShell>
       </body>
     </html>

@@ -22,7 +22,7 @@ export function ProductOptions({ product }: { product: Product }) {
   return (
     <div className="mt-8">
       <div className="flex items-center gap-2 mb-4">
-        <span className="text-gray-500 font-bold">اختر العرض:</span>
+        <span className="text-gray-400 font-bold">اختر العرض:</span>
       </div>
 
       <div className="space-y-3 mb-6">
@@ -33,20 +33,20 @@ export function ProductOptions({ product }: { product: Product }) {
               key={index}
               onClick={() => setSelectedBundle(bundle)}
               className={`relative border-2 rounded-2xl p-4 cursor-pointer transition-all flex items-center justify-between
-                ${isSelected ? 'border-primary bg-primary/5' : 'border-gray-100 hover:border-gray-200 bg-white'}
+                ${isSelected ? 'border-[#D4AF37] bg-[#D4AF37]/5' : 'border-[#333333] hover:border-[#D4AF37]/30 bg-[#141414]'}
               `}
             >
               <div className="flex items-center gap-4">
                 <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center
-                  ${isSelected ? 'border-primary' : 'border-gray-300'}
+                  ${isSelected ? 'border-[#D4AF37]' : 'border-gray-500'}
                 `}>
-                  {isSelected && <div className="w-2.5 h-2.5 rounded-full bg-primary" />}
+                  {isSelected && <div className="w-2.5 h-2.5 rounded-full bg-[#D4AF37]" />}
                 </div>
                 <div>
-                  <div className="font-bold text-gray-900">{bundle.title}</div>
+                  <div className="font-bold text-gray-200">{bundle.title}</div>
                   {bundle.label && (
                     <div className={`text-xs font-bold px-2 py-0.5 rounded mt-1 inline-block
-                      ${bundle.highlight ? 'bg-amber-100 text-amber-800' : 'bg-gray-100 text-gray-600'}
+                      ${bundle.highlight ? 'bg-[#D4AF37]/20 text-[#D4AF37]' : 'bg-[#333333] text-gray-400'}
                     `}>
                       {bundle.label}
                     </div>
@@ -54,7 +54,7 @@ export function ProductOptions({ product }: { product: Product }) {
                 </div>
               </div>
               <div className="text-left">
-                <div className="font-black text-xl text-gray-900">{bundle.price}</div>
+                <div className="font-black text-xl text-[#D4AF37]">{bundle.price}</div>
                 <div className="text-xs text-gray-500 font-medium">ريال قطري</div>
               </div>
             </div>
@@ -64,15 +64,15 @@ export function ProductOptions({ product }: { product: Product }) {
 
       <button 
         onClick={handleAddToCart}
-        className="w-full flex items-center justify-center gap-2 px-8 py-5 bg-[#134e4a] text-white font-bold text-xl rounded-2xl hover:bg-[#0f3d3a] transition-all shadow-lg shadow-[#134e4a]/20 transform hover:scale-[1.02]"
+        className="w-full flex items-center justify-center gap-2 px-8 py-5 bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-[#0a0a0a] font-black text-xl rounded-2xl hover:opacity-90 transition-all shadow-[0_0_20px_rgba(212,175,55,0.3)] transform hover:scale-[1.02]"
       >
         <ShoppingBag className="w-6 h-6" />
         أكمل روتينك بـ {selectedBundle.price} ر.ق
       </button>
 
-      <div className="flex justify-center items-center gap-4 mt-4 text-xs font-bold text-gray-400">
-        <span className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-green-500" /> مرخص من هيئة الغذاء والدواء</span>
-        <span className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-green-500" /> الدفع عند الاستلام</span>
+      <div className="flex justify-center items-center gap-4 mt-4 text-xs font-bold text-gray-500">
+        <span className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-[#D4AF37]" /> مرخص من هيئة الغذاء والدواء</span>
+        <span className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-[#D4AF37]" /> الدفع عند الاستلام</span>
       </div>
     </div>
   );
