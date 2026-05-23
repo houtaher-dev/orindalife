@@ -77,22 +77,22 @@ export function FAQSection() {
         </div>
 
         {/* Trust Badges */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-          <div className="bg-white rounded-xl border border-gray-100 py-3 px-2 flex items-center justify-center gap-2 shadow-sm">
-            <span className="text-xs font-bold text-gray-800">مرخّص SFDA</span>
+        <div className="flex flex-wrap items-center justify-center gap-3 mb-8" dir="rtl">
+          <div className="bg-white rounded-xl border border-gray-100 py-3 px-4 flex items-center justify-center gap-2 shadow-sm">
             <ShieldCheck className="w-4 h-4 text-[#134e4a]" />
+            <span className="text-xs font-bold text-gray-800">مرخّص SFDA</span>
           </div>
-          <div className="bg-white rounded-xl border border-gray-100 py-3 px-2 flex items-center justify-center gap-2 shadow-sm">
-            <span className="text-xs font-bold text-gray-800">حلال 100%</span>
+          <div className="bg-white rounded-xl border border-gray-100 py-3 px-4 flex items-center justify-center gap-2 shadow-sm">
             <CheckCircle2 className="w-4 h-4 text-[#134e4a]" />
+            <span className="text-xs font-bold text-gray-800">حلال 100%</span>
           </div>
-          <div className="bg-white rounded-xl border border-gray-100 py-3 px-2 flex items-center justify-center gap-2 shadow-sm">
-            <span className="text-xs font-bold text-gray-800">شحن مجاني</span>
+          <div className="bg-white rounded-xl border border-gray-100 py-3 px-4 flex items-center justify-center gap-2 shadow-sm">
             <Truck className="w-4 h-4 text-[#134e4a]" />
+            <span className="text-xs font-bold text-gray-800">شحن مجاني</span>
           </div>
-          <div className="bg-white rounded-xl border border-gray-100 py-3 px-2 flex items-center justify-center gap-2 shadow-sm">
-            <span className="text-xs font-bold text-gray-800">ضمان 30 يوم</span>
+          <div className="bg-white rounded-xl border border-gray-100 py-3 px-4 flex items-center justify-center gap-2 shadow-sm">
             <CheckCircle className="w-4 h-4 text-[#134e4a]" />
+            <span className="text-xs font-bold text-gray-800">ضمان 30 يوم</span>
           </div>
         </div>
 

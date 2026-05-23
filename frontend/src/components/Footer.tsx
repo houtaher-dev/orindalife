@@ -6,13 +6,13 @@ export function Footer() {
   return (
     <footer className="bg-gray-900 text-white pt-20 pb-10">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-4 gap-12 mb-16">
-          <div className="md:col-span-2">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-16">
+          <div className="flex-1 text-center md:text-right">
             <h3 className="text-2xl font-bold mb-4">أوريندا الحياة <span className="text-gray-500 font-normal">Orendalife</span></h3>
-            <p className="text-gray-400 mb-6 max-w-sm leading-relaxed">
+            <p className="text-gray-400 mb-6 leading-relaxed">
               صيدلية الصحة والتوازن. منتجات سريرية حلال مرخّصة من هيئة الغذاء والدواء (SFDA)، بأبحاث منشورة، لراحة عملائنا في قطر.
             </p>
-            <div className="flex gap-4">
+            <div className="flex flex-wrap justify-center md:justify-start gap-4">
               <div className="flex items-center gap-1.5 bg-gray-800 px-3 py-1.5 rounded text-xs font-medium text-gray-300">
                 <ShieldCheck className="w-4 h-4 text-green-400" />
                 SFDA
@@ -26,7 +26,7 @@ export function Footer() {
             </div>
           </div>
 
-          <div>
+          <div className="flex-1 text-center md:text-right">
             <h4 className="font-bold mb-4 text-lg">المنتجات</h4>
             <ul className="space-y-3 text-gray-400">
               <li><Link href="/#products" className="hover:text-white transition-colors">المجموعة الكاملة</Link></li>
@@ -36,7 +36,7 @@ export function Footer() {
             </ul>
           </div>
 
-          <div>
+          <div className="flex-1 text-center md:text-right">
             <h4 className="font-bold mb-4 text-lg">الدعم</h4>
             <ul className="space-y-3 text-gray-400">
               <li><Link href="/contact" className="hover:text-white transition-colors">تواصل معنا</Link></li>
