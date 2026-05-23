@@ -66,7 +66,7 @@ export default function ThankYouPage() {
             <Package className="w-4 h-4" />
             <span>رقم الطلب:</span>
             {orderReference ? (
-              <span className="font-bold text-gray-900 tracking-wider" dir="ltr">NAMA-{orderReference}</span>
+              <span className="font-bold text-gray-900 tracking-wider" dir="ltr">ORD-{orderReference}</span>
             ) : (
               <span className="inline-block h-4 w-20 bg-gray-200/80 rounded align-middle animate-pulse" aria-hidden />
             )}
@@ -80,9 +80,9 @@ export default function ThankYouPage() {
         <div className="bg-gradient-to-br from-[#f8fcfb] to-[#eef7f6] rounded-3xl p-6 border border-[#e2f0ef] shadow-sm">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-center md:text-right">
-              <p className="text-[#b5952f] font-bold text-sm mb-1">استراحة فريق ناما الآن</p>
+              <p className="text-[#b5952f] font-bold text-sm mb-1">استراحة فريق أوريندا الآن</p>
               <h3 className="font-black text-gray-900 text-lg md:text-xl">
-                بنتصل عليك صباح اليوم من الساعة 9 (بتوقيت الرياض)
+                بنتصل عليك صباح اليوم من الساعة 9 (بتوقيت الدوحة)
               </h3>
             </div>
             <div className="bg-[#134e4a] p-4 rounded-2xl shadow-lg shadow-[#134e4a]/20 text-white shrink-0">
@@ -198,7 +198,7 @@ export default function ThankYouPage() {
         {/* Expected Results Box */}
         <div className="bg-[#f8fcfb] rounded-3xl p-6 border border-[#e2f0ef] shadow-sm">
           <div className="flex items-center justify-end gap-2 mb-6">
-            <h3 className="font-black text-[#134e4a] text-lg">نتيجتك المتوقعة مع روتين الشباب • Nama Youth</h3>
+            <h3 className="font-black text-[#134e4a] text-lg">نتيجتك المتوقعة مع روتين أوريندا</h3>
             <Star className="w-5 h-5 text-[#b5952f]" />
           </div>
 
