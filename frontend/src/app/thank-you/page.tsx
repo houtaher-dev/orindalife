@@ -365,46 +365,46 @@ export default function ThankYouPage() {
 
       {/* Trust Banner */}
       <div className="border-t border-gray-200 bg-white mt-auto">
-        <div className="container mx-auto px-4 max-w-6xl py-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4" dir="rtl">
+        <div className="container mx-auto px-4 max-w-6xl py-6 md:py-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4" dir="rtl">
             
-            <div className="bg-[#fdfbf7] border border-[#f0eadd] rounded-2xl p-4 flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-[#eef7f6] border border-[#e2f0ef] flex items-center justify-center shrink-0">
-                <Truck className="w-6 h-6 text-[#134e4a]" />
+            <div className="bg-[#fdfbf7] border border-[#f0eadd] rounded-2xl p-3 md:p-4 flex flex-col md:flex-row items-center gap-2 md:gap-4 text-center md:text-right">
+              <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-[#eef7f6] border border-[#e2f0ef] flex items-center justify-center shrink-0">
+                <Truck className="w-5 h-5 md:w-6 md:h-6 text-[#134e4a]" />
               </div>
-              <div className="text-right flex-1">
-                <h4 className="font-bold text-gray-900 text-sm mb-1">شحن سريع داخل قطر</h4>
-                <p className="text-xs text-gray-500">توصيل من 1 إلى 3 أيام عمل لجميع المناطق</p>
-              </div>
-            </div>
-
-            <div className="bg-[#fdfbf7] border border-[#f0eadd] rounded-2xl p-4 flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-[#eef7f6] border border-[#e2f0ef] flex items-center justify-center shrink-0">
-                <HandCoins className="w-6 h-6 text-[#134e4a]" />
-              </div>
-              <div className="text-right flex-1">
-                <h4 className="font-bold text-gray-900 text-sm mb-1">الدفع عند الاستلام</h4>
-                <p className="text-xs text-gray-500">ادفعوا بعد ما يوصلكم الطلب لباب البيت</p>
+              <div className="flex-1">
+                <h4 className="font-bold text-gray-900 text-xs md:text-sm mb-0.5 md:mb-1">شحن سريع داخل قطر</h4>
+                <p className="text-[10px] md:text-xs text-gray-500 leading-tight">توصيل من 1 إلى 3 أيام عمل لجميع المناطق</p>
               </div>
             </div>
 
-            <div className="bg-[#fdfbf7] border border-[#f0eadd] rounded-2xl p-4 flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-[#eef7f6] border border-[#e2f0ef] flex items-center justify-center shrink-0">
-                <ShieldCheck className="w-6 h-6 text-[#134e4a]" />
+            <div className="bg-[#fdfbf7] border border-[#f0eadd] rounded-2xl p-3 md:p-4 flex flex-col md:flex-row items-center gap-2 md:gap-4 text-center md:text-right">
+              <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-[#eef7f6] border border-[#e2f0ef] flex items-center justify-center shrink-0">
+                <HandCoins className="w-5 h-5 md:w-6 md:h-6 text-[#134e4a]" />
               </div>
-              <div className="text-right flex-1">
-                <h4 className="font-bold text-gray-900 text-sm mb-1">ضمان استرجاع 30 يوم</h4>
-                <p className="text-xs text-gray-500">ما حسيتوا بفرق؟ نرجع لكم المبلغ كامل</p>
+              <div className="flex-1">
+                <h4 className="font-bold text-gray-900 text-xs md:text-sm mb-0.5 md:mb-1">الدفع عند الاستلام</h4>
+                <p className="text-[10px] md:text-xs text-gray-500 leading-tight">ادفعوا بعد ما يوصلكم الطلب لباب البيت</p>
               </div>
             </div>
 
-            <div className="bg-[#fdfbf7] border border-[#f0eadd] rounded-2xl p-4 flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-[#eef7f6] border border-[#e2f0ef] flex items-center justify-center shrink-0">
-                <BadgeCheck className="w-6 h-6 text-[#134e4a]" />
+            <div className="bg-[#fdfbf7] border border-[#f0eadd] rounded-2xl p-3 md:p-4 flex flex-col md:flex-row items-center gap-2 md:gap-4 text-center md:text-right">
+              <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-[#eef7f6] border border-[#e2f0ef] flex items-center justify-center shrink-0">
+                <ShieldCheck className="w-5 h-5 md:w-6 md:h-6 text-[#134e4a]" />
               </div>
-              <div className="text-right flex-1">
-                <h4 className="font-bold text-gray-900 text-sm mb-1">مرخّص من SFDA • حلال 100%</h4>
-                <p className="text-xs text-gray-500">تركيبات مفحوصة من هيئة الغذاء والدواء</p>
+              <div className="flex-1">
+                <h4 className="font-bold text-gray-900 text-xs md:text-sm mb-0.5 md:mb-1">ضمان استرجاع 30 يوم</h4>
+                <p className="text-[10px] md:text-xs text-gray-500 leading-tight">ما حسيتوا بفرق؟ نرجع لكم المبلغ كامل</p>
+              </div>
+            </div>
+
+            <div className="bg-[#fdfbf7] border border-[#f0eadd] rounded-2xl p-3 md:p-4 flex flex-col md:flex-row items-center gap-2 md:gap-4 text-center md:text-right">
+              <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-[#eef7f6] border border-[#e2f0ef] flex items-center justify-center shrink-0">
+                <BadgeCheck className="w-5 h-5 md:w-6 md:h-6 text-[#134e4a]" />
+              </div>
+              <div className="flex-1">
+                <h4 className="font-bold text-gray-900 text-xs md:text-sm mb-0.5 md:mb-1">مرخّص من SFDA • حلال 100%</h4>
+                <p className="text-[10px] md:text-xs text-gray-500 leading-tight">تركيبات مفحوصة من هيئة الغذاء والدواء</p>
               </div>
             </div>
 
