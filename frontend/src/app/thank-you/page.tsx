@@ -59,7 +59,7 @@ export default function ThankYouPage() {
           )}
 
           <h1 className="text-2xl md:text-3xl font-black text-[#134e4a] flex items-center justify-center gap-3">
-            طلبك محجوز — في انتظار تأكيدك
+            طلبكم محجوز — في انتظار تأكيدكم
           </h1>
           
           <div className="flex items-center justify-center gap-2 mt-4 text-gray-500 font-medium text-sm">
@@ -82,7 +82,7 @@ export default function ThankYouPage() {
             <div className="text-center md:text-right">
               <p className="text-[#b5952f] font-bold text-sm mb-1">استراحة فريق أوريندا الآن</p>
               <h3 className="font-black text-gray-900 text-lg md:text-xl">
-                بنتصل عليك صباح اليوم من الساعة 9 (بتوقيت الدوحة)
+                بنتصل عليكم صباح اليوم من الساعة 9 (بتوقيت الدوحة)
               </h3>
             </div>
             <div className="bg-[#134e4a] p-4 rounded-2xl shadow-lg shadow-[#134e4a]/20 text-white shrink-0">
@@ -135,7 +135,7 @@ export default function ThankYouPage() {
             <div className="space-y-6">
               <div className="flex items-start justify-end gap-3">
                 <div>
-                  <p className="text-gray-600 font-medium text-sm">موظفة تتكلم بهدوء — مو رجال.</p>
+                  <p className="text-gray-600 font-medium text-sm">فريق متخصص يتكلم بهدوء.</p>
                 </div>
                 <div className="text-gray-400 mt-0.5"><CheckCircle2 className="w-5 h-5" /></div>
               </div>
@@ -151,28 +151,19 @@ export default function ThankYouPage() {
 
         {/* Order Journey Timeline */}
         <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm overflow-hidden">
-          <h3 className="font-black text-gray-900 text-xl text-right mb-8">رحلة طلبك</h3>
+          <h3 className="font-black text-gray-900 text-xl text-right mb-8">رحلة طلبكم</h3>
           
-          <div className="relative flex justify-between items-start">
+          <div className="relative flex justify-between items-start flex-row-reverse">
             {/* Connecting Line */}
             <div className="absolute top-6 left-[10%] right-[10%] h-0.5 bg-gray-100 -z-10"></div>
             
-            {/* Step 4 */}
+            {/* Step 1 */}
             <div className="flex flex-col items-center text-center w-1/4">
-              <div className="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center mb-3 border-2 border-white shadow-sm">
-                <Truck className="w-5 h-5 text-[#134e4a]" />
+              <div className="w-12 h-12 rounded-full bg-[#134e4a] flex items-center justify-center mb-3 border-2 border-white shadow-sm">
+                <CheckCircle2 className="w-5 h-5 text-white" />
               </div>
-              <h4 className="font-black text-gray-900 text-sm mb-1">خلال 2-4 أيام</h4>
-              <p className="text-xs text-gray-500 leading-relaxed">يصلكم مع المندوب — تدفعون كاش/شبكة</p>
-            </div>
-
-            {/* Step 3 */}
-            <div className="flex flex-col items-center text-center w-1/4">
-              <div className="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center mb-3 border-2 border-white shadow-sm">
-                <Package className="w-5 h-5 text-[#134e4a]" />
-              </div>
-              <h4 className="font-black text-gray-900 text-sm mb-1">خلال 24 ساعة</h4>
-              <p className="text-xs text-gray-500 leading-relaxed">شحن من مستودعنا + رقم تتبع على الواتساب</p>
+              <h4 className="font-black text-gray-900 text-sm mb-1">الآن</h4>
+              <p className="text-xs text-gray-500 leading-relaxed">استلمنا طلبكم بنجاح</p>
             </div>
 
             {/* Step 2 */}
@@ -184,13 +175,22 @@ export default function ThankYouPage() {
               <p className="text-xs text-gray-500 leading-relaxed">مكالمة تأكيد سريعة (دقيقتين)</p>
             </div>
 
-            {/* Step 1 */}
+            {/* Step 3 */}
             <div className="flex flex-col items-center text-center w-1/4">
-              <div className="w-12 h-12 rounded-full bg-[#134e4a] flex items-center justify-center mb-3 border-2 border-white shadow-sm">
-                <CheckCircle2 className="w-5 h-5 text-white" />
+              <div className="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center mb-3 border-2 border-white shadow-sm">
+                <Package className="w-5 h-5 text-[#134e4a]" />
               </div>
-              <h4 className="font-black text-gray-900 text-sm mb-1">الآن</h4>
-              <p className="text-xs text-gray-500 leading-relaxed">استلمنا طلبك بنجاح</p>
+              <h4 className="font-black text-gray-900 text-sm mb-1">خلال 24 ساعة</h4>
+              <p className="text-xs text-gray-500 leading-relaxed">شحن من مستودعنا + رقم تتبع على الواتساب</p>
+            </div>
+
+            {/* Step 4 */}
+            <div className="flex flex-col items-center text-center w-1/4">
+              <div className="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center mb-3 border-2 border-white shadow-sm">
+                <Truck className="w-5 h-5 text-[#134e4a]" />
+              </div>
+              <h4 className="font-black text-gray-900 text-sm mb-1">خلال 2-4 أيام</h4>
+              <p className="text-xs text-gray-500 leading-relaxed">يصلكم مع المندوب — تدفعون كاش/شبكة</p>
             </div>
           </div>
         </div>
@@ -198,7 +198,7 @@ export default function ThankYouPage() {
         {/* Expected Results Box */}
         <div className="bg-[#f8fcfb] rounded-3xl p-6 border border-[#e2f0ef] shadow-sm">
           <div className="flex items-center justify-end gap-2 mb-6">
-            <h3 className="font-black text-[#134e4a] text-lg">نتيجتك المتوقعة مع روتين أوريندا</h3>
+            <h3 className="font-black text-[#134e4a] text-lg">نتيجتكم المتوقعة مع روتين أوريندا</h3>
             <Star className="w-5 h-5 text-[#b5952f]" />
           </div>
 
@@ -207,7 +207,7 @@ export default function ThankYouPage() {
             <div className="relative flex justify-end items-start gap-4">
               <div className="text-right pt-1">
                 <h4 className="font-black text-gray-900 text-base mb-1">أول 7 أيام</h4>
-                <p className="text-sm text-gray-600 leading-relaxed">نضارة ولمعان واضحين من اليوم الثالث، بشرتك أصفى وأنعم، والمكياج يثبت أحسن. مضادات الأكسدة بدأت تشتغل من اليوم الأول.</p>
+                <p className="text-sm text-gray-600 leading-relaxed">نضارة ولمعان واضحين من اليوم الثالث، بشرتكم أصفى وأنعم، والمكياج يثبت أحسن. مضادات الأكسدة بدأت تشتغل من اليوم الأول.</p>
               </div>
               <div className="w-8 h-8 rounded-full bg-[#134e4a] text-white font-bold flex items-center justify-center shrink-0 z-10 border-4 border-[#f8fcfb]">1</div>
             </div>
@@ -216,7 +216,7 @@ export default function ThankYouPage() {
             <div className="relative flex justify-end items-start gap-4">
               <div className="text-right pt-1">
                 <h4 className="font-black text-gray-900 text-base mb-1">الأسبوع الثاني</h4>
-                <p className="text-sm text-gray-600 leading-relaxed">الخطوط الدقيقة حول العين تخف بشكل ملحوظ، علامات الإرهاق تختفي، والبشرة ممتلئة أكثر. تبدأ التعليقات: «وجهك مرتاح اليوم».</p>
+                <p className="text-sm text-gray-600 leading-relaxed">الخطوط الدقيقة حول العين تخف بشكل ملحوظ، علامات الإرهاق تختفي، والبشرة ممتلئة أكثر. تبدأ التعليقات: «وجهكم مرتاح اليوم».</p>
               </div>
               <div className="w-8 h-8 rounded-full bg-[#134e4a] text-white font-bold flex items-center justify-center shrink-0 z-10 border-4 border-[#f8fcfb]">2</div>
             </div>
@@ -239,7 +239,7 @@ export default function ThankYouPage() {
         {/* Preparation / Unboxing Box */}
         <div className="bg-[#fdfbf7] rounded-3xl p-6 border border-[#f0eadd] shadow-sm">
           <div className="flex items-center justify-end gap-2 mb-6">
-            <h3 className="font-black text-gray-900 text-lg">حضّري لاستلامه</h3>
+            <h3 className="font-black text-gray-900 text-lg">استعدوا لاستلامه</h3>
             <Star className="w-5 h-5 text-[#b5952f]" />
           </div>
 
@@ -249,7 +249,7 @@ export default function ThankYouPage() {
                 <Package className="w-5 h-5" />
               </div>
               <h4 className="font-black text-gray-900 text-sm mb-2">تغليف ذهبي فاخر</h4>
-              <p className="text-xs text-gray-500 leading-relaxed">يجيك في علبة بتصميم apothecary مع بطاقة تعليمات شخصية بخط اليد.</p>
+              <p className="text-xs text-gray-500 leading-relaxed">يصلكم في علبة بتصميم apothecary مع بطاقة تعليمات شخصية بخط اليد.</p>
             </div>
             
             <div className="bg-white p-5 rounded-2xl border border-gray-100 text-center shadow-sm">
