@@ -77,31 +77,66 @@ export default function ThankYouPage() {
 
       <div className="container mx-auto px-4 max-w-2xl space-y-6">
         
-        {/* Call Info Box */}
-        <div className="bg-gradient-to-br from-[#f8fcfb] to-[#eef7f6] rounded-3xl p-6 border border-[#e2f0ef] shadow-sm">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="text-center md:text-right">
-              <p className="text-[#b5952f] font-bold text-sm mb-1">استراحة فريق أوريندا الآن</p>
-              <h3 className="font-black text-gray-900 text-lg md:text-xl">
-                بنتصل عليكم صباح اليوم من الساعة 9 (بتوقيت الدوحة)
-              </h3>
+        {/* Order Summary Box */}
+        <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="bg-[#fdfbf7] p-2 rounded-xl text-[#b5952f]">
+              <ShoppingBag className="w-6 h-6" />
             </div>
-            <div className="bg-[#134e4a] p-4 rounded-2xl shadow-lg shadow-[#134e4a]/20 text-white shrink-0">
-              <PhoneCall className="w-8 h-8 animate-pulse" />
-            </div>
+            <h3 className="font-black text-gray-900 text-xl">ملخص الطلبية</h3>
           </div>
+
+          {lastOrder ? (
+            <div className="space-y-4">
+              {lastOrder.items.map((item, index) => (
+                <div key={index} className="flex items-center justify-between py-3 border-b border-gray-50 last:border-0">
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 bg-gray-50 rounded-xl relative overflow-hidden flex-shrink-0 border border-gray-100">
+                      <Image src={item.product.image_url} alt={item.product.name_ar} fill className="object-contain p-2" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-gray-900 text-sm">{item.product.name_ar}</h4>
+                      <p className="text-xs text-gray-500 mt-1">الكمية: {item.quantity}</p>
+                    </div>
+                  </div>
+                  <div className="text-left">
+                    <span className="font-black text-[#134e4a]">{item.bundlePrice * item.quantity}</span>
+                    <span className="text-xs text-gray-500 mr-1">ر.ق</span>
+                  </div>
+                </div>
+              ))}
+              
+              <div className="pt-4 mt-2">
+                <div className="flex items-center justify-between mb-2 text-sm text-gray-600">
+                  <span>الشحن</span>
+                  <span className="font-bold text-green-600">مجاني</span>
+                </div>
+                <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                  <span className="font-black text-gray-900">الإجمالي</span>
+                  <div className="text-left">
+                    <span className="font-black text-xl text-[#134e4a]">{lastOrder.total}</span>
+                    <span className="text-sm text-gray-500 mr-1 font-bold">ر.ق</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="text-center py-6 text-gray-500 text-sm">
+              جاري تحميل تفاصيل الطلب...
+            </div>
+          )}
           
           {lastOrder && (
-            <div className="mt-6 bg-white rounded-xl p-4 border border-gray-100 flex items-center justify-between">
-              <button className="flex items-center gap-2 text-[#134e4a] bg-gray-50 px-4 py-2 rounded-lg font-bold text-sm hover:bg-gray-100 transition-colors">
-                <span className="transform rotate-90">✎</span>
-                الرقم غلط؟ عدّله
-              </button>
+            <div className="mt-6 bg-gray-50 rounded-xl p-4 border border-gray-100 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <span className="font-bold text-gray-900 text-lg tracking-wider" dir="ltr">{lastOrder.phone || "تم الحفظ"}</span>
-                <span className="text-gray-500 text-sm">بنتصل على:</span>
                 <PhoneCall className="w-4 h-4 text-gray-400" />
+                <span className="text-gray-500 text-sm">رقم التواصل:</span>
+                <span className="font-bold text-gray-900 text-lg tracking-wider" dir="ltr">{lastOrder.phone || "تم الحفظ"}</span>
               </div>
+              <button className="flex items-center gap-2 text-[#134e4a] bg-white px-4 py-2 rounded-lg font-bold text-sm hover:bg-gray-50 transition-colors border border-gray-200 shadow-sm">
+                <span className="transform -rotate-90">✎</span>
+                تعديل
+              </button>
             </div>
           )}
         </div>
@@ -172,7 +207,7 @@ export default function ThankYouPage() {
               <div className="w-12 h-12 rounded-full bg-[#8ba8a6] flex items-center justify-center mb-3 border-2 border-white shadow-sm ring-4 ring-[#8ba8a6]/20">
                 <PhoneCall className="w-5 h-5 text-white" />
               </div>
-              <h4 className="font-black text-gray-900 text-sm mb-1">صباح اليوم 9</h4>
+              <h4 className="font-black text-gray-900 text-sm mb-1">في أقرب وقت</h4>
               <p className="text-xs text-gray-500 leading-relaxed">مكالمة تأكيد سريعة (دقيقتين)</p>
             </div>
 
