@@ -1,32 +1,28 @@
 "use client";
 
 import React, { useState } from "react";
-import { Plus, Minus } from "lucide-react";
+import { Plus, Minus, ShieldCheck, CheckCircle2, Truck, CheckCircle } from "lucide-react";
 
 const FAQS = [
   {
-    question: "هل المنتجات مرخصة من هيئة الغذاء والدواء؟",
-    answer: "نعم، جميع منتجات أوريندا مرخصة ومعتمدة من هيئة الغذاء والدواء (SFDA) ومطابقة لأعلى معايير الجودة."
+    question: "وش لو الرقم اللي أدخلته غلط؟",
+    answer: "لا تشيل هم، تقدر تعدل رقمك بسهولة من صفحة تأكيد الطلب اللي تظهر لك بعد إتمام الشراء، أو تواصل معنا على الواتساب."
   },
   {
-    question: "هل الدفع عند الاستلام متاح لجميع مدن قطر؟",
-    answer: "نعم، نوفر خدمة الدفع عند الاستلام (Cash on Delivery) لجميع مناطق ومدن دولة قطر لتسهيل عملية الشراء."
+    question: "ليش يتصل عليّ رقم قطري ما أعرفه؟",
+    answer: "هذا فريق خدمة العملاء في أوريندا، نتصل بك لتأكيد تفاصيل عنوانك وموعد الاستلام المناسب لك لضمان وصول طلبك بأسرع وقت."
   },
   {
-    question: "هل المنتجات حلال وبدون جيلاتين حيواني؟",
-    answer: "بالتأكيد، منتجاتنا نباتية 100% وخالية تماماً من الجيلاتين الحيواني ومناسبة للنباتيين."
+    question: "أقدر ألغي الطلب أو أعدّله؟",
+    answer: "أكيد! تقدر تلغي أو تعدل طلبك بكل سهولة أثناء مكالمة التأكيد مع موظف خدمة العملاء، أو عبر التواصل معنا على الواتساب قبل شحن الطلب."
   },
   {
-    question: "كم يستغرق التوصيل في قطر؟",
-    answer: "يستغرق التوصيل عادةً من 1 إلى 3 أيام عمل لجميع مناطق قطر عبر شركات شحن موثوقة."
+    question: "كم رسوم الشحن؟",
+    answer: "الشحن مجاني تماماً لجميع مناطق ومدن دولة قطر. ما تدفع أي رسوم إضافية غير قيمة المنتج."
   },
   {
-    question: "ما هو ضمان الاسترجاع؟",
-    answer: "نقدم ضماناً ذهبياً لمدة 30 يوماً. إذا لم تكن راضياً عن النتائج، يمكنك استرجاع المبلغ بالكامل بدون أي تعقيدات."
-  },
-  {
-    question: "متى سألاحظ النتيجة؟",
-    answer: "تختلف النتائج من شخص لآخر، ولكن معظم عملائنا يلاحظون تحسناً ملحوظاً خلال الأسبوع الأول من الاستخدام المنتظم."
+    question: "متى تصلني الفاتورة الضريبية؟",
+    answer: "تصلك الفاتورة الضريبية إلكترونياً عبر الإيميل أو الواتساب فور استلامك للطلب والدفع للمندوب."
   }
 ];
 
@@ -38,54 +34,66 @@ export function FAQSection() {
   };
 
   return (
-    <section className="py-12 bg-white">
-      <div className="container mx-auto px-4 max-w-3xl">
+    <section className="py-2">
+      <div className="w-full">
         
-        <div className="text-center mb-16">
-          <h2 className="text-xs font-black tracking-[0.2em] text-gray-400 uppercase mb-4">
-            FAQ
-          </h2>
-          <h3 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">
-            أسئلة قبل الطلب
+        <div className="text-center mb-10">
+          <h3 className="text-xl font-black text-gray-900">
+            أسئلة سريعة
           </h3>
-          <p className="text-gray-500 text-lg font-medium">
-            كل اللي تحتاجين وتعرفين تعرفه قبل ما تدفع أي ريال
-          </p>
         </div>
 
-        <div className="space-y-4">
+        <div className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden mb-8">
           {FAQS.map((faq, index) => (
             <div 
               key={index}
-              className={`border rounded-2xl transition-all duration-300 overflow-hidden ${
-                openIndex === index ? "border-[#134e4a] bg-gray-50/50 shadow-sm" : "border-gray-100 hover:border-gray-200 bg-white"
+              className={`border-b border-gray-100 last:border-0 transition-all duration-300 ${
+                openIndex === index ? "bg-gray-50/50" : "bg-white hover:bg-gray-50/30"
               }`}
             >
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full px-6 py-5 flex items-center justify-between text-right"
+                className="w-full px-6 py-4 flex items-center justify-between text-right"
               >
-                <span className={`font-bold text-lg transition-colors ${openIndex === index ? "text-[#134e4a]" : "text-gray-800"}`}>
+                <span className="font-bold text-sm text-gray-800">
                   {faq.question}
                 </span>
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-colors ${
-                  openIndex === index ? "bg-[#134e4a] text-white" : "bg-gray-100 text-gray-500"
-                }`}>
+                <div className="text-gray-400">
                   {openIndex === index ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                 </div>
               </button>
               
               <div 
                 className={`px-6 overflow-hidden transition-all duration-300 ease-in-out ${
-                  openIndex === index ? "max-h-40 pb-6 opacity-100" : "max-h-0 opacity-0"
+                  openIndex === index ? "max-h-40 pb-4 opacity-100" : "max-h-0 opacity-0"
                 }`}
               >
-                <p className="text-gray-600 font-medium leading-relaxed border-t border-gray-200/50 pt-4">
+                <p className="text-gray-500 text-sm leading-relaxed pt-2">
                   {faq.answer}
                 </p>
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Trust Badges */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+          <div className="bg-white rounded-xl border border-gray-100 py-3 px-2 flex items-center justify-center gap-2 shadow-sm">
+            <span className="text-xs font-bold text-gray-800">مرخّص SFDA</span>
+            <ShieldCheck className="w-4 h-4 text-[#134e4a]" />
+          </div>
+          <div className="bg-white rounded-xl border border-gray-100 py-3 px-2 flex items-center justify-center gap-2 shadow-sm">
+            <span className="text-xs font-bold text-gray-800">حلال 100%</span>
+            <CheckCircle2 className="w-4 h-4 text-[#134e4a]" />
+          </div>
+          <div className="bg-white rounded-xl border border-gray-100 py-3 px-2 flex items-center justify-center gap-2 shadow-sm">
+            <span className="text-xs font-bold text-gray-800">شحن مجاني</span>
+            <Truck className="w-4 h-4 text-[#134e4a]" />
+          </div>
+          <div className="bg-white rounded-xl border border-gray-100 py-3 px-2 flex items-center justify-center gap-2 shadow-sm">
+            <span className="text-xs font-bold text-gray-800">ضمان 30 يوم</span>
+            <CheckCircle className="w-4 h-4 text-[#134e4a]" />
+          </div>
         </div>
 
       </div>

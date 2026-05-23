@@ -273,54 +273,31 @@ export default function ThankYouPage() {
       </div>
 
       {/* Reviews Section */}
+      {/* 
       <div className="mt-12 bg-white pt-6 pb-2 border-y border-gray-100">
         <ReviewsSection />
-      </div>
+      </div> 
+      */}
 
       {/* Cross-sells Grid */}
+      {/* 
       <div className="container mx-auto px-4 max-w-5xl mt-12 mb-12">
-        <div className="text-center mb-10">
-          <h2 className="text-xl font-black text-[#134e4a]">اكتشف بقية منتجاتنا</h2>
-          <p className="text-gray-500 text-sm mt-2">إليك منتجات تكمل روتينك (الشحن مجاني لطلبك الحالي)</p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {crossSells.map((p) => (
-            <div key={p.id} className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm flex flex-col items-center text-center hover:shadow-md transition-all">
-              <div className={`w-full h-40 rounded-xl bg-gradient-to-tr ${p.theme.from} ${p.theme.to} flex items-center justify-center text-4xl mb-4 relative overflow-hidden`}>
-                <div className="absolute inset-0 opacity-20 flex items-center justify-center">{p.theme.icon}</div>
-                <Image src={p.image_url} alt={p.name_ar} fill className="object-contain p-4 relative z-10 hover:scale-105 transition-transform duration-500" />
-              </div>
-              
-              <div className="flex text-yellow-400 mb-2">
-                {[1,2,3,4,5].map(i => <Star key={i} className="w-3.5 h-3.5 fill-current" />)}
-              </div>
-              <h4 className="text-sm font-bold text-gray-900 mb-2 line-clamp-1">{p.name_ar}</h4>
-              <p className="text-xs text-gray-500 line-clamp-2 mb-4 h-8 leading-relaxed">{p.description_ar}</p>
-              
-              <div className="mt-auto w-full">
-                <Link 
-                  href={`/product/${p.slug}`}
-                  className="w-full py-2.5 bg-[#134e4a] text-white font-bold rounded-xl hover:bg-[#0f3d3a] transition-colors text-sm flex items-center justify-center gap-2 shadow-sm shadow-[#134e4a]/20"
-                >
-                  عرض التفاصيل
-                </Link>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+        ...
+      </div> 
+      */}
 
       {/* FAQ Section */}
-      <div className="bg-white border-t border-gray-100">
-        <FAQSection />
+      <div className="mt-8 mb-8">
+        <div className="container mx-auto px-4 max-w-2xl">
+          <FAQSection />
+        </div>
       </div>
 
       {/* Return to Home */}
-      <div className="mt-16 text-center">
-        <Link href="/" className="inline-flex items-center gap-2 font-bold text-[#d4af37] hover:text-[#b5952f] transition-colors">
-          <ArrowRight className="w-5 h-5" />
-          العودة للصفحة الرئيسية
+      <div className="text-center mb-12">
+        <Link href="/" className="inline-flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-gray-800 transition-colors">
+          <ArrowRight className="w-4 h-4" />
+          العودة لمجموعة أوريندا
         </Link>
       </div>
 
