@@ -366,10 +366,10 @@ export default function ThankYouPage() {
       {/* Trust Banner */}
       <div className="border-t border-gray-200 bg-white mt-auto">
         <div className="container mx-auto px-4 max-w-6xl py-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6 divide-y md:divide-y-0 md:divide-x md:divide-x-reverse divide-gray-100">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4" dir="rtl">
             
-            <div className="flex items-center gap-4 px-4 pt-4 md:pt-0 first:pt-0 w-full md:w-1/4 justify-center md:justify-start">
-              <div className="w-12 h-12 rounded-xl bg-[#f8fcfb] border border-[#e2f0ef] flex items-center justify-center shrink-0">
+            <div className="bg-[#fdfbf7] border border-[#f0eadd] rounded-2xl p-4 flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-[#eef7f6] border border-[#e2f0ef] flex items-center justify-center shrink-0">
                 <Truck className="w-6 h-6 text-[#134e4a]" />
               </div>
               <div className="text-right flex-1">
@@ -378,8 +378,8 @@ export default function ThankYouPage() {
               </div>
             </div>
 
-            <div className="flex items-center gap-4 px-4 pt-4 md:pt-0 w-full md:w-1/4 justify-center md:justify-start">
-              <div className="w-12 h-12 rounded-xl bg-[#f8fcfb] border border-[#e2f0ef] flex items-center justify-center shrink-0">
+            <div className="bg-[#fdfbf7] border border-[#f0eadd] rounded-2xl p-4 flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-[#eef7f6] border border-[#e2f0ef] flex items-center justify-center shrink-0">
                 <HandCoins className="w-6 h-6 text-[#134e4a]" />
               </div>
               <div className="text-right flex-1">
@@ -388,8 +388,8 @@ export default function ThankYouPage() {
               </div>
             </div>
 
-            <div className="flex items-center gap-4 px-4 pt-4 md:pt-0 w-full md:w-1/4 justify-center md:justify-start">
-              <div className="w-12 h-12 rounded-xl bg-[#f8fcfb] border border-[#e2f0ef] flex items-center justify-center shrink-0">
+            <div className="bg-[#fdfbf7] border border-[#f0eadd] rounded-2xl p-4 flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-[#eef7f6] border border-[#e2f0ef] flex items-center justify-center shrink-0">
                 <ShieldCheck className="w-6 h-6 text-[#134e4a]" />
               </div>
               <div className="text-right flex-1">
@@ -398,8 +398,8 @@ export default function ThankYouPage() {
               </div>
             </div>
 
-            <div className="flex items-center gap-4 px-4 pt-4 md:pt-0 w-full md:w-1/4 justify-center md:justify-start">
-              <div className="w-12 h-12 rounded-xl bg-[#f8fcfb] border border-[#e2f0ef] flex items-center justify-center shrink-0">
+            <div className="bg-[#fdfbf7] border border-[#f0eadd] rounded-2xl p-4 flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-[#eef7f6] border border-[#e2f0ef] flex items-center justify-center shrink-0">
                 <BadgeCheck className="w-6 h-6 text-[#134e4a]" />
               </div>
               <div className="text-right flex-1">
