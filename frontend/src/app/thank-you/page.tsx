@@ -8,6 +8,7 @@ import { PRODUCTS } from "@/lib/products";
 import { useCartStore } from "@/lib/cartStore";
 import { ReviewsSection } from "@/components/ReviewsSection";
 import { FAQSection } from "@/components/FAQSection";
+import { ExpectedResultsTimeline } from "@/components/ExpectedResultsTimeline";
 
 export default function ThankYouPage() {
   const lastOrder = useCartStore((state) => state.lastOrder);
@@ -21,6 +22,7 @@ export default function ThankYouPage() {
   }, []);
 
   const crossSells = PRODUCTS.slice(0, 3);
+  const primaryProductSlug = lastOrder?.items[0]?.product.slug ?? "";
 
   return (
     <div className="bg-[#0a0a0a] min-h-screen flex flex-col font-sans selection:bg-[#D4AF37]/30">
@@ -237,61 +239,7 @@ export default function ThankYouPage() {
             </h3>
           </div>
 
-          <div className="space-y-8 relative before:absolute before:right-4 before:top-2 before:bottom-2 before:w-0.5 before:bg-[#333333] z-10">
-                {/* Stage 1 */}
-                <div className="relative flex items-start gap-5">
-                  <div className="w-8 h-8 rounded-full bg-[#1a1a1a] text-[#D4AF37] font-black flex items-center justify-center shrink-0 z-10 border-2 border-[#D4AF37]/50 shadow-[0_0_10px_rgba(212,175,55,0.2)]">1</div>
-                  <div className="text-right pt-1">
-                    <h4 className="font-black text-[#F3E5AB] text-base mb-2">أول 7 أيام</h4>
-                    <p className="text-sm text-gray-300 leading-relaxed">
-                      {lastOrder?.items[0]?.product.slug === 'peaceful-slumber-gummies' ? 
-                        "الميلاتونين الطبيعي يبدأ في تنظيم ساعتك البيولوجية. الإحساس الأول: استرخاء أسرع قبل النوم، استيقاظ بنشاط ملحوظ في الصباح، وطاقة أعلى خلال اليوم بدون خمول." :
-                       lastOrder?.items[0]?.product.slug === 'focus-pro-coffee' ?
-                        "الـ L-Theanine يبدأ في تحييد آثار الكافيين السلبية. الإحساس الأول: طاقة صافية ومستدامة، تركيز حاد، واختفاء تام لرجفة القهوة أو التوتر المصاحب لها." :
-                       lastOrder?.items[0]?.product.slug === 'anti-stress-calm-drops' ?
-                        "مستخلص زهرة الآلام يبدأ في تهدئة الجهاز العصبي. الإحساس الأول: انخفاض ملحوظ في التوتر اليومي، هدوء داخلي، وقدرة أكبر على التعامل مع الضغوطات ببرود." :
-                        "تبدأ المكونات الطبيعية في التراكم في جسمك. الإحساس الأول: راحة عامة، طاقة أفضل، وتحسن ملحوظ في روتينك اليومي."
-                      }
-                    </p>
-                  </div>
-                </div>
-
-                {/* Stage 2 */}
-                <div className="relative flex items-start gap-5">
-                  <div className="w-8 h-8 rounded-full bg-[#1a1a1a] text-[#D4AF37] font-black flex items-center justify-center shrink-0 z-10 border-2 border-[#D4AF37]/50 shadow-[0_0_10px_rgba(212,175,55,0.2)]">2</div>
-                  <div className="text-right pt-1">
-                    <h4 className="font-black text-[#F3E5AB] text-base mb-2">الأسبوع الثاني</h4>
-                    <p className="text-sm text-gray-300 leading-relaxed">
-                      {lastOrder?.items[0]?.product.slug === 'peaceful-slumber-gummies' ? 
-                        "جودة النوم تتحسن بشكل واضح. الاستيقاظ المتكرر في الليل يقل تدريجياً، والمزاج يصبح أصفى وأهدأ. أول مرة تلاحظ فرق في تركيزك خلال النهار." :
-                       lastOrder?.items[0]?.product.slug === 'focus-pro-coffee' ?
-                        "فطر عرف الأسد يبدأ في تغذية خلايا الدماغ. الذاكرة تقوى وضبابية الدماغ تختفي. أول مرة تلاحظ قدرتك على إنجاز مهام معقدة بدون تشتت." :
-                       lastOrder?.items[0]?.product.slug === 'anti-stress-calm-drops' ?
-                        "مستويات الكورتيزول تتراجع بشكل واضح. القلق المستمر يقل، والمزاج يتحسن بشكل ملحوظ. تبدأ التعليقات: «أعصابك صارت أهدأ بكثير»." :
-                        "النتائج تصبح أكثر وضوحاً. التوازن الداخلي يتحسن، والمزاج يصبح أصفى. أول مرة تلاحظ فرق حقيقي في نشاطك."
-                      }
-                    </p>
-                  </div>
-                </div>
-
-                {/* Stage 3 */}
-                <div className="relative flex items-start gap-5">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#B8860B] text-[#0a0a0a] font-black flex items-center justify-center shrink-0 z-10 border-2 border-[#141414] shadow-[0_0_15px_rgba(212,175,55,0.4)]">3</div>
-                  <div className="text-right pt-1">
-                    <h4 className="font-black text-[#F3E5AB] text-base mb-2">نهاية العلبة الأولى</h4>
-                    <p className="text-sm text-gray-300 leading-relaxed">
-                      {lastOrder?.items[0]?.product.slug === 'peaceful-slumber-gummies' ? 
-                        "نوم عميق ومريح، دورة نوم منتظمة تخليك تستغني عن أي منومات. العلبة الثانية تثبّت هذه الساعة البيولوجية وتمنع رجوع الأرق." :
-                       lastOrder?.items[0]?.product.slug === 'focus-pro-coffee' ?
-                        "أداء ذهني عالي، إنتاجية مضاعفة، وطاقة مستقرة طول اليوم. العلبة الثانية تثبّت هذا النشاط الذهني وتمنع رجوع الخمول والتشتت." :
-                       lastOrder?.items[0]?.product.slug === 'anti-stress-calm-drops' ?
-                        "سلام داخلي، قدرة عالية على الاسترخاء، ونوم أفضل. العلبة الثانية تثبّت هذا التوازن العصبي وتمنع رجوع نوبات القلق والتوتر." :
-                        "استقرار كامل في الروتين. صحة أفضل، طاقة مستدامة، ومزاج معتدل. العلبة الثانية تثبّت النتيجة وتمنع رجوعها."
-                      }
-                    </p>
-                  </div>
-                </div>
-          </div>
+          <ExpectedResultsTimeline slug={primaryProductSlug} variant="vertical" />
 
           <div className="mt-8 pt-6 border-t border-[#333333] text-center relative z-10">
             <p className="text-sm text-[#D4AF37] italic font-medium">تخيلوا صورة أنفسكم بعد 30 يوم من الآن. هذا اللي تستحقونه — وهذا اللي بيوصلكم مع طلبكم.</p>
