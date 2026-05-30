@@ -53,8 +53,16 @@ export function Cart() {
       return;
     }
 
-    // Skip upsells entirely and submit order directly
-    submitOrderFinal();
+    if (crossSells.length > 0) {
+      setUpsellProduct1(crossSells[0]);
+      if (crossSells.length > 1) {
+        setUpsellProduct2(crossSells[1]);
+      }
+      setUpsellStep(1);
+      setCountdown(30);
+    } else {
+      submitOrderFinal();
+    }
   };
 
   const submitOrderFinal = async () => {
