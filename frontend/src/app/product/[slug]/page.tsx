@@ -245,9 +245,16 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <div className="relative z-10">
               <div className="w-16 h-16 rounded-full bg-[#1a1a1a] border-2 border-[#D4AF37] text-[#D4AF37] flex items-center justify-center text-xl font-black mx-auto mb-6 shadow-[0_0_15px_rgba(212,175,55,0.2)]">1</div>
               <div className="bg-[#1a1a1a] p-8 rounded-3xl shadow-sm border border-[#333333] h-full hover:border-[#D4AF37]/30 transition-colors">
-                <h3 className="text-xl font-black text-white mb-3">أول 3 أيام</h3>
+                <h3 className="text-xl font-black text-white mb-3">أول 7 أيام</h3>
                 <p className="text-gray-400 text-sm leading-relaxed">
-                  امتصاص سريع للمكونات النشطة. تبدأ بملاحظة تحسن في مستويات الطاقة وانخفاض ملحوظ في التعب العام.
+                  {product.slug === 'peaceful-slumber-gummies' ? 
+                    "الميلاتونين الطبيعي يبدأ في تنظيم ساعتك البيولوجية. الإحساس الأول: استرخاء أسرع قبل النوم، استيقاظ بنشاط ملحوظ في الصباح، وطاقة أعلى خلال اليوم بدون خمول." :
+                   product.slug === 'focus-pro-coffee' ?
+                    "الـ L-Theanine يبدأ في تحييد آثار الكافيين السلبية. الإحساس الأول: طاقة صافية ومستدامة، تركيز حاد، واختفاء تام لرجفة القهوة أو التوتر المصاحب لها." :
+                   product.slug === 'anti-stress-calm-drops' ?
+                    "مستخلص زهرة الآلام يبدأ في تهدئة الجهاز العصبي. الإحساس الأول: انخفاض ملحوظ في التوتر اليومي، هدوء داخلي، وقدرة أكبر على التعامل مع الضغوطات ببرود." :
+                    "تبدأ المكونات الطبيعية في التراكم في جسمك. الإحساس الأول: راحة عامة، طاقة أفضل، وتحسن ملحوظ في روتينك اليومي."
+                  }
                 </p>
               </div>
             </div>
@@ -258,7 +265,14 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               <div className="bg-[#1a1a1a] p-8 rounded-3xl shadow-sm border border-[#333333] h-full hover:border-[#D4AF37]/30 transition-colors">
                 <h3 className="text-xl font-black text-white mb-3">الأسبوع الثاني</h3>
                 <p className="text-gray-400 text-sm leading-relaxed">
-                  توازن داخلي أوضح. تحسن في جودة النوم، مزاج أكثر استقراراً، وبداية ملاحظة نضارة في البشرة بفضل التغذية الخلوية.
+                  {product.slug === 'peaceful-slumber-gummies' ? 
+                    "جودة النوم تتحسن بشكل واضح. الاستيقاظ المتكرر في الليل يقل تدريجياً، والمزاج يصبح أصفى وأهدأ. أول مرة تلاحظ فرق في تركيزك خلال النهار." :
+                   product.slug === 'focus-pro-coffee' ?
+                    "فطر عرف الأسد يبدأ في تغذية خلايا الدماغ. الذاكرة تقوى وضبابية الدماغ تختفي. أول مرة تلاحظ قدرتك على إنجاز مهام معقدة بدون تشتت." :
+                   product.slug === 'anti-stress-calm-drops' ?
+                    "مستويات الكورتيزول تتراجع بشكل واضح. القلق المستمر يقل، والمزاج يتحسن بشكل ملحوظ. تبدأ التعليقات: «أعصابك صارت أهدأ بكثير»." :
+                    "النتائج تصبح أكثر وضوحاً. التوازن الداخلي يتحسن، والمزاج يصبح أصفى. أول مرة تلاحظ فرق حقيقي في نشاطك."
+                  }
                 </p>
               </div>
             </div>
@@ -267,9 +281,16 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <div className="relative z-10 mt-8 md:mt-0">
               <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#B8860B] text-[#0a0a0a] flex items-center justify-center text-xl font-black mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.4)] border-2 border-[#141414]">3</div>
               <div className="bg-[#1a1a1a] p-8 rounded-3xl shadow-sm border border-[#333333] h-full hover:border-[#D4AF37]/30 transition-colors">
-                <h3 className="text-xl font-black text-[#D4AF37] mb-3">نهاية الشهر الأول</h3>
+                <h3 className="text-xl font-black text-[#D4AF37] mb-3">نهاية العلبة الأولى</h3>
                 <p className="text-gray-400 text-sm leading-relaxed">
-                  النتيجة الكبرى. توازن مستدام، طاقة عالية طوال اليوم، وتغيير جذري في صحتك من الداخل ينعكس بوضوح على الخارج.
+                  {product.slug === 'peaceful-slumber-gummies' ? 
+                    "نوم عميق ومريح، دورة نوم منتظمة تخليك تستغني عن أي منومات. العلبة الثانية تثبّت هذه الساعة البيولوجية وتمنع رجوع الأرق." :
+                   product.slug === 'focus-pro-coffee' ?
+                    "أداء ذهني عالي، إنتاجية مضاعفة، وطاقة مستقرة طول اليوم. العلبة الثانية تثبّت هذا النشاط الذهني وتمنع رجوع الخمول والتشتت." :
+                   product.slug === 'anti-stress-calm-drops' ?
+                    "سلام داخلي، قدرة عالية على الاسترخاء، ونوم أفضل. العلبة الثانية تثبّت هذا التوازن العصبي وتمنع رجوع نوبات القلق والتوتر." :
+                    "استقرار كامل في الروتين. صحة أفضل، طاقة مستدامة، ومزاج معتدل. العلبة الثانية تثبّت النتيجة وتمنع رجوعها."
+                  }
                 </p>
               </div>
             </div>
