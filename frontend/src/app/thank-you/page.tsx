@@ -231,32 +231,32 @@ export default function ThankYouPage() {
           </div>
 
           <div className="space-y-8 relative before:absolute before:right-4 before:top-2 before:bottom-2 before:w-0.5 before:bg-[#333333] z-10">
-            {/* Week 1 */}
-            <div className="relative flex items-start gap-5">
-              <div className="w-8 h-8 rounded-full bg-[#1a1a1a] text-[#D4AF37] font-black flex items-center justify-center shrink-0 z-10 border-2 border-[#D4AF37]/50 shadow-[0_0_10px_rgba(212,175,55,0.2)]">1</div>
-              <div className="text-right pt-1">
-                <h4 className="font-black text-[#F3E5AB] text-base mb-2">أول 7 أيام</h4>
-                <p className="text-sm text-gray-300 leading-relaxed">نضارة ولمعان واضحين من اليوم الثالث، بشرتكم أصفى وأنعم، والمكياج يثبت أحسن. مضادات الأكسدة بدأت تشتغل من اليوم الأول.</p>
-              </div>
-            </div>
+                {/* Week 1 */}
+                <div className="relative flex items-start gap-5">
+                  <div className="w-8 h-8 rounded-full bg-[#1a1a1a] text-[#D4AF37] font-black flex items-center justify-center shrink-0 z-10 border-2 border-[#D4AF37]/50 shadow-[0_0_10px_rgba(212,175,55,0.2)]">1</div>
+                  <div className="text-right pt-1">
+                    <h4 className="font-black text-[#F3E5AB] text-base mb-2">أول 7 أيام</h4>
+                    <p className="text-sm text-gray-300 leading-relaxed">تحسن ملحوظ في جودة النوم ومستويات الطاقة خلال اليوم. يبدأ الجسم بامتصاص المكونات الطبيعية واستعادة توازنه الداخلي، مع شعور عام بالهدوء والراحة.</p>
+                  </div>
+                </div>
 
-            {/* Week 2 */}
-            <div className="relative flex items-start gap-5">
-              <div className="w-8 h-8 rounded-full bg-[#1a1a1a] text-[#D4AF37] font-black flex items-center justify-center shrink-0 z-10 border-2 border-[#D4AF37]/50 shadow-[0_0_10px_rgba(212,175,55,0.2)]">2</div>
-              <div className="text-right pt-1">
-                <h4 className="font-black text-[#F3E5AB] text-base mb-2">الأسبوع الثاني</h4>
-                <p className="text-sm text-gray-300 leading-relaxed">الخطوط الدقيقة حول العين تخف بشكل ملحوظ، علامات الإرهاق تختفي، والبشرة ممتلئة أكثر. تبدأ التعليقات: «وجهكم مرتاح اليوم».</p>
-              </div>
-            </div>
+                {/* Week 2 */}
+                <div className="relative flex items-start gap-5">
+                  <div className="w-8 h-8 rounded-full bg-[#1a1a1a] text-[#D4AF37] font-black flex items-center justify-center shrink-0 z-10 border-2 border-[#D4AF37]/50 shadow-[0_0_10px_rgba(212,175,55,0.2)]">2</div>
+                  <div className="text-right pt-1">
+                    <h4 className="font-black text-[#F3E5AB] text-base mb-2">الأسبوع الثاني</h4>
+                    <p className="text-sm text-gray-300 leading-relaxed">تركيز أعلى وصفاء ذهني طوال اليوم. تخف مستويات التوتر والإرهاق بشكل كبير، وتصبح الاستجابة للضغوط اليومية أكثر هدوءاً واتزاناً.</p>
+                  </div>
+                </div>
 
-            {/* End of Box 1 */}
-            <div className="relative flex items-start gap-5">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#B8860B] text-[#0a0a0a] font-black flex items-center justify-center shrink-0 z-10 border-2 border-[#141414] shadow-[0_0_15px_rgba(212,175,55,0.4)]">3</div>
-              <div className="text-right pt-1">
-                <h4 className="font-black text-[#F3E5AB] text-base mb-2">نهاية العلبة الأولى</h4>
-                <p className="text-sm text-gray-300 leading-relaxed">الفرق واضح في صورة قبل وبعد. تجاعيد أقل، بشرة مشدودة، ومظهر أصغر سناً. العلبة الثانية والثالثة تثبّت النتيجة وتمنع رجوعها.</p>
-              </div>
-            </div>
+                {/* End of Box 1 */}
+                <div className="relative flex items-start gap-5">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#B8860B] text-[#0a0a0a] font-black flex items-center justify-center shrink-0 z-10 border-2 border-[#141414] shadow-[0_0_15px_rgba(212,175,55,0.4)]">3</div>
+                  <div className="text-right pt-1">
+                    <h4 className="font-black text-[#F3E5AB] text-base mb-2">نهاية العلبة الأولى</h4>
+                    <p className="text-sm text-gray-300 leading-relaxed">استقرار كامل في الروتين اليومي (نوم عميق، طاقة مستدامة، ومزاج معتدل). الاستمرار على العلبة الثانية يضمن بقاء هذه النتائج الإيجابية كأسلوب حياة دائم.</p>
+                  </div>
+                </div>
           </div>
 
           <div className="mt-8 pt-6 border-t border-[#333333] text-center relative z-10">
@@ -286,8 +286,8 @@ export default function ThankYouPage() {
               <div className="w-12 h-12 bg-[#0a0a0a] border border-[#D4AF37]/20 rounded-full flex items-center justify-center mx-auto mb-4 text-[#D4AF37]">
                 <ShoppingBag className="w-5 h-5" />
               </div>
-              <h4 className="font-black text-gray-200 text-sm mb-2">افتحوه مع قهوة الصبح</h4>
-              <p className="text-xs text-gray-400 leading-relaxed">أول علكة بعد الفطور — الأستازانثين والكولاجين يُمتصون أحسن مع وجبة فيها دهون صحية.</p>
+              <h4 className="font-black text-gray-200 text-sm mb-2">ابدأوا روتينكم الجديد</h4>
+              <p className="text-xs text-gray-400 leading-relaxed">سواء كانت قهوة الصباح للتركيز، أو قطرات الهدوء خلال اليوم، أو علكات السبات قبل النوم — الالتزام هو سر النتيجة.</p>
             </div>
 
             <div className="bg-[#1a1a1a] p-6 rounded-2xl border border-[#333333] text-center shadow-inner hover:border-[#D4AF37]/30 transition-colors">
