@@ -227,7 +227,14 @@ export default function ThankYouPage() {
           
           <div className="flex items-center gap-2 mb-8 relative z-10">
             <Star className="w-6 h-6 text-[#D4AF37] fill-[#D4AF37]" />
-            <h3 className="font-black text-white text-xl">نتيجتكم المتوقعة مع روتين أوريندا</h3>
+            <h3 className="font-black text-white text-xl">
+              نتيجتكم المتوقعة مع 
+              {lastOrder && lastOrder.items.length > 0 ? (
+                <span className="text-[#D4AF37] mr-2">{lastOrder.items[0].product.name_ar}</span>
+              ) : (
+                <span className="text-[#D4AF37] mr-2">روتين أوريندا</span>
+              )}
+            </h3>
           </div>
 
           <div className="space-y-8 relative before:absolute before:right-4 before:top-2 before:bottom-2 before:w-0.5 before:bg-[#333333] z-10">
@@ -236,7 +243,16 @@ export default function ThankYouPage() {
                   <div className="w-8 h-8 rounded-full bg-[#1a1a1a] text-[#D4AF37] font-black flex items-center justify-center shrink-0 z-10 border-2 border-[#D4AF37]/50 shadow-[0_0_10px_rgba(212,175,55,0.2)]">1</div>
                   <div className="text-right pt-1">
                     <h4 className="font-black text-[#F3E5AB] text-base mb-2">أول 7 أيام</h4>
-                    <p className="text-sm text-gray-300 leading-relaxed">تحسن ملحوظ في جودة النوم ومستويات الطاقة خلال اليوم. يبدأ الجسم بامتصاص المكونات الطبيعية واستعادة توازنه الداخلي، مع شعور عام بالهدوء والراحة.</p>
+                    <p className="text-sm text-gray-300 leading-relaxed">
+                      {lastOrder?.items[0]?.product.id === 'peaceful-slumber-gummies' ? 
+                        "تنظيم إيقاع الساعة البيولوجية (Circadian Rhythm). يبدأ الميلاتونين والمغنيسيوم في تقليل وقت الدخول في النوم بنسبة 40%، مع استيقاظ نشيط بدون خمول الصباح (Sleep Inertia)." :
+                       lastOrder?.items[0]?.product.id === 'focus-pro-coffee' ?
+                        "تفعيل التآزر بين الكافيين و L-Theanine. طاقة نظيفة ومستدامة بدون القلق أو الرعشة (Jitters). تحسن فوري في الانتباه (Alertness) والتركيز الموجه." :
+                       lastOrder?.items[0]?.product.id === 'anti-stress-calm-drops' ?
+                        "تنظيم مستويات الكورتيزول (هرمون التوتر). انخفاض سريع في التوتر الحاد بفضل الامتصاص السريع تحت اللسان، وشعور بالاسترخاء الجسدي والذهني خلال 20 دقيقة." :
+                        "تحسن ملحوظ في جودة النوم ومستويات الطاقة خلال اليوم. يبدأ الجسم بامتصاص المكونات الطبيعية واستعادة توازنه الداخلي، مع شعور عام بالهدوء والراحة."
+                      }
+                    </p>
                   </div>
                 </div>
 
@@ -245,7 +261,16 @@ export default function ThankYouPage() {
                   <div className="w-8 h-8 rounded-full bg-[#1a1a1a] text-[#D4AF37] font-black flex items-center justify-center shrink-0 z-10 border-2 border-[#D4AF37]/50 shadow-[0_0_10px_rgba(212,175,55,0.2)]">2</div>
                   <div className="text-right pt-1">
                     <h4 className="font-black text-[#F3E5AB] text-base mb-2">الأسبوع الثاني</h4>
-                    <p className="text-sm text-gray-300 leading-relaxed">تركيز أعلى وصفاء ذهني طوال اليوم. تخف مستويات التوتر والإرهاق بشكل كبير، وتصبح الاستجابة للضغوط اليومية أكثر هدوءاً واتزاناً.</p>
+                    <p className="text-sm text-gray-300 leading-relaxed">
+                      {lastOrder?.items[0]?.product.id === 'peaceful-slumber-gummies' ? 
+                        "زيادة في مرحلة النوم العميق (Deep REM Sleep). انخفاض ملحوظ في الاستيقاظ المتكرر ليلاً بفضل تأثير مستخلصات البابونج وزهرة الآلام المهدئة للجهاز العصبي." :
+                       lastOrder?.items[0]?.product.id === 'focus-pro-coffee' ?
+                        "دعم النواقل العصبية (Neurotransmitters). تبدأ الفطريات التكيفية (Adaptogens) في تحسين الذاكرة قصيرة المدى وسرعة معالجة المعلومات وتقليل ضبابية الدماغ (Brain Fog)." :
+                       lastOrder?.items[0]?.product.id === 'anti-stress-calm-drops' ?
+                        "استقرار الجهاز العصبي السمبثاوي (Sympathetic Nervous System). تحسن في القدرة على التعامل مع الضغوطات اليومية والمواقف المزعجة بهدوء وعقلانية دون انفعال مبالغ فيه." :
+                        "تركيز أعلى وصفاء ذهني طوال اليوم. تخف مستويات التوتر والإرهاق بشكل كبير، وتصبح الاستجابة للضغوط اليومية أكثر هدوءاً واتزاناً."
+                      }
+                    </p>
                   </div>
                 </div>
 
@@ -254,7 +279,16 @@ export default function ThankYouPage() {
                   <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#B8860B] text-[#0a0a0a] font-black flex items-center justify-center shrink-0 z-10 border-2 border-[#141414] shadow-[0_0_15px_rgba(212,175,55,0.4)]">3</div>
                   <div className="text-right pt-1">
                     <h4 className="font-black text-[#F3E5AB] text-base mb-2">نهاية العلبة الأولى</h4>
-                    <p className="text-sm text-gray-300 leading-relaxed">استقرار كامل في الروتين اليومي (نوم عميق، طاقة مستدامة، ومزاج معتدل). الاستمرار على العلبة الثانية يضمن بقاء هذه النتائج الإيجابية كأسلوب حياة دائم.</p>
+                    <p className="text-sm text-gray-300 leading-relaxed">
+                      {lastOrder?.items[0]?.product.id === 'peaceful-slumber-gummies' ? 
+                        "إعادة ضبط كاملة لدورة النوم. الجسم يفرز الميلاتونين طبيعياً بشكل أفضل. تحسن في الذاكرة والمزاج خلال النهار نتيجة اكتمال دورات النوم التصالحية (Restorative Sleep)." :
+                       lastOrder?.items[0]?.product.id === 'focus-pro-coffee' ?
+                        "أداء ذهني في ذروته (Peak Cognitive Performance). زيادة ملحوظة في الإنتاجية اليومية مع استقرار تام في مستويات الطاقة من الصباح حتى المساء دون انهيار (Crash)." :
+                       lastOrder?.items[0]?.product.id === 'anti-stress-calm-drops' ?
+                        "توازن هرموني وعصبي مستدام (Homeostasis). انخفاض جذري في أعراض القلق المزمن، تحسن في جودة الحياة، وقدرة عالية على الاسترخاء العميق حتى في الأيام المزدحمة." :
+                        "استقرار كامل في الروتين اليومي (نوم عميق، طاقة مستدامة، ومزاج معتدل). الاستمرار على العلبة الثانية يضمن بقاء هذه النتائج الإيجابية كأسلوب حياة دائم."
+                      }
+                    </p>
                   </div>
                 </div>
           </div>
