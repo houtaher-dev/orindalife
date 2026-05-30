@@ -244,11 +244,11 @@ export default function ThankYouPage() {
                   <div className="text-right pt-1">
                     <h4 className="font-black text-[#F3E5AB] text-base mb-2">أول 7 أيام</h4>
                     <p className="text-sm text-gray-300 leading-relaxed">
-                      {lastOrder?.items[0]?.product.id === 1 ? 
+                      {lastOrder?.items[0]?.product.slug === 'peaceful-slumber-gummies' ? 
                         "الميلاتونين الطبيعي يبدأ في تنظيم ساعتك البيولوجية. الإحساس الأول: استرخاء أسرع قبل النوم، استيقاظ بنشاط ملحوظ في الصباح، وطاقة أعلى خلال اليوم بدون خمول." :
-                       lastOrder?.items[0]?.product.id === 2 ?
+                       lastOrder?.items[0]?.product.slug === 'focus-pro-coffee' ?
                         "الـ L-Theanine يبدأ في تحييد آثار الكافيين السلبية. الإحساس الأول: طاقة صافية ومستدامة، تركيز حاد، واختفاء تام لرجفة القهوة أو التوتر المصاحب لها." :
-                       lastOrder?.items[0]?.product.id === 3 ?
+                       lastOrder?.items[0]?.product.slug === 'anti-stress-calm-drops' ?
                         "مستخلص زهرة الآلام يبدأ في تهدئة الجهاز العصبي. الإحساس الأول: انخفاض ملحوظ في التوتر اليومي، هدوء داخلي، وقدرة أكبر على التعامل مع الضغوطات ببرود." :
                         "تبدأ المكونات الطبيعية في التراكم في جسمك. الإحساس الأول: راحة عامة، طاقة أفضل، وتحسن ملحوظ في روتينك اليومي."
                       }
@@ -262,11 +262,11 @@ export default function ThankYouPage() {
                   <div className="text-right pt-1">
                     <h4 className="font-black text-[#F3E5AB] text-base mb-2">الأسبوع الثاني</h4>
                     <p className="text-sm text-gray-300 leading-relaxed">
-                      {lastOrder?.items[0]?.product.id === 1 ? 
+                      {lastOrder?.items[0]?.product.slug === 'peaceful-slumber-gummies' ? 
                         "جودة النوم تتحسن بشكل واضح. الاستيقاظ المتكرر في الليل يقل تدريجياً، والمزاج يصبح أصفى وأهدأ. أول مرة تلاحظين فرق في تركيزك خلال النهار." :
-                       lastOrder?.items[0]?.product.id === 2 ?
+                       lastOrder?.items[0]?.product.slug === 'focus-pro-coffee' ?
                         "فطر عرف الأسد يبدأ في تغذية خلايا الدماغ. الذاكرة تقوى وضبابية الدماغ تختفي. أول مرة تلاحظين قدرتك على إنجاز مهام معقدة بدون تشتت." :
-                       lastOrder?.items[0]?.product.id === 3 ?
+                       lastOrder?.items[0]?.product.slug === 'anti-stress-calm-drops' ?
                         "مستويات الكورتيزول تتراجع بشكل واضح. القلق المستمر يقل، والمزاج يتحسن بشكل ملحوظ. تبدأ التعليقات: «أعصابك صارت أهدأ بكثير»." :
                         "النتائج تصبح أكثر وضوحاً. التوازن الداخلي يتحسن، والمزاج يصبح أصفى. أول مرة تلاحظين فرق حقيقي في نشاطك."
                       }
@@ -280,11 +280,11 @@ export default function ThankYouPage() {
                   <div className="text-right pt-1">
                     <h4 className="font-black text-[#F3E5AB] text-base mb-2">نهاية العلبة الأولى</h4>
                     <p className="text-sm text-gray-300 leading-relaxed">
-                      {lastOrder?.items[0]?.product.id === 1 ? 
+                      {lastOrder?.items[0]?.product.slug === 'peaceful-slumber-gummies' ? 
                         "نوم عميق ومريح، دورة نوم منتظمة تخليك تستغنين عن أي منومات. العلبة الثانية تثبّت هذه الساعة البيولوجية وتمنع رجوع الأرق." :
-                       lastOrder?.items[0]?.product.id === 2 ?
+                       lastOrder?.items[0]?.product.slug === 'focus-pro-coffee' ?
                         "أداء ذهني عالي، إنتاجية مضاعفة، وطاقة مستقرة طول اليوم. العلبة الثانية تثبّت هذا النشاط الذهني وتمنع رجوع الخمول والتشتت." :
-                       lastOrder?.items[0]?.product.id === 3 ?
+                       lastOrder?.items[0]?.product.slug === 'anti-stress-calm-drops' ?
                         "سلام داخلي، قدرة عالية على الاسترخاء، ونوم أفضل. العلبة الثانية تثبّت هذا التوازن العصبي وتمنع رجوع نوبات القلق والتوتر." :
                         "استقرار كامل في الروتين. صحة أفضل، طاقة مستدامة، ومزاج معتدل. العلبة الثانية تثبّت النتيجة وتمنع رجوعها."
                       }
