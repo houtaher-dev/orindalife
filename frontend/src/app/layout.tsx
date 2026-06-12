@@ -11,7 +11,7 @@ const tajawal = Tajawal({
 
 export const metadata: Metadata = {
   title: "أوريندا الحياة | Orendalife",
-  description: "كبسولات والسعوديةات سريرية لصحة وتوازن يبدأ من الداخل",
+  description: "كبسولات وقطرات سريرية لصحة وتوازن يبدأ من الداخل",
 };
 
 export default function RootLayout({

@@ -25,7 +25,7 @@ export function Hero() {
             {/* Headline */}
             <div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#F3E5AB] via-[#D4AF37] to-[#B8860B] leading-[1.2] mb-4">
-                علكات والسعوديةات سريرية <br />
+                علكات وقطرات سريرية <br />
                 لصحة وتوازن يبدأ من الداخل
               </h1>
               <p className="text-lg md:text-xl text-gray-400 max-w-xl mx-auto md:mx-0 leading-relaxed font-medium">

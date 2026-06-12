@@ -269,7 +269,7 @@ export default function ThankYouPage() {
                 <ShoppingBag className="w-5 h-5" />
               </div>
               <h4 className="font-black text-gray-200 text-sm mb-2">ابدأوا روتينكم الجديد</h4>
-              <p className="text-xs text-gray-400 leading-relaxed">سواء كانت قهوة الصباح للتركيز، أو السعوديةات الهدوء خلال اليوم، أو علكات السبات قبل النوم — الالتزام هو سر النتيجة.</p>
+              <p className="text-xs text-gray-400 leading-relaxed">سواء كانت قهوة الصباح للتركيز، أو قطرات الهدوء خلال اليوم، أو علكات السبات قبل النوم — الالتزام هو سر النتيجة.</p>
             </div>
 
             <div className="bg-[#1a1a1a] p-6 rounded-2xl border border-[#333333] text-center shadow-inner hover:border-[#D4AF37]/30 transition-colors">
