@@ -213,7 +213,7 @@ export function Cart() {
                         <X className="w-4 h-4" />
                       </button>
                     </div>
-                    <div className="text-sm font-bold text-[#D4AF37] mt-2">{item.bundlePrice} ر.ق</div>
+                    <div className="text-sm font-bold text-[#D4AF37] mt-2">{item.bundlePrice} ر.س</div>
                     <div className="flex items-center gap-3 mt-2">
                       <div className="flex items-center bg-[#1a1a1a] rounded-lg border border-[#333333]">
                         <button onClick={() => updateQuantity(item.id, item.quantity - 1)} className="p-1.5 text-gray-400 hover:text-white">
@@ -241,7 +241,7 @@ export function Cart() {
                         </div>
                         <div className="flex-1">
                           <h5 className="text-sm font-bold text-gray-200">{p.name_ar}</h5>
-                          <div className="text-xs text-gray-400">{p.price} ر.ق</div>
+                          <div className="text-xs text-gray-400">{p.price} ر.س</div>
                         </div>
                         <button 
                           onClick={() => useCartStore.getState().addItem(p, 1, p.price)}
@@ -262,7 +262,7 @@ export function Cart() {
           <div className="p-6 border-t border-[#333333] bg-[#0a0a0a]">
             <div className="flex justify-between items-center mb-4">
               <span className="text-gray-400 font-medium">المجموع (شحن مجاني)</span>
-              <span className="text-2xl font-black text-[#D4AF37]">{getCartTotal()} ر.ق</span>
+              <span className="text-2xl font-black text-[#D4AF37]">{getCartTotal()} ر.س</span>
             </div>
             <button 
               onClick={() => setCheckoutOpen(true)}
@@ -298,7 +298,7 @@ export function Cart() {
               <div className="p-6 overflow-y-auto flex-1">
                 <div className="bg-[#1a1a1a] text-[#D4AF37] p-3 rounded-xl text-sm font-medium flex items-center gap-2 mb-6 border border-[#D4AF37]/20 shadow-[0_0_10px_rgba(212,175,55,0.1)]">
                   <CheckCircle2 className="w-5 h-5" />
-                  شحن مجاني لطلبك ({getCartTotal()} ر.ق)
+                  شحن مجاني لطلبك ({getCartTotal()} ر.س)
                 </div>
 
                 <form onSubmit={handleCheckoutSubmit} className="space-y-5">
@@ -315,7 +315,7 @@ export function Cart() {
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-bold text-gray-300 mb-2">رقم الهاتف (قطر)</label>
+                    <label className="block text-sm font-bold text-gray-300 mb-2">رقم الهاتف (السعودية)</label>
                     <input 
                       type="tel" 
                       required 
@@ -369,8 +369,8 @@ export function Cart() {
                     <h4 className="font-bold text-gray-200 mb-1 leading-tight">{upsellProduct1.name_ar}</h4>
                     <p className="text-xs text-gray-500 line-clamp-2 leading-snug">{upsellProduct1.description_ar}</p>
                     <div className="mt-2 flex items-center gap-2">
-                      <span className="text-lg font-black text-[#D4AF37]">99 ر.ق</span>
-                      <span className="text-xs text-gray-600 line-through decoration-gray-700">199 ر.ق</span>
+                      <span className="text-lg font-black text-[#D4AF37]">99 ر.س</span>
+                      <span className="text-xs text-gray-600 line-through decoration-gray-700">199 ر.س</span>
                     </div>
                   </div>
                 </div>
@@ -418,8 +418,8 @@ export function Cart() {
                     <h4 className="font-bold text-gray-200 mb-1 leading-tight">{upsellProduct2.name_ar}</h4>
                     <p className="text-xs text-gray-500 line-clamp-2 leading-snug">{upsellProduct2.description_ar}</p>
                     <div className="mt-2 flex items-center gap-2">
-                      <span className="text-lg font-black text-[#D4AF37]">79 ر.ق</span>
-                      <span className="text-xs text-gray-600 line-through decoration-gray-700">199 ر.ق</span>
+                      <span className="text-lg font-black text-[#D4AF37]">79 ر.س</span>
+                      <span className="text-xs text-gray-600 line-through decoration-gray-700">199 ر.س</span>
                     </div>
                   </div>
                 </div>

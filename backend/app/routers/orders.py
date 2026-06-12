@@ -37,7 +37,7 @@ async def create_order(
                         
                         # 1. Check if country is Qatar
                         if response.country.iso_code != "QA":
-                            raise HTTPException(status_code=400, detail="عذراً، الطلبات متاحة فقط من داخل دولة قطر.")
+                            raise HTTPException(status_code=400, detail="عذراً، الطلبات متاحة فقط من داخل دولة السعودية.")
                         
                         # 2. Check for VPN or suspicious IP
                         traits = response.traits

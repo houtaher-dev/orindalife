@@ -63,7 +63,7 @@ export function ProductsSection() {
                 <div className="mt-auto pt-6 border-t border-[#333333] flex items-center justify-between">
                   <div className="flex flex-col">
                     <span className="text-xs text-gray-500 font-medium">يبدأ من</span>
-                    <span className="text-lg font-black text-[#D4AF37]">{product.price} ر.ق</span>
+                    <span className="text-lg font-black text-[#D4AF37]">{product.price} ر.س</span>
                   </div>
                   <Link 
                     href={`/product/${product.slug}`}

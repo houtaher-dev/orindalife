@@ -15,7 +15,7 @@ class Product(Base):
     image_url = Column(String(500))
     badge_ar = Column(String(100))
 
-    # Volume pricing (QAR)
+    # Volume pricing (SAR)
     price_1 = Column(Float, nullable=False, default=199.0)
     price_2 = Column(Float, nullable=False, default=279.0)
     price_3 = Column(Float, nullable=False, default=329.0)

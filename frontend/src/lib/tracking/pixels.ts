@@ -43,7 +43,7 @@ export function metaViewContent(payload: TrackPayload = {}): void {
     if (!w.fbq) return;
     w.fbq("track", "ViewContent", {
       value: payload.value,
-      currency: payload.currency || "QAR",
+      currency: payload.currency || "SAR",
       content_ids: payload.contentIds,
       content_name: payload.contentName,
       content_type: "product",
@@ -57,7 +57,7 @@ export function metaAddToCart(payload: TrackPayload): void {
     if (!w.fbq) return;
     w.fbq("track", "AddToCart", {
       value: payload.value,
-      currency: payload.currency || "QAR",
+      currency: payload.currency || "SAR",
       content_ids: payload.contentIds,
       content_type: "product",
     }, { eventID: payload.eventId || generateEventId() });
@@ -70,7 +70,7 @@ export function metaInitiateCheckout(payload: TrackPayload): void {
     if (!w.fbq) return;
     w.fbq("track", "InitiateCheckout", {
       value: payload.value,
-      currency: payload.currency || "QAR",
+      currency: payload.currency || "SAR",
       num_items: payload.numItems,
     }, { eventID: payload.eventId || generateEventId() });
   });
@@ -82,7 +82,7 @@ export function metaPurchase(payload: TrackPayload): void {
     if (!w.fbq) return;
     w.fbq("track", "Purchase", {
       value: payload.value,
-      currency: payload.currency || "QAR",
+      currency: payload.currency || "SAR",
       content_ids: payload.contentIds,
       content_type: "product",
       num_items: payload.numItems,
@@ -99,7 +99,7 @@ export function tiktokAddToCart(payload: TrackPayload): void {
     w.ttq.track("AddToCart", {
       event_id: payload.eventId,
       value: payload.value,
-      currency: payload.currency || "QAR",
+      currency: payload.currency || "SAR",
       content_id: payload.contentIds?.[0],
       content_name: payload.contentName,
     });
@@ -113,7 +113,7 @@ export function tiktokInitiateCheckout(payload: TrackPayload): void {
     w.ttq.track("InitiateCheckout", {
       event_id: payload.eventId,
       value: payload.value,
-      currency: payload.currency || "QAR",
+      currency: payload.currency || "SAR",
     });
   });
 }
@@ -125,7 +125,7 @@ export function tiktokPurchase(payload: TrackPayload): void {
     w.ttq.track("PlaceAnOrder", {
       event_id: payload.eventId,
       value: payload.value,
-      currency: payload.currency || "QAR",
+      currency: payload.currency || "SAR",
       order_id: payload.orderId,
     });
   });
@@ -139,7 +139,7 @@ export function snapAddToCart(payload: TrackPayload): void {
     if (!w.snaptr) return;
     w.snaptr("track", "ADD_CART", {
       price: payload.value,
-      currency: payload.currency || "QAR",
+      currency: payload.currency || "SAR",
       item_ids: payload.contentIds,
     });
   });
@@ -151,7 +151,7 @@ export function snapPurchase(payload: TrackPayload): void {
     if (!w.snaptr) return;
     w.snaptr("track", "PURCHASE", {
       price: payload.value,
-      currency: payload.currency || "QAR",
+      currency: payload.currency || "SAR",
       transaction_id: payload.orderId,
     });
   });

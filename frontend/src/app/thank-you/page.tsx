@@ -109,7 +109,7 @@ export default function ThankYouPage() {
                   </div>
                   <div className="text-left">
                     <span className="font-black text-[#D4AF37] text-lg">{item.bundlePrice * item.quantity}</span>
-                    <span className="text-xs text-gray-500 mr-1">ر.ق</span>
+                    <span className="text-xs text-gray-500 mr-1">ر.س</span>
                   </div>
                 </div>
               ))}
@@ -123,7 +123,7 @@ export default function ThankYouPage() {
                   <span className="font-black text-white text-lg">الإجمالي</span>
                   <div className="text-left">
                     <span className="font-black text-2xl text-[#D4AF37]">{lastOrder.total}</span>
-                    <span className="text-sm text-[#F3E5AB] mr-1 font-bold">ر.ق</span>
+                    <span className="text-sm text-[#F3E5AB] mr-1 font-bold">ر.س</span>
                   </div>
                 </div>
               </div>
@@ -269,7 +269,7 @@ export default function ThankYouPage() {
                 <ShoppingBag className="w-5 h-5" />
               </div>
               <h4 className="font-black text-gray-200 text-sm mb-2">ابدأوا روتينكم الجديد</h4>
-              <p className="text-xs text-gray-400 leading-relaxed">سواء كانت قهوة الصباح للتركيز، أو قطرات الهدوء خلال اليوم، أو علكات السبات قبل النوم — الالتزام هو سر النتيجة.</p>
+              <p className="text-xs text-gray-400 leading-relaxed">سواء كانت قهوة الصباح للتركيز، أو السعوديةات الهدوء خلال اليوم، أو علكات السبات قبل النوم — الالتزام هو سر النتيجة.</p>
             </div>
 
             <div className="bg-[#1a1a1a] p-6 rounded-2xl border border-[#333333] text-center shadow-inner hover:border-[#D4AF37]/30 transition-colors">
@@ -353,7 +353,7 @@ export default function ThankYouPage() {
                 <Truck className="w-5 h-5 md:w-6 md:h-6 text-[#D4AF37]" />
               </div>
               <div className="flex-1">
-                <h4 className="font-bold text-gray-200 text-xs md:text-sm mb-0.5 md:mb-1">شحن سريع داخل قطر</h4>
+                <h4 className="font-bold text-gray-200 text-xs md:text-sm mb-0.5 md:mb-1">شحن سريع داخل السعودية</h4>
                 <p className="text-[10px] md:text-xs text-gray-500 leading-tight">توصيل من 1 إلى 3 أيام عمل لجميع المناطق</p>
               </div>
             </div>

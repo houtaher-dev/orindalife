@@ -210,7 +210,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
              <div className="flex-1">
                 <h3 className="text-2xl font-black mb-4 flex items-center justify-center md:justify-start gap-3 text-transparent bg-clip-text bg-gradient-to-r from-[#F3E5AB] via-[#D4AF37] to-[#B8860B]">
                   <ShieldCheck className="w-8 h-8 text-[#D4AF37]" />
-                  شحنتنا لقطر مضمونة
+                  شحنتنا لالسعودية مضمونة
                 </h3>
                 <p className="text-gray-300 leading-relaxed">
                   "التركيبة اللي بين يديك مدعومة بتجارب سريرية موثقة. مو مجرد خلطة عشوائية، بل نسب دقيقة مصممة لتعطي أقصى فعالية وامتصاص. استثمارك في صحتك في مكانه الصح."
@@ -310,7 +310,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                   <h4 className="text-xl font-bold text-gray-200 mb-2">{p.name_ar}</h4>
                   <p className="text-sm text-gray-400 mb-6 line-clamp-2 leading-relaxed flex-1">{p.description_ar}</p>
                   <div className="flex items-center justify-between mt-auto">
-                    <span className="font-black text-xl text-[#D4AF37]">{p.price} ر.ق</span>
+                    <span className="font-black text-xl text-[#D4AF37]">{p.price} ر.س</span>
                     <span className="text-sm font-bold bg-[#0a0a0a] border border-[#D4AF37]/30 text-[#D4AF37] px-4 py-2 rounded-xl group-hover:bg-gradient-to-r group-hover:from-[#D4AF37] group-hover:to-[#B8860B] group-hover:text-[#0a0a0a] transition-all">
                       اكتشف المزيد
                     </span>
@@ -339,7 +339,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             </div>
             <div>
               <div className="font-bold text-sm md:text-base line-clamp-1 text-white">{product.name_ar}</div>
-              <div className="text-xs text-[#D4AF37] font-medium mt-0.5" dir="rtl">يبدأ من 199 ريال قطري • الدفع عند الاستلام</div>
+              <div className="text-xs text-[#D4AF37] font-medium mt-0.5" dir="rtl">يبدأ من 199 ريال سعودي • الدفع عند الاستلام</div>
             </div>
           </div>
 

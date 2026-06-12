@@ -12,7 +12,7 @@ export function Footer() {
           <div className="w-1/2 md:w-1/3">
             <h3 className="text-base md:text-2xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-[#F3E5AB] via-[#D4AF37] to-[#B8860B]">أوريندا الحياة <span className="text-[#D4AF37] font-normal text-xs md:text-lg block md:inline mt-1 md:mt-0">Orendalife</span></h3>
             <p className="text-gray-400 mb-6 leading-relaxed text-[11px] md:text-sm">
-              صيدلية الصحة والتوازن. منتجات سريرية حلال مرخّصة من هيئة الغذاء والدواء (SFDA)، بأبحاث منشورة، لراحة عملائنا في قطر.
+              صيدلية الصحة والتوازن. منتجات سريرية حلال مرخّصة من هيئة الغذاء والدواء (SFDA)، بأبحاث منشورة، لراحة عملائنا في السعودية.
             </p>
             <div className="flex flex-wrap justify-start gap-2">
               <div className="flex items-center gap-1 bg-[#141414] border border-[#D4AF37]/20 px-2 py-1.5 md:px-4 md:py-2 rounded-full text-[9px] md:text-xs font-bold text-[#D4AF37]">
@@ -36,7 +36,7 @@ export function Footer() {
                 <li><Link href="/#products" className="hover:text-[#D4AF37] transition-colors">المجموعة الكاملة</Link></li>
                 <li><Link href="/product/peaceful-slumber-gummies" className="hover:text-[#D4AF37] transition-colors">علكات السُبات الهادئ</Link></li>
                 <li><Link href="/product/focus-pro-coffee" className="hover:text-[#D4AF37] transition-colors">قهوة اليَقَظَة برو</Link></li>
-                <li><Link href="/product/anti-stress-calm-drops" className="hover:text-[#D4AF37] transition-colors">قطرات الهدوء ضد التوتر</Link></li>
+                <li><Link href="/product/anti-stress-calm-drops" className="hover:text-[#D4AF37] transition-colors">السعوديةات الهدوء ضد التوتر</Link></li>
               </ul>
             </div>
 

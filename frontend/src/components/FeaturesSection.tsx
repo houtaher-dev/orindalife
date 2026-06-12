@@ -8,7 +8,7 @@ export function FeaturesSection() {
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h3 className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#F3E5AB] via-[#D4AF37] to-[#B8860B] mb-4">صيدلية، مو متجر تجميل</h3>
           <p className="text-gray-400 text-lg">
-            أوريندا مبنية على أربعة أركان لا نتنازل عنها: الترخيص، الحلال، التركيبة السريرية، وراحة عملائنا في قطر.
+            أوريندا مبنية على أربعة أركان لا نتنازل عنها: الترخيص، الحلال، التركيبة السريرية، وراحة عملائنا في السعودية.
           </p>
         </div>
 

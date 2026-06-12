@@ -24,7 +24,7 @@ export default function ContactPage() {
           <div className="bg-white p-6 rounded-2xl border border-gray-100 text-center shadow-sm">
             <MapPin className="w-8 h-8 text-primary mx-auto mb-4" />
             <h3 className="font-bold text-gray-900 mb-2">المقر الرئيسي</h3>
-            <p className="text-gray-600 text-sm">الدوحة، قطر</p>
+            <p className="text-gray-600 text-sm">الرياض، السعودية</p>
           </div>
         </div>
 

@@ -55,7 +55,7 @@ export function ProductOptions({ product }: { product: Product }) {
               </div>
               <div className="text-left">
                 <div className="font-black text-xl text-[#D4AF37]">{bundle.price}</div>
-                <div className="text-xs text-gray-500 font-medium">ريال قطري</div>
+                <div className="text-xs text-gray-500 font-medium">ريال سعودي</div>
               </div>
             </div>
           );
@@ -67,7 +67,7 @@ export function ProductOptions({ product }: { product: Product }) {
         className="w-full flex items-center justify-center gap-2 px-8 py-5 bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-[#0a0a0a] font-black text-xl rounded-2xl hover:opacity-90 transition-all shadow-[0_0_20px_rgba(212,175,55,0.3)] transform hover:scale-[1.02]"
       >
         <ShoppingBag className="w-6 h-6" />
-        أكمل روتينك بـ {selectedBundle.price} ر.ق
+        أكمل روتينك بـ {selectedBundle.price} ر.س
       </button>
 
       <div className="flex justify-center items-center gap-4 mt-4 text-xs font-bold text-gray-500">

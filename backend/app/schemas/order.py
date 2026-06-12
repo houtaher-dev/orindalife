@@ -50,7 +50,7 @@ class CreateOrderIn(BaseModel):
             digits = cleaned
             
         if not re.match(r"^[3-7]\d{7}$", digits):
-            raise ValueError("يرجى إدخال رقم هاتف قطري صحيح")
+            raise ValueError("يرجى إدخال رقم هاتف السعوديةي صحيح")
         return v
 
 

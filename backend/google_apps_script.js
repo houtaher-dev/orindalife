@@ -13,7 +13,7 @@ var HEADERS = [
   "الاسم",
   "رقم الهاتف",
   "المنتجات",
-  "المجموع (ر.ق)",
+  "المجموع (ر.س)",
   "عرض إضافي",
   "الحالة",
 ];
@@ -52,7 +52,7 @@ function doPost(e) {
             item.qty +
             " — " +
             (item.total != null ? item.total : "?") +
-            " ر.ق"
+            " ر.س"
           );
         })
         .join("\n");
@@ -62,7 +62,7 @@ function doPost(e) {
     var formattedDate = Utilities.formatDate(ts, "Asia/Qatar", "yyyy-MM-dd HH:mm");
 
     var upsellNote = data.upsell_accepted
-      ? "نعم — +" + String(data.upsell_amount || 0) + " ر.ق"
+      ? "نعم — +" + String(data.upsell_amount || 0) + " ر.س"
       : "لا";
 
     var rowData = [

@@ -81,7 +81,7 @@ function MiniChart({ data, dataKey, color }: { data: DailyStats[]; dataKey: "cli
             style={{ height: `${(d[dataKey] / max) * 100}%`, minHeight: d[dataKey] > 0 ? "2px" : "0" }}
           />
           <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-[10px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 whitespace-nowrap pointer-events-none z-10">
-            {d.date.slice(5)}: {dataKey === "revenue" ? `${d[dataKey].toFixed(0)} QAR` : d[dataKey]}
+            {d.date.slice(5)}: {dataKey === "revenue" ? `${d[dataKey].toFixed(0)} SAR` : d[dataKey]}
           </div>
         </div>
       ))}
@@ -160,7 +160,7 @@ function OrderPreview({
             <div className="bg-gray-800/50 rounded-lg p-4">
               <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">البيع الإضافي (Upsell)</p>
               <p className={`font-medium ${order.upsell_accepted ? "text-emerald-400" : "text-gray-500"}`}>
-                {order.upsell_accepted ? `مقبول (+${order.upsell_amount} QAR)` : "مرفوض"}
+                {order.upsell_accepted ? `مقبول (+${order.upsell_amount} SAR)` : "مرفوض"}
               </p>
             </div>
           </div>
@@ -183,25 +183,25 @@ function OrderPreview({
                     <tr key={item.id} className="border-b border-gray-800/50">
                       <td className="px-4 py-3 text-white">{item.product_name_ar}</td>
                       <td className="px-4 py-3 text-center text-gray-300">{item.quantity}</td>
-                      <td className="px-4 py-3 text-left text-gray-300">{item.unit_price} QAR</td>
-                      <td className="px-4 py-3 text-left text-white font-medium">{item.line_total} QAR</td>
+                      <td className="px-4 py-3 text-left text-gray-300">{item.unit_price} SAR</td>
+                      <td className="px-4 py-3 text-left text-white font-medium">{item.line_total} SAR</td>
                     </tr>
                   ))}
                 </tbody>
                 <tfoot>
                   <tr className="border-t border-gray-700">
                     <td colSpan={3} className="px-4 py-2.5 text-left text-gray-400">المجموع الفرعي</td>
-                    <td className="px-4 py-2.5 text-left text-white">{order.subtotal} QAR</td>
+                    <td className="px-4 py-2.5 text-left text-white">{order.subtotal} SAR</td>
                   </tr>
                   {order.upsell_accepted && (
                     <tr>
                       <td colSpan={3} className="px-4 py-2 text-left text-gray-400">البيع الإضافي</td>
-                      <td className="px-4 py-2 text-left text-emerald-400">+{order.upsell_amount} QAR</td>
+                      <td className="px-4 py-2 text-left text-emerald-400">+{order.upsell_amount} SAR</td>
                     </tr>
                   )}
                   <tr className="border-t border-gray-700">
                     <td colSpan={3} className="px-4 py-3 text-left text-white font-semibold">الإجمالي</td>
-                    <td className="px-4 py-3 text-left text-amber-400 font-bold text-lg">{order.total} QAR</td>
+                    <td className="px-4 py-3 text-left text-amber-400 font-bold text-lg">{order.total} SAR</td>
                   </tr>
                 </tfoot>
               </table>
@@ -535,8 +535,8 @@ function DashboardTab({ metrics, dailyStats, topProducts }: { metrics: Dashboard
         />
         <MetricCard
           title="إجمالي المبيعات"
-          value={`${metrics.total_revenue.toLocaleString()} QAR`}
-          subtitle={`${metrics.revenue_today.toLocaleString()} QAR اليوم`}
+          value={`${metrics.total_revenue.toLocaleString()} SAR`}
+          subtitle={`${metrics.revenue_today.toLocaleString()} SAR اليوم`}
           icon={<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>}
         />
       </div>
@@ -545,7 +545,7 @@ function DashboardTab({ metrics, dailyStats, topProducts }: { metrics: Dashboard
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
         <MetricCard
           title="متوسط قيمة الطلب"
-          value={`${metrics.average_order_value.toFixed(0)} QAR`}
+          value={`${metrics.average_order_value.toFixed(0)} SAR`}
           icon={<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>}
         />
         <MetricCard
@@ -572,7 +572,7 @@ function DashboardTab({ metrics, dailyStats, topProducts }: { metrics: Dashboard
           <MiniChart data={dailyStats} dataKey="orders" color="bg-emerald-400" />
         </div>
         <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
-          <h3 className="text-sm font-semibold text-gray-300 mb-4">المبيعات اليومية (QAR)</h3>
+          <h3 className="text-sm font-semibold text-gray-300 mb-4">المبيعات اليومية (SAR)</h3>
           <MiniChart data={dailyStats} dataKey="revenue" color="bg-blue-400" />
         </div>
       </div>
@@ -595,7 +595,7 @@ function DashboardTab({ metrics, dailyStats, topProducts }: { metrics: Dashboard
                   <tr key={i} className="border-b border-gray-800/50">
                     <td className="px-4 py-3 text-white">{p.product_name}</td>
                     <td className="px-4 py-3 text-center text-gray-300">{p.quantity_sold}</td>
-                    <td className="px-4 py-3 text-left text-amber-400 font-medium">{p.revenue.toLocaleString()} QAR</td>
+                    <td className="px-4 py-3 text-left text-amber-400 font-medium">{p.revenue.toLocaleString()} SAR</td>
                   </tr>
                 ))}
               </tbody>
@@ -683,7 +683,7 @@ function ProductsTab({ products, onRefresh }: { products: Product[]; onRefresh: 
                   </td>
                   <td className="px-4 py-3 text-white font-medium">{p.name_ar}</td>
                   <td className="px-4 py-3 text-gray-400 font-mono text-xs">{p.slug}</td>
-                  <td className="px-4 py-3 text-right text-amber-400">{p.price_1} QAR</td>
+                  <td className="px-4 py-3 text-right text-amber-400">{p.price_1} SAR</td>
                   <td className="px-4 py-3 text-center">
                     <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${p.is_active ? 'bg-emerald-400/10 text-emerald-400' : 'bg-gray-800 text-gray-400'}`}>
                       {p.is_active ? 'Active' : 'Inactive'}
@@ -751,15 +751,15 @@ function ProductsTab({ products, onRefresh }: { products: Product[]; onRefresh: 
                 <h4 className="text-amber-400 font-semibold border-b border-gray-800 pb-2">Pricing & Settings</h4>
                 <div className="grid grid-cols-3 gap-3">
                   <div>
-                    <label className="block text-sm text-gray-400 mb-1">Price 1 (QAR)</label>
+                    <label className="block text-sm text-gray-400 mb-1">Price 1 (SAR)</label>
                     <input type="number" value={editingProduct.price_1 || 0} onChange={e => setEditingProduct({...editingProduct, price_1: parseFloat(e.target.value)})} className="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white" />
                   </div>
                   <div>
-                    <label className="block text-sm text-gray-400 mb-1">Price 2 (QAR)</label>
+                    <label className="block text-sm text-gray-400 mb-1">Price 2 (SAR)</label>
                     <input type="number" value={editingProduct.price_2 || 0} onChange={e => setEditingProduct({...editingProduct, price_2: parseFloat(e.target.value)})} className="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white" />
                   </div>
                   <div>
-                    <label className="block text-sm text-gray-400 mb-1">Price 3 (QAR)</label>
+                    <label className="block text-sm text-gray-400 mb-1">Price 3 (SAR)</label>
                     <input type="number" value={editingProduct.price_3 || 0} onChange={e => setEditingProduct({...editingProduct, price_3: parseFloat(e.target.value)})} className="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white" />
                   </div>
                 </div>
@@ -771,7 +771,7 @@ function ProductsTab({ products, onRefresh }: { products: Product[]; onRefresh: 
                   </label>
                   {editingProduct.is_upsell && (
                     <div className="flex-1">
-                      <label className="block text-xs text-gray-400 mb-1">Upsell Price (QAR)</label>
+                      <label className="block text-xs text-gray-400 mb-1">Upsell Price (SAR)</label>
                       <input type="number" value={editingProduct.upsell_price || 0} onChange={e => setEditingProduct({...editingProduct, upsell_price: parseFloat(e.target.value)})} className="w-full bg-gray-800 border border-gray-700 rounded px-3 py-1 text-white text-sm" />
                     </div>
                   )}
@@ -911,7 +911,7 @@ function OrdersTab({
                     <td className="px-4 py-3 text-amber-400 font-mono text-xs">{order.order_number}</td>
                     <td className="px-4 py-3 text-white">{order.customer_name}</td>
                     <td className="px-4 py-3 text-gray-300 font-mono text-xs" dir="ltr">{order.phone}</td>
-                    <td className="px-4 py-3 text-left text-white font-medium">{order.total} QAR</td>
+                    <td className="px-4 py-3 text-left text-white font-medium">{order.total} SAR</td>
                     <td className="px-4 py-3 text-center"><StatusBadge status={order.status} /></td>
                     <td className="px-4 py-3 text-gray-400 text-xs">
                       {created ? created.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : "—"}

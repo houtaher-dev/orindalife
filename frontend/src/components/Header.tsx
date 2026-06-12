@@ -7,11 +7,11 @@ import { useCartStore } from "@/lib/cartStore";
 
 const ANNOUNCEMENTS = [
   {
-    text: "علكات وقطرات مرخّصة من هيئة الغذاء والدواء (SFDA)",
+    text: "علكات والسعوديةات مرخّصة من هيئة الغذاء والدواء (SFDA)",
     icon: ShieldCheck
   },
   {
-    text: "الدفع عند الاستلام • شحن سريع لجميع مناطق قطر",
+    text: "الدفع عند الاستلام • شحن سريع لجميع مناطق السعودية",
     icon: Truck
   },
   {

@@ -35,7 +35,7 @@ async def send_meta_purchase(order) -> bool:
                     "country": "qa",
                 },
                 "custom_data": {
-                    "currency": "QAR",
+                    "currency": "SAR",
                     "value": order.total,
                     "order_id": order.order_number,
                     "num_items": sum(i.quantity for i in order.items),
@@ -80,7 +80,7 @@ async def send_tiktok_purchase(order) -> bool:
             "user": {"phone_number": ph_hash},
         },
         "properties": {
-            "currency": "QAR",
+            "currency": "SAR",
             "value": order.total,
             "order_id": order.order_number,
             "contents": [
@@ -128,7 +128,7 @@ async def send_snap_purchase(order) -> bool:
                 "integration": "caapi",
                 "user_data": {"phone_number": ph_hash},
                 "custom_data": {
-                    "currency": "QAR",
+                    "currency": "SAR",
                     "price": str(order.total),
                     "transaction_id": order.order_number,
                     "number_items": str(sum(i.quantity for i in order.items)),

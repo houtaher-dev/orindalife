@@ -101,7 +101,7 @@ export default function ThankYouPage() {
                   </div>
                   <div className="text-left">
                     <span className="font-black text-[#134e4a]">{item.bundlePrice * item.quantity}</span>
-                    <span className="text-xs text-gray-500 mr-1">ر.ق</span>
+                    <span className="text-xs text-gray-500 mr-1">ر.س</span>
                   </div>
                 </div>
               ))}
@@ -115,7 +115,7 @@ export default function ThankYouPage() {
                   <span className="font-black text-gray-900">الإجمالي</span>
                   <div className="text-left">
                     <span className="font-black text-xl text-[#134e4a]">{lastOrder.total}</span>
-                    <span className="text-sm text-gray-500 mr-1 font-bold">ر.ق</span>
+                    <span className="text-sm text-gray-500 mr-1 font-bold">ر.س</span>
                   </div>
                 </div>
               </div>
@@ -360,7 +360,7 @@ export default function ThankYouPage() {
                 <Truck className="w-5 h-5 md:w-6 md:h-6 text-[#134e4a]" />
               </div>
               <div className="flex-1">
-                <h4 className="font-bold text-gray-900 text-xs md:text-sm mb-0.5 md:mb-1">شحن سريع داخل قطر</h4>
+                <h4 className="font-bold text-gray-900 text-xs md:text-sm mb-0.5 md:mb-1">شحن سريع داخل السعودية</h4>
                 <p className="text-[10px] md:text-xs text-gray-500 leading-tight">توصيل من 1 إلى 3 أيام عمل لجميع المناطق</p>
               </div>
             </div>
