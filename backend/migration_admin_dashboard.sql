@@ -1,5 +1,5 @@
 -- ============================================================
--- Migration: Admin Dashboard - Page Views Tracking Table
+-- Migration: Admin Dashboard - Page Views Tracking Table & Products Update
 -- Run this SQL against your PostgreSQL database (orendaa)
 -- ============================================================
 
@@ -27,8 +27,10 @@ CREATE INDEX IF NOT EXISTS idx_page_views_is_valid ON page_views (is_valid);
 CREATE INDEX IF NOT EXISTS idx_page_views_created_at ON page_views (created_at);
 CREATE INDEX IF NOT EXISTS idx_page_views_valid_created ON page_views (is_valid, created_at);
 
--- 3. Add new statuses to orders if needed (the column already allows any string)
--- If you need to add columns to orders table in the future, add ALTER TABLE statements here.
+-- 3. Add JSON fields to products table
+ALTER TABLE products ADD COLUMN IF NOT EXISTS ingredients JSON;
+ALTER TABLE products ADD COLUMN IF NOT EXISTS problems_solutions JSON;
+ALTER TABLE products ADD COLUMN IF NOT EXISTS theme JSON;
 
 -- 4. Verify
-SELECT 'Migration complete. page_views table created.' AS result;
+SELECT 'Migration complete. page_views table created and products table updated.' AS result;

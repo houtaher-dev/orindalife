@@ -166,6 +166,51 @@ export function getOrder(id: number) {
   return apiFetch<OrderDetail>(`/api/admin/orders/${id}`);
 }
 
+export interface Product {
+  id: number;
+  slug: string;
+  name_ar: string;
+  name_en: string;
+  tagline_ar?: string;
+  description_ar?: string;
+  image_url?: string;
+  badge_ar?: string;
+  price_1: number;
+  price_2: number;
+  price_3: number;
+  is_upsell: boolean;
+  upsell_price?: number;
+  ingredients?: any[];
+  problems_solutions?: any[];
+  theme?: any;
+  is_active: boolean;
+  sort_order: number;
+}
+
+export function getProducts() {
+  return apiFetch<Product[]>("/api/admin/products");
+}
+
+export function createProduct(data: Partial<Product>) {
+  return apiFetch<Product>("/api/admin/products", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+}
+
+export function updateProduct(id: number, data: Partial<Product>) {
+  return apiFetch<Product>(`/api/admin/products/${id}`, {
+    method: "PATCH",
+    body: JSON.stringify(data),
+  });
+}
+
+export function deleteProduct(id: number) {
+  return apiFetch<{ status: string }>(`/api/admin/products/${id}`, {
+    method: "DELETE",
+  });
+}
+
 export function updateOrderStatus(id: number, status: string) {
   return apiFetch<OrderDetail>(`/api/admin/orders/${id}/status`, {
     method: "PATCH",

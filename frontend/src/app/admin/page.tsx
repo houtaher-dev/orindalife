@@ -12,11 +12,16 @@ import {
   getOrder,
   updateOrderStatus,
   updateOrderNotes,
+  getProducts,
+  createProduct,
+  updateProduct,
+  deleteProduct,
   type DashboardMetrics,
   type DailyStats,
   type TopProduct,
   type OrderDetail,
   type OrdersListResponse,
+  type Product,
 } from "@/lib/adminApi";
 
 // ────────────────────────────────────────────────
@@ -271,7 +276,7 @@ function OrderPreview({
 // ────────────────────────────────────────────────
 export default function AdminDashboard() {
   const router = useRouter();
-  const [tab, setTab] = useState<"dashboard" | "orders">("dashboard");
+  const [tab, setTab] = useState<"dashboard" | "orders" | "products">("dashboard");
   const [loading, setLoading] = useState(true);
 
   // Date range
@@ -289,6 +294,9 @@ export default function AdminDashboard() {
   const [ordersSearch, setOrdersSearch] = useState("");
   const [ordersStatus, setOrdersStatus] = useState("");
   const [selectedOrder, setSelectedOrder] = useState<OrderDetail | null>(null);
+
+  // Products data
+  const [productsData, setProductsData] = useState<Product[]>([]);
 
   // Auth check
   useEffect(() => {
@@ -331,6 +339,15 @@ export default function AdminDashboard() {
     }
   }, [ordersPage, ordersSearch, ordersStatus, dateFrom, dateTo]);
 
+  const fetchProducts = useCallback(async () => {
+    try {
+      const data = await getProducts();
+      setProductsData(data);
+    } catch {
+      /* ignore */
+    }
+  }, []);
+
   useEffect(() => {
     if (!loading && tab === "dashboard") fetchDashboard();
   }, [loading, tab, fetchDashboard]);
@@ -338,6 +355,10 @@ export default function AdminDashboard() {
   useEffect(() => {
     if (!loading && tab === "orders") fetchOrders();
   }, [loading, tab, fetchOrders]);
+
+  useEffect(() => {
+    if (!loading && tab === "products") fetchProducts();
+  }, [loading, tab, fetchProducts]);
 
   async function handleStatusChange(orderId: number, status: string) {
     try {
@@ -406,6 +427,12 @@ export default function AdminDashboard() {
               >
                 Orders
               </button>
+              <button
+                onClick={() => setTab("products")}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition ${tab === "products" ? "bg-gray-800 text-white" : "text-gray-400 hover:text-white hover:bg-gray-800/50"}`}
+              >
+                Products
+              </button>
             </nav>
           </div>
           <button onClick={handleLogout} className="text-gray-400 hover:text-white text-sm transition">
@@ -458,6 +485,12 @@ export default function AdminDashboard() {
             page={ordersPage}
             onPageChange={setOrdersPage}
             onOrderClick={handleOrderClick}
+          />
+        )}
+        {tab === "products" && (
+          <ProductsTab
+            products={productsData}
+            onRefresh={fetchProducts}
           />
         )}
       </main>
@@ -575,8 +608,234 @@ function DashboardTab({ metrics, dailyStats, topProducts }: { metrics: Dashboard
 }
 
 // ────────────────────────────────────────────────
-// ORDERS TAB
+// PRODUCTS TAB
 // ────────────────────────────────────────────────
+function ProductsTab({ products, onRefresh }: { products: Product[]; onRefresh: () => void }) {
+  const [editingProduct, setEditingProduct] = useState<Partial<Product> | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
+
+  async function handleSave() {
+    if (!editingProduct) return;
+    setIsSaving(true);
+    try {
+      if (editingProduct.id) {
+        await updateProduct(editingProduct.id, editingProduct);
+      } else {
+        await createProduct(editingProduct);
+      }
+      setEditingProduct(null);
+      onRefresh();
+    } catch (err) {
+      alert("Failed to save product. Check console for details.");
+      console.error(err);
+    } finally {
+      setIsSaving(false);
+    }
+  }
+
+  async function handleDelete(id: number) {
+    if (!confirm("Are you sure you want to delete this product?")) return;
+    try {
+      await deleteProduct(id);
+      onRefresh();
+    } catch (err) {
+      alert("Failed to delete product.");
+      console.error(err);
+    }
+  }
+
+  return (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <h2 className="text-xl font-bold text-white">Manage Products</h2>
+        <button
+          onClick={() => setEditingProduct({
+            slug: "", name_ar: "", name_en: "", price_1: 0, price_2: 0, price_3: 0, is_upsell: false, is_active: true, sort_order: 0
+          })}
+          className="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-gray-900 font-medium rounded-lg transition"
+        >
+          Add New Product
+        </button>
+      </div>
+
+      <div className="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-gray-800 bg-gray-900">
+                <th className="text-left text-gray-500 font-medium px-4 py-3">Image</th>
+                <th className="text-left text-gray-500 font-medium px-4 py-3">Name (AR)</th>
+                <th className="text-left text-gray-500 font-medium px-4 py-3">Slug</th>
+                <th className="text-right text-gray-500 font-medium px-4 py-3">Price 1</th>
+                <th className="text-center text-gray-500 font-medium px-4 py-3">Status</th>
+                <th className="text-right text-gray-500 font-medium px-4 py-3">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {products.map((p) => (
+                <tr key={p.id} className="border-b border-gray-800/50 hover:bg-gray-800/30 transition">
+                  <td className="px-4 py-3">
+                    {p.image_url ? (
+                      <img src={p.image_url} alt={p.name_en} className="w-10 h-10 object-contain rounded bg-white" />
+                    ) : (
+                      <div className="w-10 h-10 bg-gray-800 rounded flex items-center justify-center text-gray-500 text-xs">No img</div>
+                    )}
+                  </td>
+                  <td className="px-4 py-3 text-white font-medium">{p.name_ar}</td>
+                  <td className="px-4 py-3 text-gray-400 font-mono text-xs">{p.slug}</td>
+                  <td className="px-4 py-3 text-right text-amber-400">{p.price_1} QAR</td>
+                  <td className="px-4 py-3 text-center">
+                    <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${p.is_active ? 'bg-emerald-400/10 text-emerald-400' : 'bg-gray-800 text-gray-400'}`}>
+                      {p.is_active ? 'Active' : 'Inactive'}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3 text-right">
+                    <button onClick={() => setEditingProduct(p)} className="text-blue-400 hover:text-blue-300 mr-3">Edit</button>
+                    <button onClick={() => handleDelete(p.id)} className="text-red-400 hover:text-red-300">Delete</button>
+                  </td>
+                </tr>
+              ))}
+              {products.length === 0 && (
+                <tr>
+                  <td colSpan={6} className="px-4 py-8 text-center text-gray-500">No products found.</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Edit Modal */}
+      {editingProduct && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setEditingProduct(null)} />
+          <div className="relative bg-gray-900 border border-gray-800 rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto shadow-2xl p-6">
+            <h3 className="text-xl font-bold text-white mb-6">{editingProduct.id ? "Edit Product" : "Add New Product"}</h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Basic Info */}
+              <div className="space-y-4">
+                <h4 className="text-amber-400 font-semibold border-b border-gray-800 pb-2">Basic Info</h4>
+                <div>
+                  <label className="block text-sm text-gray-400 mb-1">Slug (URL identifier)</label>
+                  <input type="text" value={editingProduct.slug || ""} onChange={e => setEditingProduct({...editingProduct, slug: e.target.value})} className="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white" />
+                </div>
+                <div>
+                  <label className="block text-sm text-gray-400 mb-1">Name (Arabic)</label>
+                  <input type="text" value={editingProduct.name_ar || ""} onChange={e => setEditingProduct({...editingProduct, name_ar: e.target.value})} className="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white text-right" dir="rtl" />
+                </div>
+                <div>
+                  <label className="block text-sm text-gray-400 mb-1">Name (English)</label>
+                  <input type="text" value={editingProduct.name_en || ""} onChange={e => setEditingProduct({...editingProduct, name_en: e.target.value})} className="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white" />
+                </div>
+                <div>
+                  <label className="block text-sm text-gray-400 mb-1">Tagline (Arabic)</label>
+                  <input type="text" value={editingProduct.tagline_ar || ""} onChange={e => setEditingProduct({...editingProduct, tagline_ar: e.target.value})} className="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white text-right" dir="rtl" />
+                </div>
+                <div>
+                  <label className="block text-sm text-gray-400 mb-1">Description (Arabic)</label>
+                  <textarea value={editingProduct.description_ar || ""} onChange={e => setEditingProduct({...editingProduct, description_ar: e.target.value})} rows={3} className="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white text-right" dir="rtl" />
+                </div>
+                <div>
+                  <label className="block text-sm text-gray-400 mb-1">Image URL</label>
+                  <input type="text" value={editingProduct.image_url || ""} onChange={e => setEditingProduct({...editingProduct, image_url: e.target.value})} className="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white" placeholder="/images/product.jpg" />
+                </div>
+                <div>
+                  <label className="block text-sm text-gray-400 mb-1">Badge (Arabic)</label>
+                  <input type="text" value={editingProduct.badge_ar || ""} onChange={e => setEditingProduct({...editingProduct, badge_ar: e.target.value})} className="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white text-right" dir="rtl" />
+                </div>
+              </div>
+
+              {/* Pricing & Settings */}
+              <div className="space-y-4">
+                <h4 className="text-amber-400 font-semibold border-b border-gray-800 pb-2">Pricing & Settings</h4>
+                <div className="grid grid-cols-3 gap-3">
+                  <div>
+                    <label className="block text-sm text-gray-400 mb-1">Price 1 (QAR)</label>
+                    <input type="number" value={editingProduct.price_1 || 0} onChange={e => setEditingProduct({...editingProduct, price_1: parseFloat(e.target.value)})} className="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white" />
+                  </div>
+                  <div>
+                    <label className="block text-sm text-gray-400 mb-1">Price 2 (QAR)</label>
+                    <input type="number" value={editingProduct.price_2 || 0} onChange={e => setEditingProduct({...editingProduct, price_2: parseFloat(e.target.value)})} className="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white" />
+                  </div>
+                  <div>
+                    <label className="block text-sm text-gray-400 mb-1">Price 3 (QAR)</label>
+                    <input type="number" value={editingProduct.price_3 || 0} onChange={e => setEditingProduct({...editingProduct, price_3: parseFloat(e.target.value)})} className="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white" />
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-4 mt-4">
+                  <label className="flex items-center gap-2 text-white cursor-pointer">
+                    <input type="checkbox" checked={editingProduct.is_upsell || false} onChange={e => setEditingProduct({...editingProduct, is_upsell: e.target.checked})} className="rounded bg-gray-800 border-gray-700 text-amber-500 focus:ring-amber-500" />
+                    Is Upsell?
+                  </label>
+                  {editingProduct.is_upsell && (
+                    <div className="flex-1">
+                      <label className="block text-xs text-gray-400 mb-1">Upsell Price (QAR)</label>
+                      <input type="number" value={editingProduct.upsell_price || 0} onChange={e => setEditingProduct({...editingProduct, upsell_price: parseFloat(e.target.value)})} className="w-full bg-gray-800 border border-gray-700 rounded px-3 py-1 text-white text-sm" />
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex items-center gap-4 mt-2">
+                  <label className="flex items-center gap-2 text-white cursor-pointer">
+                    <input type="checkbox" checked={editingProduct.is_active ?? true} onChange={e => setEditingProduct({...editingProduct, is_active: e.target.checked})} className="rounded bg-gray-800 border-gray-700 text-amber-500 focus:ring-amber-500" />
+                    Is Active?
+                  </label>
+                  <div className="flex-1">
+                    <label className="block text-xs text-gray-400 mb-1">Sort Order</label>
+                    <input type="number" value={editingProduct.sort_order || 0} onChange={e => setEditingProduct({...editingProduct, sort_order: parseInt(e.target.value)})} className="w-full bg-gray-800 border border-gray-700 rounded px-3 py-1 text-white text-sm" />
+                  </div>
+                </div>
+
+                <h4 className="text-amber-400 font-semibold border-b border-gray-800 pb-2 mt-6">Advanced JSON Data</h4>
+                <div>
+                  <label className="block text-xs text-gray-400 mb-1">Ingredients (JSON Array)</label>
+                  <textarea 
+                    value={typeof editingProduct.ingredients === 'string' ? editingProduct.ingredients : JSON.stringify(editingProduct.ingredients || [], null, 2)} 
+                    onChange={e => {
+                      try {
+                        const val = JSON.parse(e.target.value);
+                        setEditingProduct({...editingProduct, ingredients: val});
+                      } catch {
+                        setEditingProduct({...editingProduct, ingredients: e.target.value as any});
+                      }
+                    }} 
+                    rows={4} 
+                    className="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white font-mono text-xs" 
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs text-gray-400 mb-1">Problems & Solutions (JSON Array)</label>
+                  <textarea 
+                    value={typeof editingProduct.problems_solutions === 'string' ? editingProduct.problems_solutions : JSON.stringify(editingProduct.problems_solutions || [], null, 2)} 
+                    onChange={e => {
+                      try {
+                        const val = JSON.parse(e.target.value);
+                        setEditingProduct({...editingProduct, problems_solutions: val});
+                      } catch {
+                        setEditingProduct({...editingProduct, problems_solutions: e.target.value as any});
+                      }
+                    }} 
+                    rows={4} 
+                    className="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white font-mono text-xs" 
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-8 flex justify-end gap-3 border-t border-gray-800 pt-4">
+              <button onClick={() => setEditingProduct(null)} className="px-4 py-2 text-gray-400 hover:text-white transition">Cancel</button>
+              <button onClick={handleSave} disabled={isSaving} className="px-6 py-2 bg-amber-500 hover:bg-amber-600 text-gray-900 font-bold rounded-lg transition disabled:opacity-50">
+                {isSaving ? "Saving..." : "Save Product"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 function OrdersTab({
   data,
   search,

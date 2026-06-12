@@ -1,6 +1,6 @@
 import math
 from datetime import datetime, timedelta, timezone
-from typing import Optional
+from typing import Optional, List
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy import func, case, distinct
@@ -9,6 +9,7 @@ from sqlalchemy.orm import Session
 from app.config import settings
 from app.database import get_db
 from app.models.order import Order, OrderItem
+from app.models.product import Product
 from app.models.page_view import PageView
 from app.schemas.admin import (
     LoginIn,
@@ -21,6 +22,7 @@ from app.schemas.admin import (
     UpdateOrderStatusIn,
     UpdateOrderNotesIn,
 )
+from app.schemas.product import ProductOut, ProductCreate, ProductUpdate
 from app.services.auth import create_access_token, verify_token
 
 router = APIRouter(prefix="/admin", tags=["admin"])
@@ -198,6 +200,71 @@ def get_top_products(
         TopProduct(product_name=r[0], product_slug=r[1], quantity_sold=int(r[2]), revenue=round(float(r[3]), 2))
         for r in rows
     ]
+
+
+@router.get("/products", response_model=List[ProductOut])
+def admin_list_products(
+    db: Session = Depends(get_db),
+    _user: str = Depends(verify_token),
+):
+    return db.query(Product).order_by(Product.sort_order).all()
+
+
+@router.post("/products", response_model=ProductOut)
+def admin_create_product(
+    payload: ProductCreate,
+    db: Session = Depends(get_db),
+    _user: str = Depends(verify_token),
+):
+    existing = db.query(Product).filter(Product.slug == payload.slug).first()
+    if existing:
+        raise HTTPException(status_code=400, detail="Product with this slug already exists")
+    
+    product = Product(**payload.model_dump())
+    db.add(product)
+    db.commit()
+    db.refresh(product)
+    return product
+
+
+@router.patch("/products/{product_id}", response_model=ProductOut)
+def admin_update_product(
+    product_id: int,
+    payload: ProductUpdate,
+    db: Session = Depends(get_db),
+    _user: str = Depends(verify_token),
+):
+    product = db.query(Product).filter(Product.id == product_id).first()
+    if not product:
+        raise HTTPException(status_code=404, detail="Product not found")
+    
+    update_data = payload.model_dump(exclude_unset=True)
+    if "slug" in update_data and update_data["slug"] != product.slug:
+        existing = db.query(Product).filter(Product.slug == update_data["slug"]).first()
+        if existing:
+            raise HTTPException(status_code=400, detail="Product with this slug already exists")
+
+    for key, value in update_data.items():
+        setattr(product, key, value)
+        
+    db.commit()
+    db.refresh(product)
+    return product
+
+
+@router.delete("/products/{product_id}")
+def admin_delete_product(
+    product_id: int,
+    db: Session = Depends(get_db),
+    _user: str = Depends(verify_token),
+):
+    product = db.query(Product).filter(Product.id == product_id).first()
+    if not product:
+        raise HTTPException(status_code=404, detail="Product not found")
+    
+    db.delete(product)
+    db.commit()
+    return {"status": "deleted"}
 
 
 # ──────────────────────────────────────────────

@@ -1,5 +1,5 @@
 from datetime import datetime, timezone
-from sqlalchemy import Boolean, Column, DateTime, Float, Integer, String, Text
+from sqlalchemy import JSON, Boolean, Column, DateTime, Float, Integer, String, Text
 from app.database import Base
 
 
@@ -23,6 +23,11 @@ class Product(Base):
     # Upsell / cross-sell
     is_upsell = Column(Boolean, default=False)
     upsell_price = Column(Float, nullable=True)
+
+    # Detailed structured data
+    ingredients = Column(JSON, nullable=True)
+    problems_solutions = Column(JSON, nullable=True)
+    theme = Column(JSON, nullable=True)
 
     is_active = Column(Boolean, default=True)
     sort_order = Column(Integer, default=0)
