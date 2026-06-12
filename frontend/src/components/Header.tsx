@@ -7,7 +7,7 @@ import { useCartStore } from "@/lib/cartStore";
 
 const ANNOUNCEMENTS = [
   {
-    text: "علكات وقطرات مرخّصة من هيئة الغذاء والدواء (SFDA)",
+    text: "علكات مرخّصة من هيئة الغذاء والدواء (SFDA)",
     icon: ShieldCheck
   },
   {

@@ -36,7 +36,7 @@ export function Footer() {
                 <li><Link href="/#products" className="hover:text-[#D4AF37] transition-colors">المجموعة الكاملة</Link></li>
                 <li><Link href="/product/peaceful-slumber-gummies" className="hover:text-[#D4AF37] transition-colors">علكات السُبات الهادئ</Link></li>
                 <li><Link href="/product/focus-pro-coffee" className="hover:text-[#D4AF37] transition-colors">قهوة اليَقَظَة برو</Link></li>
-                <li><Link href="/product/anti-stress-calm-drops" className="hover:text-[#D4AF37] transition-colors">قطرات الهدوء ضد التوتر</Link></li>
+                <li><Link href="/product/anti-stress-calm-drops" className="hover:text-[#D4AF37] transition-colors">علكات الهدوء ضد التوتر</Link></li>
               </ul>
             </div>
 
