@@ -4,24 +4,24 @@ import { Star, Quote } from "lucide-react";
 const REVIEWS = [
   {
     id: 1,
-    text: "بصراحة، علكات الهدوء غيرت روتيني بالكامل. كنت أعاني من التوتر والضغط المستمر، والآن ولله الحمد أشعر بتوازن وراحة بال حقيقية. منتج يبيض الوجه، يعطيكم العافية على هذه الجودة العالية.",
-    name: "نورة الكواري",
-    details: "34 سنة، الرياض • مشترية مؤكدة",
-    initial: "ن"
+    text: "بصراحة، الحقيبة متكاملة وتوفر عليك تعب التجميع. جربت القصبة 3 متر وكانت ممتازة في الرمي من الشاطئ. الماكينة قوية والخيط يتحمل. أنصح فيها وبقوة.",
+    name: "عبدالله الدوسري",
+    details: "34 سنة، الدمام • مشتري مؤكد",
+    initial: "ع"
   },
   {
     id: 2,
-    text: "قهوة اليقظة برو ممتازة، تعطيني طاقة حق الدوام بدون ما تسبب لي رجفة الكافيين اللي كنت متعود عليها. صج شغل عدل وأول مرة أثق ببراند يذكر مكوناته بالتفصيل.",
-    name: "جاسم المري",
-    details: "29 سنة، الريان • مشتري مؤكد",
-    initial: "ج"
+    text: "أخذت مقاس 2.4 متر للطلعات الخفيفة على القارب. القصبة خفيفة ومرنة جداً. التوصيل كان سريع والدفع عند الاستلام ريحني كثير. شكراً حِداق الخليج.",
+    name: "فيصل الغامدي",
+    details: "29 سنة، جدة • مشتري مؤكد",
+    initial: "ف"
   },
   {
     id: 3,
-    text: "أهم شي عندي إن المنتجات مرخصة وحلال. جربت وايد أشياء قبل بس علكات السبات الهادئ فادتني وايد في تعديل نومي. توصيلكم كان وايد سريع للوكرة، شكراً أوريندا.",
-    name: "حصة السليطي",
-    details: "38 سنة، الوكرة • مشترية مؤكدة",
-    initial: "ح"
+    text: "أول مرة أشتري معدات صيد وما كنت أعرف وش أختار، بس هذي الحقيبة فيها كل شي أحتاجه كبداية. جودة ممتازة وسعر معقول جداً مقارنة بالسوق.",
+    name: "سعد القحطاني",
+    details: "38 سنة، الجبيل • مشتري مؤكد",
+    initial: "س"
   }
 ];
 
@@ -32,14 +32,14 @@ export function ReviewsSection({ isDark = false }: { isDark?: boolean }) {
         
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="text-xs font-black tracking-[0.2em] text-[#d4af37] uppercase mb-4">
+          <h2 className="text-xs font-black tracking-[0.2em] text-[#FF6B35] uppercase mb-4">
             Verified Reviews
           </h2>
-          <h3 className={`text-3xl md:text-4xl font-black mb-4 ${isDark ? 'text-white' : 'text-[#134e4a]'}`}>
-            عملاء وعميلات قرأوا المكونات قبل الطلب
+          <h3 className={`text-3xl md:text-4xl font-black mb-4 ${isDark ? 'text-white' : 'text-[#0B1B3D]'}`}>
+            صيادين جربوا معداتنا
           </h3>
           <p className={`text-lg font-medium ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-            أوريندا اختيار اللي ما يصدق أي إعلان. يقرأ، يتحقق، ثم يطلب.
+            آراء حقيقية من عملاء استخدموا حقائب حِداق الخليج في رحلاتهم.
           </p>
         </div>
 
@@ -49,12 +49,12 @@ export function ReviewsSection({ isDark = false }: { isDark?: boolean }) {
             <div key={review.id} className={`${isDark ? 'bg-[#1a1a1a] border-[#333333]' : 'bg-[#F8F7F3] border-gray-100/50'} rounded-3xl p-8 flex flex-col relative border`}>
               
               {/* Quote Icon */}
-              <Quote className="absolute top-6 left-6 w-8 h-8 text-[#d4af37] opacity-20 rotate-180" fill="currentColor" />
+              <Quote className="absolute top-6 left-6 w-8 h-8 text-[#FF6B35] opacity-20 rotate-180" fill="currentColor" />
               
               {/* Stars */}
               <div className="flex gap-1 mb-6 justify-center">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 text-[#d4af37]" fill="currentColor" strokeWidth={0} />
+                  <Star key={i} className="w-5 h-5 text-[#FF6B35]" fill="currentColor" strokeWidth={0} />
                 ))}
               </div>
 
@@ -71,7 +71,7 @@ export function ReviewsSection({ isDark = false }: { isDark?: boolean }) {
                 </div>
                 
                 {/* Initial Circle */}
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg ${isDark ? 'bg-gradient-to-br from-[#D4AF37] to-[#B8860B] text-[#0a0a0a]' : 'bg-[#134e4a] text-white'}`}>
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg ${isDark ? 'bg-[#FF6B35] text-white' : 'bg-[#0B1B3D] text-white'}`}>
                   {review.initial}
                 </div>
               </div>

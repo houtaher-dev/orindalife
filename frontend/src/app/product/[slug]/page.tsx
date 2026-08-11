@@ -23,17 +23,17 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     <div className="bg-[#0a0a0a] min-h-screen font-sans selection:bg-[#D4AF37]/30">
       
       {/* 1. Hero Section */}
-      <section className="bg-[#141414] py-12 md:py-24 border-b border-[#333333] relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#D4AF37]/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
+      <section className="bg-[#0B1B3D] py-12 md:py-24 border-b border-[#1A365D] relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#FF6B35]/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
         <div className="container mx-auto px-4 max-w-6xl relative z-10">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             
             {/* Right: Text & Options */}
             <div>
-              <h1 className="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#F3E5AB] via-[#D4AF37] to-[#B8860B] mb-4 leading-tight">
+              <h1 className="text-4xl md:text-5xl font-black text-white mb-4 leading-tight">
                 {product.name_ar}
                 <br />
-                <span className="text-2xl text-gray-400 font-medium">السبب مو منك، السبب من الروتين</span>
+                <span className="text-2xl text-[#FF6B35] font-medium">{product.tagline_ar}</span>
               </h1>
               
               <p className="text-lg text-gray-300 mb-6 leading-relaxed">
@@ -41,7 +41,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               </p>
 
               <div className="flex items-center gap-2 mb-8">
-                <div className="flex text-[#D4AF37]">
+                <div className="flex text-[#FF6B35]">
                   <Star className="w-5 h-5 fill-current" />
                   <Star className="w-5 h-5 fill-current" />
                   <Star className="w-5 h-5 fill-current" />
@@ -49,7 +49,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                   <Star className="w-5 h-5 fill-current" />
                 </div>
                 <span className="text-sm font-bold text-white">4.9</span>
-                <span className="text-sm text-[#D4AF37] underline">+487 تقييم موثق</span>
+                <span className="text-sm text-[#FF6B35] underline">+487 تقييم موثق</span>
               </div>
 
               {/* Add To Cart Options */}
@@ -60,32 +60,32 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             </div>
 
             {/* Left: Product Image */}
-            <div className="relative aspect-square md:aspect-[4/5] rounded-3xl overflow-hidden bg-[#1a1a1a] shadow-lg shadow-black/50 border border-[#333333]">
+            <div className="relative aspect-square md:aspect-[4/5] rounded-3xl overflow-hidden bg-[#0B1B3D] shadow-lg shadow-black/50 border border-[#1A365D]">
               <Image 
                 src={product.image_url} 
                 alt={product.name_ar}
                 fill
                 className="object-cover"
               />
-              <div className="absolute bottom-0 inset-x-0 bg-[#0a0a0a]/90 backdrop-blur py-4 px-6 flex justify-between items-center border-t border-[#333333]">
+              <div className="absolute bottom-0 inset-x-0 bg-[#0B1B3D]/90 backdrop-blur py-4 px-6 flex justify-between items-center border-t border-[#1A365D]">
                  <div className="text-center">
-                   <div className="text-xs text-gray-500 font-bold mb-1">مرخص من</div>
-                   <div className="font-black text-[#D4AF37]">SFDA</div>
+                   <div className="text-xs text-gray-400 font-bold mb-1">جودة</div>
+                   <div className="font-black text-[#FF6B35]">عالية</div>
                  </div>
-                 <div className="w-px h-8 bg-[#333333]"></div>
+                 <div className="w-px h-8 bg-[#1A365D]"></div>
                  <div className="text-center">
-                   <div className="text-xs text-gray-500 font-bold mb-1">صنع في</div>
-                   <div className="font-black text-[#D4AF37]">حلال</div>
+                   <div className="text-xs text-gray-400 font-bold mb-1">توصيل</div>
+                   <div className="font-black text-[#FF6B35]">سريع</div>
                  </div>
-                 <div className="w-px h-8 bg-[#333333]"></div>
+                 <div className="w-px h-8 bg-[#1A365D]"></div>
                  <div className="text-center">
-                   <div className="text-xs text-gray-500 font-bold mb-1">الكمية</div>
-                   <div className="font-black text-[#D4AF37]">30 حبة</div>
+                   <div className="text-xs text-gray-400 font-bold mb-1">دفع</div>
+                   <div className="font-black text-[#FF6B35]">عند الاستلام</div>
                  </div>
-                 <div className="w-px h-8 bg-[#333333]"></div>
+                 <div className="w-px h-8 bg-[#1A365D]"></div>
                  <div className="text-center">
-                   <div className="text-xs text-gray-500 font-bold mb-1">يكفي لمدة</div>
-                   <div className="font-black text-[#D4AF37]">شهر</div>
+                   <div className="text-xs text-gray-400 font-bold mb-1">ضمان</div>
+                   <div className="font-black text-[#FF6B35]">استبدال</div>
                  </div>
               </div>
             </div>
@@ -95,11 +95,11 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       </section>
 
       {/* 2. Problems & Solutions Section */}
-      <section className="py-20 md:py-32 bg-[#0a0a0a]">
+      <section className="py-20 md:py-32 bg-[#0B1B3D]">
         <div className="container mx-auto px-4 max-w-5xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#F3E5AB] via-[#D4AF37] to-[#B8860B] mb-4">مشاكل تعرفها — وحلول من الداخل</h2>
-            <p className="text-gray-400 font-medium">مو نخفف الأعراض. نحل السبب الجذري — مكون لكل مشكلة.</p>
+            <h2 className="text-3xl md:text-4xl font-black text-white mb-4">تحديات الصيد — وحلولنا</h2>
+            <p className="text-gray-400 font-medium">معدات مصممة لتجاوز التحديات وتسهيل رحلة الصيد.</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-12 items-start">
@@ -107,7 +107,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               {product.problems_solutions.map((item, index) => (
                 <div key={index} className="space-y-2">
                   {/* Problem Box */}
-                  <div className="bg-[#141414] p-5 rounded-xl border border-red-900/50 flex items-center gap-4 shadow-sm">
+                  <div className="bg-[#1A365D] p-5 rounded-xl border border-red-900/50 flex items-center gap-4 shadow-sm">
                     <div className="w-8 h-8 rounded-full bg-red-950/50 flex items-center justify-center flex-shrink-0">
                       <X className="w-5 h-5 text-red-500" />
                     </div>
@@ -115,9 +115,9 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                   </div>
                   
                   {/* Solution Box */}
-                  <div className="bg-[#1a1a1a] p-5 rounded-xl border border-[#D4AF37]/20 flex items-start gap-4">
-                    <div className="w-8 h-8 rounded-full bg-[#D4AF37]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <Check className="w-5 h-5 text-[#D4AF37]" />
+                  <div className="bg-[#1A365D] p-5 rounded-xl border border-[#FF6B35]/20 flex items-start gap-4">
+                    <div className="w-8 h-8 rounded-full bg-[#FF6B35]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Check className="w-5 h-5 text-[#FF6B35]" />
                     </div>
                     <p className="text-sm md:text-base text-gray-300 font-medium leading-relaxed">
                       {item.solution}
@@ -127,7 +127,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               ))}
             </div>
 
-            <div className="relative aspect-[3/4] md:aspect-[4/5] rounded-3xl overflow-hidden bg-[#141414] border border-[#333333] sticky top-24 shadow-lg shadow-black/50">
+            <div className="relative aspect-[3/4] md:aspect-[4/5] rounded-3xl overflow-hidden bg-[#1A365D] border border-[#FF6B35]/20 sticky top-24 shadow-lg shadow-black/50">
                <Image 
                   src={product.image_url} 
                   alt={product.name_ar}
@@ -140,15 +140,15 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       </section>
 
       {/* 3. Ingredients Section */}
-      <section className="py-20 md:py-32 bg-[#141414] border-t border-[#333333]">
+      <section className="py-20 md:py-32 bg-[#1A365D] border-t border-[#FF6B35]/20">
         <div className="container mx-auto px-4 max-w-5xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#F3E5AB] via-[#D4AF37] to-[#B8860B] mb-4">السر في التركيبة، مو في القائمة</h2>
-            <p className="text-gray-400 font-medium">كل مكون مختار بعناية وبجرعة مدروسة لتوفير أقصى فائدة، مو مجرد حشو.</p>
+            <h2 className="text-3xl md:text-4xl font-black text-white mb-4">محتويات الحقيبة</h2>
+            <p className="text-gray-400 font-medium">كل ما تحتاجه لرحلة صيد متكاملة في حقيبة واحدة.</p>
           </div>
 
           <div className="grid md:grid-cols-5 gap-12 items-center">
-            <div className="md:col-span-2 relative aspect-[4/5] rounded-3xl overflow-hidden bg-[#1a1a1a] shadow-lg shadow-black/50 border border-[#333333]">
+            <div className="md:col-span-2 relative aspect-[4/5] rounded-3xl overflow-hidden bg-[#0B1B3D] shadow-lg shadow-black/50 border border-[#FF6B35]/20">
                <div className={`absolute inset-0 bg-gradient-to-tr ${product.theme.from} ${product.theme.to} opacity-5`}></div>
                <Image 
                   src={product.image_url} 
@@ -160,19 +160,19 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
             <div className="md:col-span-3 space-y-6">
               {product.ingredients.map((ing, i) => (
-                <div key={i} className="bg-[#1a1a1a] p-6 rounded-2xl border border-[#333333] shadow-sm hover:border-[#D4AF37]/30 transition-colors">
+                <div key={i} className="bg-[#0B1B3D] p-6 rounded-2xl border border-[#FF6B35]/20 shadow-sm hover:border-[#FF6B35]/50 transition-colors">
                   <div className="flex justify-between items-start mb-3">
                     <h3 className="text-xl font-black text-white">{ing.name_ar}</h3>
-                    <div className="px-3 py-1 bg-[#D4AF37]/10 text-[#D4AF37] text-xs font-bold rounded-full border border-[#D4AF37]/20">
+                    <div className="px-3 py-1 bg-[#FF6B35]/10 text-[#FF6B35] text-xs font-bold rounded-full border border-[#FF6B35]/20">
                       {ing.name_en}
                     </div>
                   </div>
                   <p className="text-gray-400 leading-relaxed text-sm md:text-base">
                     {ing.description}
                   </p>
-                  <div className="mt-4 flex items-center gap-2 text-[#D4AF37] text-sm font-bold">
+                  <div className="mt-4 flex items-center gap-2 text-[#FF6B35] text-sm font-bold">
                     <CheckCircle2 className="w-4 h-4" />
-                    <span>فعالية مثبتة علمياً، نقاء عالي الجودة</span>
+                    <span>جودة عالية ومتانة مضمونة</span>
                   </div>
                 </div>
               ))}
@@ -182,110 +182,82 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       </section>
 
       {/* 4. Trust Section */}
-      <section className="py-16 bg-[#0a0a0a] border-y border-[#333333]">
+      <section className="py-16 bg-[#0B1B3D] border-y border-[#1A365D]">
         <div className="container mx-auto px-4 max-w-4xl text-center">
-           <h2 className="text-2xl font-black text-white mb-2">تركيبة سريرية، مو وعود فاضية</h2>
-           <p className="text-gray-400 mb-10">مرخصة من الجهات الرسمية ومصنوعة بأعلى معايير الجودة العالمية</p>
+           <h2 className="text-2xl font-black text-white mb-2">جودة تثق بها</h2>
+           <p className="text-gray-400 mb-10">معدات مصممة لتحمل أقسى ظروف الصيد البحري</p>
 
            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 mb-12">
-              <div className="border border-[#333333] rounded-2xl p-6 bg-[#141414] hover:border-[#D4AF37]/30 transition-colors">
-                 <div className="font-black text-xl text-[#D4AF37] mb-2">SFDA</div>
-                 <div className="text-xs text-gray-400 font-bold">هيئة الغذاء والدواء</div>
+              <div className="border border-[#FF6B35]/20 rounded-2xl p-6 bg-[#1A365D] hover:border-[#FF6B35]/50 transition-colors">
+                 <div className="font-black text-xl text-[#FF6B35] mb-2">متانة</div>
+                 <div className="text-xs text-gray-400 font-bold">مواد عالية الجودة</div>
               </div>
-              <div className="border border-[#333333] rounded-2xl p-6 bg-[#141414] hover:border-[#D4AF37]/30 transition-colors">
-                 <div className="font-black text-xl text-[#D4AF37] mb-2">GMP</div>
-                 <div className="text-xs text-gray-400 font-bold">ممارسات التصنيع</div>
+              <div className="border border-[#FF6B35]/20 rounded-2xl p-6 bg-[#1A365D] hover:border-[#FF6B35]/50 transition-colors">
+                 <div className="font-black text-xl text-[#FF6B35] mb-2">أداء</div>
+                 <div className="text-xs text-gray-400 font-bold">تصميم احترافي</div>
               </div>
-              <div className="border border-[#333333] rounded-2xl p-6 bg-[#141414] hover:border-[#D4AF37]/30 transition-colors">
-                 <div className="font-black text-xl text-[#D4AF37] mb-2">حلال</div>
-                 <div className="text-xs text-gray-400 font-bold">موثق حلال عالمياً</div>
+              <div className="border border-[#FF6B35]/20 rounded-2xl p-6 bg-[#1A365D] hover:border-[#FF6B35]/50 transition-colors">
+                 <div className="font-black text-xl text-[#FF6B35] mb-2">ضمان</div>
+                 <div className="text-xs text-gray-400 font-bold">استبدال واسترجاع</div>
               </div>
-              <div className="border border-[#333333] rounded-2xl p-6 bg-[#141414] hover:border-[#D4AF37]/30 transition-colors">
-                 <div className="font-black text-xl text-[#D4AF37] mb-2">ISO 22000</div>
-                 <div className="text-xs text-gray-400 font-bold">سلامة الغذاء</div>
+              <div className="border border-[#FF6B35]/20 rounded-2xl p-6 bg-[#1A365D] hover:border-[#FF6B35]/50 transition-colors">
+                 <div className="font-black text-xl text-[#FF6B35] mb-2">قيمة</div>
+                 <div className="text-xs text-gray-400 font-bold">أفضل سعر للسوق</div>
               </div>
            </div>
 
-           <div className="bg-gradient-to-br from-[#141414] to-[#1a1a1a] border border-[#D4AF37]/20 text-white rounded-3xl p-8 md:p-12 text-center md:text-right flex flex-col md:flex-row items-center gap-8 shadow-xl shadow-black/50">
+           <div className="bg-gradient-to-br from-[#1A365D] to-[#0B1B3D] border border-[#FF6B35]/20 text-white rounded-3xl p-8 md:p-12 text-center md:text-right flex flex-col md:flex-row items-center gap-8 shadow-xl shadow-black/50">
              <div className="flex-1">
-                <h3 className="text-2xl font-black mb-4 flex items-center justify-center md:justify-start gap-3 text-transparent bg-clip-text bg-gradient-to-r from-[#F3E5AB] via-[#D4AF37] to-[#B8860B]">
-                  <ShieldCheck className="w-8 h-8 text-[#D4AF37]" />
-                  شحنتنا لالسعودية مضمونة
+                <h3 className="text-2xl font-black mb-4 flex items-center justify-center md:justify-start gap-3 text-white">
+                  <ShieldCheck className="w-8 h-8 text-[#FF6B35]" />
+                  شحنتنا للسعودية مضمونة
                 </h3>
                 <p className="text-gray-300 leading-relaxed">
-                  "التركيبة اللي بين يديك مدعومة بتجارب سريرية موثقة. مو مجرد خلطة عشوائية، بل نسب دقيقة مصممة لتعطي أقصى فعالية وامتصاص. استثمارك في صحتك في مكانه الصح."
+                  "نحن نضمن لك وصول معداتك بأفضل حالة. نستخدم تغليفاً آمناً ونتعامل مع أفضل شركات الشحن لضمان وصول طلبك بسرعة وأمان لباب بيتك."
                 </p>
              </div>
              <div className="grid grid-cols-2 gap-4 flex-shrink-0 w-full md:w-auto">
-                <div className="bg-[#0a0a0a] border border-[#333333] rounded-2xl p-4 text-center">
-                  <div className="font-black text-2xl mb-1 text-[#D4AF37]">+4.9</div>
+                <div className="bg-[#0B1B3D] border border-[#1A365D] rounded-2xl p-4 text-center">
+                  <div className="font-black text-2xl mb-1 text-[#FF6B35]">+4.9</div>
                   <div className="text-xs font-medium text-gray-400">متوسط تقييم العملاء</div>
                 </div>
-                <div className="bg-[#0a0a0a] border border-[#333333] rounded-2xl p-4 text-center">
-                  <div className="font-black text-2xl mb-1 text-[#D4AF37]">+60</div>
-                  <div className="text-xs font-medium text-gray-400">تركيبة مدروسة ومطورة</div>
+                <div className="bg-[#0B1B3D] border border-[#1A365D] rounded-2xl p-4 text-center">
+                  <div className="font-black text-2xl mb-1 text-[#FF6B35]">1-3</div>
+                  <div className="text-xs font-medium text-gray-400">أيام للتوصيل</div>
                 </div>
              </div>
            </div>
         </div>
       </section>
 
-      <ExpectedResultsTimeline slug={product.slug} variant="grid" />
 
       {/* 6. Reviews */}
-      <div className="bg-[#0a0a0a] border-y border-[#333333]">
+      <div className="bg-[#0B1B3D] border-y border-[#1A365D]">
          <div className="dark-theme-override">
            <ReviewsSection isDark={true} />
          </div>
       </div>
 
       {/* 7. Money Back Guarantee & Simple Routine */}
-      <section className="py-20 md:py-32 bg-[#141414]">
+      <section className="py-20 md:py-32 bg-[#1A365D]">
         <div className="container mx-auto px-4 max-w-4xl text-center space-y-16">
            
            {/* Guarantee */}
-           <div className="bg-[#1a1a1a] p-8 md:p-12 rounded-3xl shadow-lg shadow-black/50 border border-[#D4AF37]/20 max-w-2xl mx-auto relative overflow-hidden">
-             <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4AF37]/5 blur-[50px] rounded-full pointer-events-none"></div>
-             <div className="w-16 h-16 bg-[#0a0a0a] border border-[#D4AF37]/30 rounded-full flex items-center justify-center mx-auto mb-6 relative z-10">
-                <ShieldCheck className="w-8 h-8 text-[#D4AF37]" />
+           <div className="bg-[#0B1B3D] p-8 md:p-12 rounded-3xl shadow-lg shadow-black/50 border border-[#FF6B35]/20 max-w-2xl mx-auto relative overflow-hidden">
+             <div className="absolute top-0 right-0 w-32 h-32 bg-[#FF6B35]/10 blur-[50px] rounded-full pointer-events-none"></div>
+             <div className="w-16 h-16 bg-[#1A365D] border border-[#FF6B35]/30 rounded-full flex items-center justify-center mx-auto mb-6 relative z-10">
+                <ShieldCheck className="w-8 h-8 text-[#FF6B35]" />
              </div>
-             <h2 className="text-2xl md:text-3xl font-black text-white mb-4 relative z-10">30 يوم — أو فلوسك ترجع. بدون أسئلة.</h2>
+             <h2 className="text-2xl md:text-3xl font-black text-white mb-4 relative z-10">ضمان الاستبدال والاسترجاع</h2>
              <p className="text-gray-400 leading-relaxed relative z-10">
-               حنا واثقين تماماً من التركيبة. إذا استخدمت العلبة كاملة والتزمت بالروتين وما شفت فرق واضح في صحتك وحيويتك، فلوسك ترجع لك فوراً. استثمارك في أمان تام.
+               نحن واثقون من جودة معداتنا. إذا واجهت أي مشكلة مصنعية أو لم تكن راضياً عن الجودة، تواصل معنا وسنقوم باستبدال المنتج أو استرجاع قيمته.
              </p>
            </div>
-
-           {/* Routine */}
-           <div>
-             <h2 className="text-2xl md:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#F3E5AB] via-[#D4AF37] to-[#B8860B] mb-12">أبسط روتين عمرك جربته</h2>
-             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="bg-[#1a1a1a] p-6 rounded-2xl border border-[#333333] hover:border-[#D4AF37]/30 transition-colors">
-                   <div className="font-black text-3xl text-[#D4AF37] mb-2">2</div>
-                   <div className="font-bold text-gray-200 mb-1">حبة كل يوم</div>
-                   <p className="text-xs text-gray-500">حبتين مع كوب ماء يومياً لنتائج مثالية.</p>
-                </div>
-                <div className="bg-[#1a1a1a] p-6 rounded-2xl border border-[#333333] hover:border-[#D4AF37]/30 transition-colors">
-                   <div className="font-black text-3xl text-[#D4AF37] mb-2">30</div>
-                   <div className="font-bold text-gray-200 mb-1">يومياً بدون انقطاع</div>
-                   <p className="text-xs text-gray-500">الاستمرارية هي سر التغيير الجذري.</p>
-                </div>
-                <div className="bg-[#1a1a1a] p-6 rounded-2xl border border-[#333333] hover:border-[#D4AF37]/30 transition-colors">
-                   <div className="font-black text-3xl text-[#D4AF37] mb-2">+60</div>
-                   <div className="font-bold text-gray-200 mb-1">يوم للنتائج التامة</div>
-                   <p className="text-xs text-gray-500">الكورس الكامل لشهرين يعطي أفضل نتيجة.</p>
-                </div>
-                <div className="bg-gradient-to-br from-[#D4AF37] to-[#B8860B] text-[#0a0a0a] p-6 rounded-2xl flex flex-col justify-center items-center shadow-[0_0_15px_rgba(212,175,55,0.3)]">
-                   <div className="font-black text-lg mb-1">استعد توازنك</div>
-                   <p className="text-xs font-bold opacity-80">ابدأ روتينك الجديد اليوم</p>
-                </div>
-             </div>
-           </div>
-
         </div>
       </section>
 
       {/* 8. FAQ */}
-      <div className="bg-[#0a0a0a] border-b border-[#333333]">
+      <div className="bg-[#0B1B3D] border-b border-[#1A365D]">
          <div className="dark-theme-override">
            <FAQSection isDark={true} />
          </div>

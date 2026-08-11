@@ -6,9 +6,9 @@ import { Product } from "@/lib/products";
 import { ShoppingBag, CheckCircle2 } from "lucide-react";
 
 const BUNDLES = [
-  { quantity: 1, title: "حبة واحدة", price: 199, label: "للتجربة" },
-  { quantity: 2, title: "حبتين - كورس لشهرين", price: 279, label: "الأكثر مبيعاً", highlight: true },
-  { quantity: 5, title: "5 حبات - كورس 5 شهور", price: 349, label: "الأفضل قيمة", highlight: true },
+  { quantity: 1, title: "حقيبة واحدة", price: 169, label: "للتجربة" },
+  { quantity: 2, title: "حقيبتين", price: 299, label: "الأكثر مبيعاً", highlight: true },
+  { quantity: 3, title: "3 حقائب", price: 399, label: "الأفضل قيمة", highlight: true },
 ];
 
 export function ProductOptions({ product }: { product: Product }) {
@@ -33,20 +33,20 @@ export function ProductOptions({ product }: { product: Product }) {
               key={index}
               onClick={() => setSelectedBundle(bundle)}
               className={`relative border-2 rounded-2xl p-4 cursor-pointer transition-all flex items-center justify-between
-                ${isSelected ? 'border-[#D4AF37] bg-[#D4AF37]/5' : 'border-[#333333] hover:border-[#D4AF37]/30 bg-[#141414]'}
+                ${isSelected ? 'border-[#FF6B35] bg-[#FF6B35]/5' : 'border-[#1A365D] hover:border-[#FF6B35]/30 bg-[#0B1B3D]'}
               `}
             >
               <div className="flex items-center gap-4">
                 <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center
-                  ${isSelected ? 'border-[#D4AF37]' : 'border-gray-500'}
+                  ${isSelected ? 'border-[#FF6B35]' : 'border-gray-500'}
                 `}>
-                  {isSelected && <div className="w-2.5 h-2.5 rounded-full bg-[#D4AF37]" />}
+                  {isSelected && <div className="w-2.5 h-2.5 rounded-full bg-[#FF6B35]" />}
                 </div>
                 <div>
                   <div className="font-bold text-gray-200">{bundle.title}</div>
                   {bundle.label && (
                     <div className={`text-xs font-bold px-2 py-0.5 rounded mt-1 inline-block
-                      ${bundle.highlight ? 'bg-[#D4AF37]/20 text-[#D4AF37]' : 'bg-[#333333] text-gray-400'}
+                      ${bundle.highlight ? 'bg-[#FF6B35]/20 text-[#FF6B35]' : 'bg-[#1A365D] text-gray-400'}
                     `}>
                       {bundle.label}
                     </div>
@@ -54,7 +54,7 @@ export function ProductOptions({ product }: { product: Product }) {
                 </div>
               </div>
               <div className="text-left">
-                <div className="font-black text-xl text-[#D4AF37]">{bundle.price}</div>
+                <div className="font-black text-xl text-[#FF6B35]">{bundle.price}</div>
                 <div className="text-xs text-gray-500 font-medium">ريال سعودي</div>
               </div>
             </div>
@@ -64,15 +64,15 @@ export function ProductOptions({ product }: { product: Product }) {
 
       <button 
         onClick={handleAddToCart}
-        className="w-full flex items-center justify-center gap-2 px-8 py-5 bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-[#0a0a0a] font-black text-xl rounded-2xl hover:opacity-90 transition-all shadow-[0_0_20px_rgba(212,175,55,0.3)] transform hover:scale-[1.02]"
+        className="w-full flex items-center justify-center gap-2 px-8 py-5 bg-[#FF6B35] text-white font-black text-xl rounded-2xl hover:bg-[#E55A2B] transition-all shadow-[0_0_20px_rgba(255,107,53,0.3)] transform hover:scale-[1.02]"
       >
         <ShoppingBag className="w-6 h-6" />
-        أكمل روتينك بـ {selectedBundle.price} ر.س
+        أكمل معداتك بـ {selectedBundle.price} ر.س
       </button>
 
       <div className="flex justify-center items-center gap-4 mt-4 text-xs font-bold text-gray-500">
-        <span className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-[#D4AF37]" /> مرخص من هيئة الغذاء والدواء</span>
-        <span className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-[#D4AF37]" /> الدفع عند الاستلام</span>
+        <span className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-[#FF6B35]" /> جودة عالية</span>
+        <span className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-[#FF6B35]" /> الدفع عند الاستلام</span>
       </div>
     </div>
   );

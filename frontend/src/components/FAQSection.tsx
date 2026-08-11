@@ -5,24 +5,24 @@ import { Plus, Minus, ShieldCheck, CheckCircle2, Truck, CheckCircle } from "luci
 
 const FAQS = [
   {
-    question: "وش لو الرقم اللي أدخلته غلط؟",
-    answer: "لا تشيل هم، تقدر تعدل رقمك بسهولة من صفحة تأكيد الطلب اللي تظهر لك بعد إتمام الشراء، أو تواصل معنا على الواتساب."
+    question: "وش تحتوي حقيبة الصيد المتكاملة؟",
+    answer: "تحتوي الحقيبة على قصبة صيد (بالمقاس اللي تختاره)، ماكينة صيد متوافقة، خيط نايلون، ومجموعة أساسية من الطعوم والخطاطيف، بالإضافة لحقيبة لحفظ المعدات."
   },
   {
-    question: "ليش يتصل عليّ رقم السعوديةي ما أعرفه؟",
-    answer: "هذا فريق خدمة العملاء في أوريندا، نتصل بك لتأكيد تفاصيل عنوانك وموعد الاستلام المناسب لك لضمان وصول طلبك بأسرع وقت."
+    question: "كيف أختار مقاس القصبة المناسب لي؟",
+    answer: "إذا كنت مبتدئ أو تصيد من قارب، مقاس 1.8م أو 2.4م ممتاز للتحكم. إذا كنت تصيد من الشاطئ وتحتاج ترمي لمسافات بعيدة، خذ 3.0م أو 3.6م."
   },
   {
-    question: "أقدر ألغي الطلب أو أعدّله؟",
-    answer: "أكيد! تقدر تلغي أو تعدل طلبك بكل سهولة أثناء مكالمة التأكيد مع موظف خدمة العملاء، أو عبر التواصل معنا على الواتساب قبل شحن الطلب."
+    question: "هل المعدات تتحمل الموية المالحة؟",
+    answer: "نعم، جميع معداتنا مصممة خصيصاً للصيد البحري ومصنوعة من مواد مقاومة للصدأ والتآكل."
   },
   {
     question: "كم رسوم الشحن؟",
-    answer: "الشحن مجاني تماماً لجميع مناطق ومدن دولة السعودية. ما تدفع أي رسوم إضافية غير قيمة المنتج."
+    answer: "الشحن مجاني تماماً لجميع مناطق ومدن السعودية. ما تدفع أي رسوم إضافية غير قيمة المنتج."
   },
   {
-    question: "متى تصلني الفاتورة الضريبية؟",
-    answer: "تصلك الفاتورة الضريبية إلكترونياً عبر الإيميل أو الواتساب فور استلامك للطلب والدفع للمندوب."
+    question: "أقدر أدفع عند الاستلام؟",
+    answer: "أكيد! نوفر خدمة الدفع عند الاستلام لراحتك وضمان تسوق آمن."
   }
 ];
 
@@ -43,14 +43,14 @@ export function FAQSection({ isDark = false }: { isDark?: boolean }) {
           </h3>
         </div>
 
-        <div className={`${isDark ? 'bg-[#141414] border-[#333333] shadow-black/50' : 'bg-white border-gray-100 shadow-sm'} rounded-3xl border overflow-hidden mb-8`}>
+        <div className={`${isDark ? 'bg-[#1A365D] border-[#FF6B35]/20 shadow-black/50' : 'bg-white border-gray-100 shadow-sm'} rounded-3xl border overflow-hidden mb-8`}>
           {FAQS.map((faq, index) => (
             <div 
               key={index}
-              className={`border-b ${isDark ? 'border-[#333333]' : 'border-gray-100'} last:border-0 transition-all duration-300 ${
+              className={`border-b ${isDark ? 'border-[#FF6B35]/20' : 'border-gray-100'} last:border-0 transition-all duration-300 ${
                 openIndex === index 
-                  ? (isDark ? 'bg-[#1a1a1a]' : 'bg-gray-50/50') 
-                  : (isDark ? 'bg-[#141414] hover:bg-[#1a1a1a]/50' : 'bg-white hover:bg-gray-50/30')
+                  ? (isDark ? 'bg-[#0B1B3D]' : 'bg-gray-50/50') 
+                  : (isDark ? 'bg-[#1A365D] hover:bg-[#0B1B3D]/50' : 'bg-white hover:bg-gray-50/30')
               }`}
             >
               <button
@@ -60,7 +60,7 @@ export function FAQSection({ isDark = false }: { isDark?: boolean }) {
                 <span className={`font-bold text-sm ${isDark ? 'text-gray-200' : 'text-gray-800'}`}>
                   {faq.question}
                 </span>
-                <div className={isDark ? 'text-[#D4AF37]' : 'text-gray-400'}>
+                <div className={isDark ? 'text-[#FF6B35]' : 'text-gray-400'}>
                   {openIndex === index ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                 </div>
               </button>
@@ -80,21 +80,21 @@ export function FAQSection({ isDark = false }: { isDark?: boolean }) {
 
         {/* Trust Badges */}
         <div className="flex flex-wrap items-center justify-center gap-3 mb-8" dir="rtl">
-          <div className={`${isDark ? 'bg-[#141414] border-[#333333]' : 'bg-white border-gray-100'} rounded-xl border py-3 px-4 flex items-center justify-center gap-2 shadow-sm`}>
-            <ShieldCheck className={`w-4 h-4 ${isDark ? 'text-[#D4AF37]' : 'text-[#134e4a]'}`} />
-            <span className={`text-xs font-bold ${isDark ? 'text-gray-300' : 'text-gray-800'}`}>مرخّص SFDA</span>
+          <div className={`${isDark ? 'bg-[#1A365D] border-[#FF6B35]/20' : 'bg-white border-gray-100'} rounded-xl border py-3 px-4 flex items-center justify-center gap-2 shadow-sm`}>
+            <ShieldCheck className={`w-4 h-4 ${isDark ? 'text-[#FF6B35]' : 'text-[#0B1B3D]'}`} />
+            <span className={`text-xs font-bold ${isDark ? 'text-gray-300' : 'text-gray-800'}`}>جودة عالية</span>
           </div>
-          <div className={`${isDark ? 'bg-[#141414] border-[#333333]' : 'bg-white border-gray-100'} rounded-xl border py-3 px-4 flex items-center justify-center gap-2 shadow-sm`}>
-            <CheckCircle2 className={`w-4 h-4 ${isDark ? 'text-[#D4AF37]' : 'text-[#134e4a]'}`} />
-            <span className={`text-xs font-bold ${isDark ? 'text-gray-300' : 'text-gray-800'}`}>حلال 100%</span>
+          <div className={`${isDark ? 'bg-[#1A365D] border-[#FF6B35]/20' : 'bg-white border-gray-100'} rounded-xl border py-3 px-4 flex items-center justify-center gap-2 shadow-sm`}>
+            <CheckCircle2 className={`w-4 h-4 ${isDark ? 'text-[#FF6B35]' : 'text-[#0B1B3D]'}`} />
+            <span className={`text-xs font-bold ${isDark ? 'text-gray-300' : 'text-gray-800'}`}>دفع عند الاستلام</span>
           </div>
-          <div className={`${isDark ? 'bg-[#141414] border-[#333333]' : 'bg-white border-gray-100'} rounded-xl border py-3 px-4 flex items-center justify-center gap-2 shadow-sm`}>
-            <Truck className={`w-4 h-4 ${isDark ? 'text-[#D4AF37]' : 'text-[#134e4a]'}`} />
+          <div className={`${isDark ? 'bg-[#1A365D] border-[#FF6B35]/20' : 'bg-white border-gray-100'} rounded-xl border py-3 px-4 flex items-center justify-center gap-2 shadow-sm`}>
+            <Truck className={`w-4 h-4 ${isDark ? 'text-[#FF6B35]' : 'text-[#0B1B3D]'}`} />
             <span className={`text-xs font-bold ${isDark ? 'text-gray-300' : 'text-gray-800'}`}>شحن مجاني</span>
           </div>
-          <div className={`${isDark ? 'bg-[#141414] border-[#333333]' : 'bg-white border-gray-100'} rounded-xl border py-3 px-4 flex items-center justify-center gap-2 shadow-sm`}>
-            <CheckCircle className={`w-4 h-4 ${isDark ? 'text-[#D4AF37]' : 'text-[#134e4a]'}`} />
-            <span className={`text-xs font-bold ${isDark ? 'text-gray-300' : 'text-gray-800'}`}>ضمان 30 يوم</span>
+          <div className={`${isDark ? 'bg-[#1A365D] border-[#FF6B35]/20' : 'bg-white border-gray-100'} rounded-xl border py-3 px-4 flex items-center justify-center gap-2 shadow-sm`}>
+            <CheckCircle className={`w-4 h-4 ${isDark ? 'text-[#FF6B35]' : 'text-[#0B1B3D]'}`} />
+            <span className={`text-xs font-bold ${isDark ? 'text-gray-300' : 'text-gray-800'}`}>ضمان استبدال</span>
           </div>
         </div>
 

@@ -30,157 +30,176 @@ export type Product = {
 export const PRODUCTS: Product[] = [
   {
     id: 1,
-    slug: "peaceful-slumber-gummies",
-    name_ar: "علكات السُبات الهادئ",
-    name_en: "Peaceful Slumber Gummies",
-    tagline_ar: "نوم عميق، استيقاظ بنشاط",
-    description_ar: "تستهدف التوتر والضغط الذهني لمساعدتك على الاسترخاء والنوم العميق. تركيبة مدروسة لراحة البال.",
-    image_url: "/images/peaceful-slumber-gummies.webp",
-    badge_ar: "الأكثر مبيعاً",
-    price: 199,
+    slug: "white-rabbit-180",
+    name_ar: "حقيبة صيد متكاملة (1.8 متر)",
+    name_en: "White Rabbit Combo 1.8m",
+    tagline_ar: "مجموعة صيد متكاملة جاهزة للاستخدام",
+    description_ar: "حقيبة صيد بحري متكاملة تحتوي على قصبة بطول 1.8 متر، ماكينة صيد، خيط، ومجموعة طعوم. مثالية للمبتدئين والصيد الخفيف.",
+    image_url: "/images/white-rabbit-combo.webp",
+    badge_ar: "الأكثر طلباً",
+    price: 169,
     is_upsell: false,
     sort_order: 1,
     ingredients: [
       {
-        name_ar: "الأشواغاندا",
-        name_en: "Ashwagandha",
-        description: "لتقليل التوتر وتهدئة العقل قبل النوم."
+        name_ar: "قصبة صيد 1.8 متر",
+        name_en: "1.8m Fishing Rod",
+        description: "قصبة متينة ومرنة مصنوعة من ألياف الكربون."
       },
       {
-        name_ar: "مستخلص البابونج",
-        name_en: "Chamomile",
-        description: "للاسترخاء الطبيعي."
+        name_ar: "ماكينة صيد",
+        name_en: "Spinning Reel",
+        description: "ماكينة ناعمة وسريعة الاستجابة."
       },
       {
-        name_ar: "الميلاتونين",
-        name_en: "Melatonin",
-        description: "لتنظيم دورة النوم."
+        name_ar: "خيط نايلون",
+        name_en: "Nylon Line",
+        description: "خيط قوي يتحمل الأوزان."
       }
     ],
     problems_solutions: [
       {
-        problem: "«مهما كنت تعبان، مجرد ما أحط راسي على المخدة يبدأ عقلي يفكر وأطير النومة.»",
-        solution: "مستخلص الأشواغاندا يقلل هرمون الكورتيزول (هرمون التوتر) في الجسم، ويهدي الأفكار المتسارعة — السبب الجذري للأرق."
+        problem: "«أبي أبدأ صيد بس ما أعرف وش أشتري وكيف أجمع الأغراض.»",
+        solution: "هذي الحقيبة توفر لك كل شيء تحتاجه في مكان واحد، جاهزة للاستخدام فوراً بدون تعقيد."
       },
       {
-        problem: "«أنام، بس أصحى كأني ما نمت، جسمي مكسر وطاقتي صفر.»",
-        solution: "الميلاتونين ينظم دورة النوم الطبيعية، ومستخلص البابونج يرخي العضلات لتستمتع بنوم عميق ومريح، وتصحى بكامل نشاطك."
-      },
-      {
-        problem: "«أخاف أتعود على حبوب النوم وتصير عندي مناعة أو آثار جانبية.»",
-        solution: "علكاتنا طبيعية 100%، خالية من المواد الكيميائية المسببة للإدمان. تعطيك نوم طبيعي بدون الشعور بالخمول في اليوم التالي."
+        problem: "«أخاف أشتري معدات غالية وتطلع معقدة أو ما تناسبني.»",
+        solution: "المجموعة مصممة خصيصاً لتكون سهلة الاستخدام ومناسبة جداً للمبتدئين بسعر ممتاز وجودة عالية."
       }
     ],
     theme: {
-      from: "from-[#1a0b2e]",
-      to: "to-[#0d0514]",
-      accent: "#d4af37",
-      icon: "🌙",
+      from: "from-[#0B1B3D]",
+      to: "to-[#1A365D]",
+      accent: "#FF6B35",
+      icon: "🎣",
     }
   },
   {
     id: 2,
-    slug: "focus-pro-coffee",
-    name_ar: "قهوة اليَقَظَة برو",
-    name_en: "Focus Pro Coffee",
-    tagline_ar: "طاقة ذهنية بدون توتر",
-    description_ar: "طاقة صافية وتركيز عالي بفضل مزيج القهوة المختصة والمستخلصات الطبيعية المعززة للذاكرة.",
-    image_url: "/images/focus-pro-coffee.webp",
-    badge_ar: "جديد",
-    price: 199,
+    slug: "white-rabbit-240",
+    name_ar: "حقيبة صيد متكاملة (2.4 متر)",
+    name_en: "White Rabbit Combo 2.4m",
+    tagline_ar: "التوازن المثالي بين الطول والتحكم",
+    description_ar: "حقيبة صيد بحري متكاملة تحتوي على قصبة بطول 2.4 متر، ماكينة صيد، خيط، ومجموعة طعوم. خيار ممتاز للصيد من الشاطئ أو القارب.",
+    image_url: "/images/white-rabbit-combo.webp",
+    badge_ar: "خيار المحترفين",
+    price: 179,
     is_upsell: false,
     sort_order: 2,
     ingredients: [
       {
-        name_ar: "قهوة عربية ممتازة",
-        name_en: "Premium Arabica",
-        description: "لطاقة صافية ومذاق غني."
+        name_ar: "قصبة صيد 2.4 متر",
+        name_en: "2.4m Fishing Rod",
+        description: "طول مثالي لرميات أبعد وتحكم أفضل."
       },
       {
-        name_ar: "فطر عرف الأسد",
-        name_en: "Lion's Mane",
-        description: "لتعزيز التركيز والذاكرة."
+        name_ar: "ماكينة صيد",
+        name_en: "Spinning Reel",
+        description: "ماكينة قوية تتحمل الأسماك المتوسطة."
       },
       {
-        name_ar: "إل-ثيانين",
-        name_en: "L-Theanine",
-        description: "لمنع التوتر والرجفة المصاحبة للكافيين."
+        name_ar: "خيط نايلون",
+        name_en: "Nylon Line",
+        description: "خيط متين ومرن."
       }
     ],
     problems_solutions: [
       {
-        problem: "«أشرب قهوة عشان أركز، بس تسبب لي خفقان ورجفة وتوتر.»",
-        solution: "الأحماض الأمينية (L-Theanine) مع القهوة تلغي تماماً الآثار الجانبية للكافيين، وتعطيك طاقة صافية وتركيز هادئ بدون رجفة أو توتر."
+        problem: "«أحتاج قصبة أطول عشان أرمي أبعد من الشاطئ.»",
+        solution: "طول 2.4 متر يعطيك مسافة رمي ممتازة مع الحفاظ على سهولة التحكم في القصبة."
       },
       {
-        problem: "«عندي تشتت وضعف بالذاكرة وأنسى الأشياء بسرعة خلال الشغل.»",
-        solution: "فطر عرف الأسد (Lion's Mane) أثبتت الدراسات قدرته على تحفيز نمو خلايا الدماغ وتحسين الذاكرة والتركيز — غذاء حقيقي لعقلك."
-      },
-      {
-        problem: "«بعد الظهر تطيح طاقتي فجأة وأحس بخمول شديد.»",
-        solution: "التركيبة توفر طاقة ممتدة المفعول وطبيعية تدوم لساعات أطول، بدون الهبوط المفاجئ للطاقة اللي تسببه القهوة العادية."
+        problem: "«أبي معدات تتحمل وما تخرب بسرعة مع المويه المالحة.»",
+        solution: "المعدات مصنوعة من مواد مقاومة للصدأ والتآكل لتدوم معك طويلاً في بيئة البحر."
       }
     ],
     theme: {
-      from: "from-[#1a1a1a]",
-      to: "to-[#000000]",
-      accent: "#d4af37",
-      icon: "☕",
+      from: "from-[#0B1B3D]",
+      to: "to-[#1A365D]",
+      accent: "#FF6B35",
+      icon: "🌊",
     }
   },
   {
     id: 3,
-    slug: "anti-stress-calm-gummies",
-    name_ar: "علكات الهدوء ضد التوتر",
-    name_en: "Anti-Stress Calm Gummies",
-    tagline_ar: "توازنك النفسي في علكات",
-    description_ar: "علكات لذيذة وسريعة المفعول لتهدئة الأعصاب وتحسين المزاج وتخفيف القلق اليومي بدون التسبب في النعاس.",
-    image_url: "/images/anti-stress-calm-gummies.webp",
-    badge_ar: "الأفضل قيمة",
-    price: 199,
+    slug: "white-rabbit-300",
+    name_ar: "حقيبة صيد متكاملة (3.0 متر)",
+    name_en: "White Rabbit Combo 3.0m",
+    tagline_ar: "للمسافات البعيدة والصيد الشاطئي",
+    description_ar: "حقيبة صيد بحري متكاملة تحتوي على قصبة بطول 3.0 متر، ماكينة صيد، خيط، ومجموعة طعوم. مصممة للرميات الطويلة والأسماك الأكبر.",
+    image_url: "/images/white-rabbit-combo.webp",
+    price: 189,
     is_upsell: false,
     sort_order: 3,
     ingredients: [
       {
-        name_ar: "مستخلص الزعفران",
-        name_en: "Saffron Extract",
-        description: "مضاد طبيعي للاكتئاب، يحسن المزاج ويقلل من القلق بسرعة."
+        name_ar: "قصبة صيد 3.0 متر",
+        name_en: "3.0m Fishing Rod",
+        description: "قوة ومرونة للرميات البعيدة."
       },
       {
-        name_ar: "مستخلص الروديولا",
-        name_en: "Rhodiola Rosea",
-        description: "عشبة تكيفية تخفض الكورتيزول وتساعد على تحمل الضغط النفسي."
+        name_ar: "ماكينة صيد",
+        name_en: "Spinning Reel",
+        description: "سعة خيط أكبر وقوة سحب أعلى."
       },
       {
-        name_ar: "مستخلص الريحان المقدس",
-        name_en: "Holy Basil",
-        description: "يهدئ الأعصاب المتوترة ويقلل من التفكير المفرط."
-      },
-      {
-        name_ar: "فيتامينات ب (B6 & B12)",
-        name_en: "Vitamin B-Complex",
-        description: "دعم صحة الجهاز العصبي وإنتاج نواقل السعادة."
+        name_ar: "خيط نايلون",
+        name_en: "Nylon Line",
+        description: "قوة تحمل عالية."
       }
     ],
     problems_solutions: [
       {
-        problem: "«أحس بضغط نفسي مستمر وتوتر وقلق من أقل حاجة في الدوام.»",
-        solution: "مستخلص الزعفران والروديولا يعملان معاً لخفض هرمون التوتر بسرعة، لترجع لسلامك الداخلي وتكمل يومك بهدوء."
-      },
-      {
-        problem: "«مزاجي متقلب وأحس بضيقة ومو قادر أستمتع بيومي.»",
-        solution: "فيتامينات ب المركبة مع الزعفران تساعد طبيعياً على تحسين المزاج ورفع هرمونات السعادة، لتبدأ يومك بإيجابية."
-      },
-      {
-        problem: "«أحس بشد في أعصابي وتفكير مفرط (Overthinking) يمنعني من التركيز.»",
-        solution: "الريحان المقدس معروف بقدرته على تصفية الذهن وتهدئة الأعصاب المتوترة، ليعيد لعقلك هدوءه وتركيزه."
+        problem: "«الصيد من الشاطئ يحتاج رمية بعيدة جداً عشان أوصل للسمك.»",
+        solution: "قصبة 3.0 متر مصممة خصيصاً لتعطيك أقصى مسافة رمي ممكنة من الشاطئ بكل سهولة."
       }
     ],
     theme: {
-      from: "from-[#2e1d0f]",
-      to: "to-[#140b04]",
-      accent: "#d4af37",
-      icon: "🧘",
+      from: "from-[#0B1B3D]",
+      to: "to-[#1A365D]",
+      accent: "#FF6B35",
+      icon: "⚓",
+    }
+  },
+  {
+    id: 4,
+    slug: "white-rabbit-360",
+    name_ar: "حقيبة صيد متكاملة (3.6 متر)",
+    name_en: "White Rabbit Combo 3.6m",
+    tagline_ar: "أقصى مسافة رمي وقوة تحمل",
+    description_ar: "حقيبة صيد بحري متكاملة تحتوي على قصبة بطول 3.6 متر، ماكينة صيد، خيط، ومجموعة طعوم. الخيار الأمثل للصيد الشاطئي الاحترافي.",
+    image_url: "/images/white-rabbit-combo.webp",
+    price: 199,
+    is_upsell: false,
+    sort_order: 4,
+    ingredients: [
+      {
+        name_ar: "قصبة صيد 3.6 متر",
+        name_en: "3.6m Fishing Rod",
+        description: "أطول قصبة لأبعد مسافة رمي."
+      },
+      {
+        name_ar: "ماكينة صيد",
+        name_en: "Spinning Reel",
+        description: "أداء قوي وموثوق."
+      },
+      {
+        name_ar: "خيط نايلون",
+        name_en: "Nylon Line",
+        description: "متانة فائقة."
+      }
+    ],
+    problems_solutions: [
+      {
+        problem: "«أبي أطول قصبة ممكنة عشان أوصل لأبعد نقطة في البحر.»",
+        solution: "هذا المقاس (3.6 متر) هو الأطول في المجموعة، يضمن لك الوصول لمسافات لا يمكن الوصول لها بالقصبات القصيرة."
+      }
+    ],
+    theme: {
+      from: "from-[#0B1B3D]",
+      to: "to-[#1A365D]",
+      accent: "#FF6B35",
+      icon: "⭐",
     }
   }
 ];

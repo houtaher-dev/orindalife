@@ -10,8 +10,8 @@ const tajawal = Tajawal({
 });
 
 export const metadata: Metadata = {
-  title: "أوريندا الحياة | Orendalife",
-  description: "علكات سريرية لصحة وتوازن يبدأ من الداخل",
+  title: "حِداق الخليج | Hadaq Al Khaleej",
+  description: "معدات صيد بحري احترافية، جودة عالية وتوصيل سريع لكل مناطق السعودية",
 };
 
 export default function RootLayout({
@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl" className="scroll-smooth">
-      <body className={`${tajawal.variable} font-sans antialiased text-gray-200 bg-[#0a0a0a] flex flex-col min-h-screen selection:bg-[#D4AF37]/30 selection:text-[#F3E5AB]`}>
+      <body className={`${tajawal.variable} font-sans antialiased text-gray-200 bg-[#0B1B3D] flex flex-col min-h-screen selection:bg-[#FF6B35]/30 selection:text-[#FF6B35]`}>
         <StoreShell>{children}</StoreShell>
       </body>
     </html>
