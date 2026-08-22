@@ -116,9 +116,9 @@ export const PRODUCTS: Product[] = [
     name_en: "White Rabbit Combo 2.4m",
     tagline_ar: "التوازن المثالي بين الط الطول والتحكم",
     description_ar: "حقيبة صيد بحري متكاملة تحتوي على قصبة بطول 2.4 متر، ماكينة صيد، خيط، ومجموعة طعوم. خيار ممتاز للصيد من الشاطئ أو القارب.",
-    image_url: "/images/combo-240-pink.png",
+    image_url: "/images/combo-240-tshirt.png",
     gallery: [
-      "/images/combo-240-saudi.png",
+      "/images/combo-240-sitting.png",
       "/images/mokawinat-240.png",
       "/images/combo-240-woman-standing.png"
     ],
