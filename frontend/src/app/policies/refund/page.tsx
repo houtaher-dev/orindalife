@@ -25,7 +25,17 @@ export default function RefundPolicyPage() {
 
           <div>
             <h3 className="font-bold text-lg text-white mb-3">طريقة الاسترجاع</h3>
-            <p>تواصل معنا عبر البريد الإلكتروني أو الواتساب، وسيقوم فريقنا بترتيب عملية الاسترجاع وإعادة المبلغ لك في أقرب وقت ممكن.</p>
+            <p>
+              تواصل معنا عبر{" "}
+              <a href="mailto:support@hadaqalkhaleej.com" className="text-[#FF6B35] underline">
+                support@hadaqalkhaleej.com
+              </a>{" "}
+              أو واتساب{" "}
+              <a href="https://wa.me/966565498867" target="_blank" rel="noopener noreferrer" className="text-[#FF6B35] underline" dir="ltr">
+                0565498867
+              </a>
+              ، وسيقوم فريقنا بترتيب عملية الاسترجاع وإعادة المبلغ لك في أقرب وقت ممكن.
+            </p>
           </div>
         </div>
       </div>

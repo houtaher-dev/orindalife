@@ -1,6 +1,9 @@
 import React from "react";
 import Link from "next/link";
-import { ShieldCheck } from "lucide-react";
+
+const EMAIL = "support@hadaqalkhaleej.com";
+const WHATSAPP_DISPLAY = "0565498867";
+const WHATSAPP_LINK = "https://wa.me/966565498867";
 
 export function Footer() {
   return (
@@ -46,6 +49,16 @@ export function Footer() {
               <h4 className="font-black mb-4 md:mb-6 text-sm md:text-lg text-white">الدعم</h4>
               <ul className="space-y-3 md:space-y-4 text-[11px] md:text-sm text-gray-400">
                 <li><Link href="/contact" className="hover:text-[#FF6B35] transition-colors">تواصل معنا</Link></li>
+                <li>
+                  <a href={`mailto:${EMAIL}`} className="hover:text-[#FF6B35] transition-colors" dir="ltr">
+                    {EMAIL}
+                  </a>
+                </li>
+                <li>
+                  <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="hover:text-[#FF6B35] transition-colors" dir="ltr">
+                    واتساب {WHATSAPP_DISPLAY}
+                  </a>
+                </li>
                 <li><Link href="/policies/privacy" className="hover:text-[#FF6B35] transition-colors">سياسة الخصوصية</Link></li>
                 <li><Link href="/policies/refund" className="hover:text-[#FF6B35] transition-colors">سياسة الاسترجاع</Link></li>
               </ul>
