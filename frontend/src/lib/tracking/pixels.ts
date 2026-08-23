@@ -153,6 +153,41 @@ export function snapPurchase(payload: TrackPayload): void {
       price: payload.value,
       currency: payload.currency || "SAR",
       transaction_id: payload.orderId,
+      item_ids: payload.contentIds,
+      number_items: payload.numItems,
+    });
+  });
+}
+
+export function snapPageView(): void {
+  defer(() => {
+    const w = window as WindowWithPixels;
+    if (!w.snaptr) return;
+    w.snaptr("track", "PAGE_VIEW");
+  });
+}
+
+export function snapViewContent(payload: TrackPayload = {}): void {
+  defer(() => {
+    const w = window as WindowWithPixels;
+    if (!w.snaptr) return;
+    w.snaptr("track", "VIEW_CONTENT", {
+      price: payload.value,
+      currency: payload.currency || "SAR",
+      item_ids: payload.contentIds,
+      item_category: payload.contentName,
+    });
+  });
+}
+
+export function snapInitiateCheckout(payload: TrackPayload): void {
+  defer(() => {
+    const w = window as WindowWithPixels;
+    if (!w.snaptr) return;
+    w.snaptr("track", "START_CHECKOUT", {
+      price: payload.value,
+      currency: payload.currency || "SAR",
+      number_items: payload.numItems,
     });
   });
 }
@@ -178,6 +213,6 @@ export function trackPurchase(orderId: string, total: number, productIds: string
   const eventId = generateEventId();
   metaPurchase({ value: total, contentIds: productIds, numItems, orderId, eventId });
   tiktokPurchase({ value: total, orderId, eventId });
-  snapPurchase({ value: total, orderId });
+  snapPurchase({ value: total, orderId, contentIds: productIds, numItems });
   return eventId;
 }
