@@ -33,7 +33,7 @@ export function ReviewsSection({ isDark = false }: { isDark?: boolean }) {
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h2 className="text-xs font-black tracking-[0.2em] text-[#FF6B35] uppercase mb-4">
-            Verified Reviews
+            آراء العملاء
           </h2>
           <h3 className={`text-3xl md:text-4xl font-black mb-4 ${isDark ? 'text-white' : 'text-[#0B1B3D]'}`}>
             صيادين جربوا معداتنا

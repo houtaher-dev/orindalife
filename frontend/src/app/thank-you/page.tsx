@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { CheckCircle2, Truck, ShieldCheck, Star, ShoppingBag, PhoneCall, MapPin, Package, CheckCircle, CreditCard, ArrowRight, AlertTriangle, X, Shield, HandCoins, BadgeCheck } from "lucide-react";
@@ -9,17 +9,28 @@ import { useCartStore } from "@/lib/cartStore";
 import { ReviewsSection } from "@/components/ReviewsSection";
 import { FAQSection } from "@/components/FAQSection";
 import { ExpectedResultsTimeline } from "@/components/ExpectedResultsTimeline";
+import { trackPurchase } from "@/lib/tracking/pixels";
+import { bagLabel, packLabel } from "@/lib/pricing";
 
 export default function ThankYouPage() {
   const lastOrder = useCartStore((state) => state.lastOrder);
   const orderSubmitError = useCartStore((state) => state.orderSubmitError);
   const setOrderSubmitError = useCartStore((state) => state.setOrderSubmitError);
 
-  const [orderReference, setOrderReference] = useState<string | null>(null);
+  const purchaseTracked = useRef(false);
+  const orderReference = lastOrder?.orderNumber ?? null;
+  const saved = Boolean(orderReference) && !orderSubmitError;
 
   useEffect(() => {
-    setOrderReference(String(Math.floor(100000 + Math.random() * 900000)));
-  }, []);
+    if (!saved || !lastOrder?.orderNumber || purchaseTracked.current) return;
+    purchaseTracked.current = true;
+    const productIds = lastOrder.items.map((item) => String(item.product.id));
+    const numItems = lastOrder.items.reduce(
+      (sum, item) => sum + item.quantity * item.bundleQuantity,
+      0
+    );
+    trackPurchase(lastOrder.orderNumber, lastOrder.total, productIds, numItems);
+  }, [saved, lastOrder]);
 
   const crossSells = PRODUCTS.slice(0, 3);
   const primaryProductSlug = lastOrder?.items[0]?.product.slug ?? "";
@@ -54,8 +65,8 @@ export default function ThankYouPage() {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-lg h-32 bg-[#FF6B35]/10 blur-[100px] rounded-full pointer-events-none"></div>
         
         <div className="container mx-auto px-4 max-w-2xl text-center flex flex-col items-center relative z-10">
-          <div className="w-20 h-20 bg-[#FF6B35] text-white rounded-full flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(255,107,53,0.3)]">
-            <CheckCircle2 className="w-10 h-10" />
+          <div className={`w-20 h-20 text-white rounded-full flex items-center justify-center mb-6 ${saved ? "bg-[#FF6B35] shadow-[0_0_30px_rgba(255,107,53,0.3)]" : "bg-red-900"}`}>
+            {saved ? <CheckCircle2 className="w-10 h-10" /> : <AlertTriangle className="w-10 h-10" />}
           </div>
           
           {lastOrder && (
@@ -66,16 +77,16 @@ export default function ThankYouPage() {
           )}
 
           <h1 className="text-2xl md:text-4xl font-black text-white flex items-center justify-center gap-3 mb-2">
-            طلبكم محجوز — في انتظار تأكيدكم
+            {saved ? "تم حفظ الطلب — في انتظار تأكيد العنوان" : "لم يُحفظ الطلب بعد"}
           </h1>
           
           <div className="flex items-center justify-center gap-2 mt-6 text-gray-400 font-medium text-sm bg-[#1A365D] px-6 py-2.5 rounded-full border border-[#FF6B35]/20">
             <Package className="w-4 h-4 text-[#FF6B35]" />
             <span>رقم الطلب:</span>
             {orderReference ? (
-              <span className="font-bold text-[#FF6B35] tracking-wider" dir="ltr">ORD-{orderReference}</span>
+              <span className="font-bold text-[#FF6B35] tracking-wider" dir="ltr">{orderReference}</span>
             ) : (
-              <span className="inline-block h-4 w-20 bg-[#2a2a2a] rounded align-middle animate-pulse" aria-hidden />
+              <span>لا يوجد، لأن الحفظ لم يكتمل</span>
             )}
           </div>
         </div>
@@ -104,7 +115,13 @@ export default function ThankYouPage() {
                     </div>
                     <div>
                       <h4 className="font-bold text-gray-200 text-sm">{item.product.name_ar}</h4>
-                      <p className="text-xs text-gray-500 mt-1">الكمية: {item.quantity}</p>
+                      <p className="text-xs text-gray-500 mt-1">
+                        {item.isUpsell
+                          ? `الكمية: ${item.quantity}`
+                          : item.quantity > 1
+                            ? `${packLabel(item.quantity)} × ${bagLabel(item.bundleQuantity)} = ${bagLabel(item.quantity * item.bundleQuantity)}`
+                            : bagLabel(item.bundleQuantity)}
+                      </p>
                     </div>
                   </div>
                   <div className="text-left">
@@ -371,8 +388,8 @@ export default function ThankYouPage() {
                 <ShieldCheck className="w-5 h-5 md:w-6 md:h-6 text-[#FF6B35]" />
               </div>
               <div className="flex-1">
-                <h4 className="font-bold text-gray-200 text-xs md:text-sm mb-0.5 md:mb-1">ضمان استبدال</h4>
-                <p className="text-[10px] md:text-xs text-gray-400 leading-tight">جودة مضمونة أو استبدال فوري</p>
+                <h4 className="font-bold text-gray-200 text-xs md:text-sm mb-0.5 md:mb-1">استرجاع خلال 7 أيام</h4>
+                <p className="text-[10px] md:text-xs text-gray-400 leading-tight">إذا وصلت ناقصة أو تالفة، أو إذا لم تُستخدم وبقيت على حالها</p>
               </div>
             </div>
 

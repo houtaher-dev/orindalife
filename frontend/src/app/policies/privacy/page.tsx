@@ -7,26 +7,36 @@ export default function PrivacyPolicyPage() {
         <h1 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#F3E5AB] via-[#D4AF37] to-[#B8860B] mb-8">سياسة الخصوصية</h1>
         
         <div className="text-gray-300 space-y-6 leading-relaxed">
-          <p>نحن في أوريندا الحياة نحترم خصوصيتك ونلتزم بحماية بياناتك الشخصية.</p>
+          <p>متجر حِداق الخليج يجمع البيانات اللازمة لتنفيذ طلب معدات الصيد فقط. هذه الصفحة تصف ما يفعله الموقع حالياً.</p>
 
           <div>
-            <h3 className="font-bold text-lg text-white mb-3">1. المعلومات التي نجمعها</h3>
-            <p>نقوم بجمع المعلومات التي تقدمها لنا طواعية عند تقديم طلب، مثل الاسم ورقم الهاتف وعنوان التوصيل في السعودية. لا نطلب أي معلومات بنكية أو بطاقات ائتمانية لأن الدفع يكون عند الاستلام.</p>
+            <h3 className="font-bold text-lg text-white mb-3">1. ما نجمعه عند الطلب</h3>
+            <p>الاسم ورقم الجوال، ثم عنوان التوصيل عند تأكيد الطلب هاتفياً. الدفع عند الاستلام، ونموذج الطلب لا يطلب بيانات بطاقة أو حساب بنكي.</p>
           </div>
 
           <div>
-            <h3 className="font-bold text-lg text-white mb-3">2. استخدام المعلومات</h3>
-            <p className="mb-2">تستخدم معلوماتك حصرياً من أجل:</p>
-            <ul className="list-disc pl-5 pr-5 space-y-2 marker:text-[#D4AF37]">
-              <li>تأكيد وتوصيل طلبك.</li>
-              <li>التواصل معك بخصوص حالة الطلب.</li>
-              <li>تحسين خدماتنا وتجربة التسوق.</li>
-            </ul>
+            <h3 className="font-bold text-lg text-white mb-3">2. أين تُحفظ بيانات الطلب</h3>
+            <p>يُحفظ الطلب في قاعدة بيانات المتجر حتى يتابعه الفريق. إذا كان ربط جدول خارجي مفعّلاً، تُرسل نسخة من رقم الطلب والاسم والجوال والمبلغ وأسماء المنتجات. لا نعرض هذه البيانات للزوار.</p>
           </div>
 
           <div>
-            <h3 className="font-bold text-lg text-white mb-3">3. حماية البيانات</h3>
-            <p>نحن نتخذ كافة التدابير الأمنية المناسبة لحماية بياناتك من الوصول غير المصرح به أو التعديل أو الإفصاح.</p>
+            <h3 className="font-bold text-lg text-white mb-3">3. قياس الإعلانات</h3>
+            <p>الصفحات تحمّل أدوات قياس من ميتا وتيك توك وسناب شات. قد تسجّل هذه الأدوات زيارة الصفحة وإتمام الطلب حسب إعدادات تلك المنصات ومتصفحك. لا نحدد هنا مدة احتفاظ تلك المنصات بالبيانات.</p>
+          </div>
+
+          <div>
+            <h3 className="font-bold text-lg text-white mb-3">4. التواصل</h3>
+            <p>
+              للاستفسار عن بيانات طلبك:{" "}
+              <a href="mailto:support@hadaqalkhaleej.com" className="text-[#FF6B35] underline">
+                support@hadaqalkhaleej.com
+              </a>{" "}
+              أو واتساب{" "}
+              <a href="https://wa.me/966565498867" target="_blank" rel="noopener noreferrer" className="text-[#FF6B35] underline" dir="ltr">
+                0565498867
+              </a>
+              .
+            </p>
           </div>
         </div>
       </div>

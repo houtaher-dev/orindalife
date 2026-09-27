@@ -1,12 +1,13 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { Product } from '@/lib/products';
+import { trackAddToCart } from '@/lib/tracking/pixels';
 
 export interface CartItem {
   id: string; // unique id for cart item (product_id + bundle_price)
   product: Product;
   quantity: number; // how many times this bundle is added
-  bundleQuantity: number; // 1, 2, or 5
+  bundleQuantity: number; // bags in one offer: 1, 2, or 3
   bundlePrice: number; // 199, 279, 349
   isUpsell?: boolean;
 }
@@ -16,6 +17,7 @@ export interface LastOrder {
   phone?: string;
   total: number;
   items: CartItem[];
+  orderNumber?: string;
 }
 
 interface CartStore {
@@ -66,6 +68,7 @@ export const useCartStore = create<CartStore>()(
             isOpen: true 
           };
         });
+        trackAddToCart(product.id, product.name_ar, bundlePrice);
       },
 
       removeItem: (itemId) => {

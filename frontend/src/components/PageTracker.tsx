@@ -2,6 +2,8 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
+import { PRODUCTS } from "@/lib/products";
+import { trackViewContent } from "@/lib/tracking/pixels";
 
 type WindowWithPixels = Window & {
   fbq?: (...args: unknown[]) => void;
@@ -30,8 +32,13 @@ export function PageTracker() {
     }
     if (w.snaptr) {
       w.snaptr("track", "PAGE_VIEW");
-      if (pathname.startsWith("/product/")) {
-        w.snaptr("track", "VIEW_CONTENT");
+    }
+
+    if (pathname.startsWith("/product/")) {
+      const slug = pathname.replace("/product/", "");
+      const product = PRODUCTS.find((p) => p.slug === slug);
+      if (product) {
+        trackViewContent(product.id, product.name_ar, product.price);
       }
     }
   }, [pathname]);

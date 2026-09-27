@@ -1,15 +1,17 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { PRODUCTS } from "@/lib/products";
+import { getStorefrontProducts } from "@/lib/server/storefront";
 import { ArrowLeft, Star } from "lucide-react";
 
-export function ProductsSection() {
+export async function ProductsSection() {
+  const products = (await getStorefrontProducts()).filter((p) => !p.is_upsell);
+
   return (
     <section id="products" className="py-12 bg-[#0a0a0a]">
       <div className="container mx-auto px-4 max-w-7xl">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="text-sm font-bold tracking-widest text-[#FF6B35] uppercase mb-3">Our Equipment</h2>
+          <h2 className="text-sm font-bold tracking-widest text-[#FF6B35] uppercase mb-3">معداتنا</h2>
           <h3 className="text-3xl md:text-4xl font-black text-white mb-4">معدات الصيد الاحترافية</h3>
           <p className="text-gray-400 text-lg">
             اختر المقاس المناسب لاحتياجاتك. جميع الحقائب تأتي متكاملة وجاهزة للاستخدام الفوري.
@@ -18,25 +20,21 @@ export function ProductsSection() {
 
         {/* Grid 3 Columns */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {PRODUCTS.map((product) => (
+          {products.map((product) => (
             <div key={product.id} className="bg-[#1A365D] rounded-[2rem] border border-[#FF6B35]/20 shadow-lg shadow-black/50 hover:border-[#FF6B35]/50 hover:-translate-y-1 transition-all duration-300 flex flex-col overflow-hidden group">
               
               {/* Product Image Area */}
-              <Link href={`/product/${product.slug}`} className="relative block aspect-square bg-[#0B1B3D] p-8 border-b border-[#FF6B35]/20">
+              <Link href={`/product/${product.slug}`} className="relative block aspect-[4/5] bg-[#0B1B3D] border-b border-[#FF6B35]/20 overflow-hidden">
                 {product.badge_ar && (
-                  <div className="absolute top-4 right-4 bg-[#FF6B35] text-white text-xs font-bold px-3 py-1.5 rounded-full z-10 shadow-sm">
+                  <div className="absolute top-4 right-4 bg-[#FF6B35] text-white text-xs font-bold px-3 py-1.5 rounded-full z-20 shadow-sm">
                     {product.badge_ar}
                   </div>
                 )}
-                {/* Background Icon */}
-                <div className="absolute inset-0 flex items-center justify-center text-8xl opacity-[0.05] group-hover:scale-110 transition-transform duration-700 text-[#FF6B35]">
-                  {product.theme.icon}
-                </div>
                 <Image 
                   src={product.image_url} 
                   alt={product.name_ar}
                   fill
-                  className="object-contain p-6 sm:p-10 group-hover:scale-105 transition-transform duration-700 relative z-10"
+                  className="object-cover object-top group-hover:scale-105 transition-transform duration-700 relative z-10"
                 />
               </Link>
 

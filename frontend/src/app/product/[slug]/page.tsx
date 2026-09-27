@@ -1,35 +1,64 @@
 import React from "react";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import { PRODUCTS } from "@/lib/products";
+import { getStorefrontProduct, getStorefrontProducts } from "@/lib/server/storefront";
 import { ProductOptions } from "./ProductOptions";
 import { Star, ShieldCheck, CheckCircle2, ChevronDown, Check, X } from "lucide-react";
 import { ReviewsSection } from "@/components/ReviewsSection";
 import { FAQSection } from "@/components/FAQSection";
 import Link from "next/link";
 import { ExpectedResultsTimeline } from "@/components/ExpectedResultsTimeline";
+import { parseBagsParam } from "@/lib/pricing";
 
-export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
   const { slug } = await params;
-  const product = PRODUCTS.find((p) => p.slug === slug);
+  const product = await getStorefrontProduct(slug);
+  if (!product) return { title: "حِداق الخليج" };
+  return {
+    title: `${product.name_ar} | حِداق الخليج`,
+    description: `${product.description_ar} من متجر حِداق الخليج.`,
+    openGraph: {
+      title: `${product.name_ar} | حِداق الخليج`,
+      description: product.description_ar,
+      images: product.image_url ? [product.image_url] : undefined,
+    },
+  };
+}
+
+export default async function ProductPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ bags?: string }>;
+}) {
+  const { slug } = await params;
+  const { bags } = await searchParams;
+  const product = await getStorefrontProduct(slug);
 
   if (!product) {
     notFound();
   }
 
-  const crossSells = PRODUCTS.filter((p) => p.id !== product.id);
+  const allProducts = await getStorefrontProducts();
+  const crossSells = allProducts.filter((p) => p.id !== product.id && !p.is_upsell);
 
   return (
-    <div className="bg-[#0a0a0a] min-h-screen font-sans selection:bg-[#D4AF37]/30">
+    <div className="bg-[#0a0a0a] min-h-screen font-sans selection:bg-[#D4AF37]/30 pb-28">
       
       {/* 1. Hero Section */}
       <section className="bg-[#0B1B3D] py-12 md:py-24 border-b border-[#1A365D] relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#FF6B35]/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
         <div className="container mx-auto px-4 max-w-6xl relative z-10">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             
             {/* Right: Text & Options */}
-            <div>
+            <div className="order-2 md:order-1">
               <h1 className="text-4xl md:text-5xl font-black text-white mb-4 leading-tight">
                 {product.name_ar}
                 <br />
@@ -54,18 +83,18 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
               {/* Add To Cart Options */}
               <div className="dark-theme-override">
-                <ProductOptions product={product} />
+                <ProductOptions key={`${product.slug}-${bags ?? "1"}`} product={product} initialBags={parseBagsParam(bags)} />
               </div>
 
             </div>
 
             {/* Left: Product Image */}
-            <div className="relative aspect-square md:aspect-[4/5] rounded-3xl overflow-hidden bg-[#0B1B3D] shadow-lg shadow-black/50 border border-[#1A365D]">
+            <div className="order-1 md:order-2 relative aspect-[4/5] rounded-3xl overflow-hidden bg-[#0B1B3D] shadow-lg shadow-black/50 border border-[#1A365D]">
               <Image 
                 src={product.image_url} 
                 alt={product.name_ar}
                 fill
-                className="object-cover"
+                className="object-cover object-top"
               />
               <div className="absolute bottom-0 inset-x-0 bg-[#0B1B3D]/90 backdrop-blur py-4 px-6 flex justify-between items-center border-t border-[#1A365D]">
                  <div className="text-center">
@@ -85,7 +114,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                  <div className="w-px h-8 bg-[#1A365D]"></div>
                  <div className="text-center">
                    <div className="text-xs text-gray-400 font-bold mb-1">ضمان</div>
-                   <div className="font-black text-[#FF6B35]">استبدال</div>
+                   <div className="font-black text-[#FF6B35]">7 أيام</div>
                  </div>
               </div>
             </div>
@@ -102,8 +131,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <p className="text-gray-400 font-medium">معدات مصممة لتجاوز التحديات وتسهيل رحلة الصيد.</p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12 items-start">
-            <div className="space-y-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+            <div className="order-2 md:order-1 space-y-8">
               {product.problems_solutions.map((item, index) => (
                 <div key={index} className="space-y-2">
                   {/* Problem Box */}
@@ -127,12 +156,12 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               ))}
             </div>
 
-            <div className="relative aspect-[3/4] md:aspect-[4/5] rounded-3xl overflow-hidden bg-[#1A365D] border border-[#FF6B35]/20 sticky top-24 shadow-lg shadow-black/50">
+            <div className="order-1 md:order-2 relative aspect-[4/5] rounded-3xl overflow-hidden bg-[#1A365D] border border-[#FF6B35]/20 md:sticky md:top-24 shadow-lg shadow-black/50">
                <Image 
-                  src={product.image_url} 
+                  src={product.gallery?.[0] || product.image_url} 
                   alt={product.name_ar}
                   fill
-                  className="object-cover"
+                  className="object-cover object-top"
                 />
             </div>
           </div>
@@ -144,35 +173,32 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         <div className="container mx-auto px-4 max-w-5xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-black text-white mb-4">محتويات الحقيبة</h2>
-            <p className="text-gray-400 font-medium">كل ما تحتاجه لرحلة صيد متكاملة في حقيبة واحدة.</p>
+            <p className="text-gray-400 font-medium">حقيبة، عصا، وماكينة مجهزة بخيط الصيد، مع الطعم والمدوّر والخطافات والثقل والعوامة.</p>
           </div>
 
-          <div className="grid md:grid-cols-5 gap-12 items-center">
-            <div className="md:col-span-2 relative aspect-[4/5] rounded-3xl overflow-hidden bg-[#0B1B3D] shadow-lg shadow-black/50 border border-[#FF6B35]/20">
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+            <div className="relative w-full rounded-3xl overflow-hidden bg-[#0B1B3D] shadow-lg shadow-black/50 border border-[#FF6B35]/20 md:sticky md:top-24">
                <div className={`absolute inset-0 bg-gradient-to-tr ${product.theme.from} ${product.theme.to} opacity-5`}></div>
                <Image 
-                  src={product.image_url} 
-                  alt="مكونات المنتج"
-                  fill
-                  className="object-contain p-8 relative z-10"
+                  src={product.gallery?.find(img => img.includes('mokawinat')) || product.image_url} 
+                  alt="محتويات الحقيبة"
+                  width={800}
+                  height={1200}
+                  className="w-full h-auto object-contain relative z-10"
                 />
             </div>
 
-            <div className="md:col-span-3 space-y-6">
+            <div className="grid grid-cols-2 gap-3 md:grid-cols-1 md:gap-4">
               {product.ingredients.map((ing, i) => (
-                <div key={i} className="bg-[#0B1B3D] p-6 rounded-2xl border border-[#FF6B35]/20 shadow-sm hover:border-[#FF6B35]/50 transition-colors">
-                  <div className="flex justify-between items-start mb-3">
-                    <h3 className="text-xl font-black text-white">{ing.name_ar}</h3>
-                    <div className="px-3 py-1 bg-[#FF6B35]/10 text-[#FF6B35] text-xs font-bold rounded-full border border-[#FF6B35]/20">
-                      {ing.name_en}
-                    </div>
+                <div key={i} className="bg-[#0B1B3D] p-5 rounded-xl border border-[#FF6B35]/20 shadow-sm hover:border-[#FF6B35]/50 transition-colors md:flex md:gap-4 md:items-start">
+                  <div className="w-8 h-8 md:w-10 md:h-10 rounded-full md:rounded-xl bg-[#FF6B35]/10 border border-[#FF6B35]/20 flex items-center justify-center flex-shrink-0 mb-3 md:mb-0">
+                    <span className="text-[#FF6B35] font-black text-sm md:text-lg">{i + 1}</span>
                   </div>
-                  <p className="text-gray-400 leading-relaxed text-sm md:text-base">
-                    {ing.description}
-                  </p>
-                  <div className="mt-4 flex items-center gap-2 text-[#FF6B35] text-sm font-bold">
-                    <CheckCircle2 className="w-4 h-4" />
-                    <span>جودة عالية ومتانة مضمونة</span>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-bold text-gray-300 text-sm md:text-lg leading-tight mb-1">{ing.name_ar}</h3>
+                    <p className="text-gray-400 leading-relaxed text-xs md:text-sm">
+                      {ing.description}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -197,8 +223,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                  <div className="text-xs text-gray-400 font-bold">تصميم احترافي</div>
               </div>
               <div className="border border-[#FF6B35]/20 rounded-2xl p-6 bg-[#1A365D] hover:border-[#FF6B35]/50 transition-colors">
-                 <div className="font-black text-xl text-[#FF6B35] mb-2">ضمان</div>
-                 <div className="text-xs text-gray-400 font-bold">استبدال واسترجاع</div>
+                 <div className="font-black text-xl text-[#FF6B35] mb-2">7 أيام</div>
+                 <div className="text-xs text-gray-400 font-bold">استرجاع إذا لم تُستخدم</div>
               </div>
               <div className="border border-[#FF6B35]/20 rounded-2xl p-6 bg-[#1A365D] hover:border-[#FF6B35]/50 transition-colors">
                  <div className="font-black text-xl text-[#FF6B35] mb-2">قيمة</div>
@@ -250,7 +276,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
              </div>
              <h2 className="text-2xl md:text-3xl font-black text-white mb-4 relative z-10">ضمان الاستبدال والاسترجاع</h2>
              <p className="text-gray-400 leading-relaxed relative z-10">
-               نحن واثقون من جودة معداتنا. إذا واجهت أي مشكلة مصنعية أو لم تكن راضياً عن الجودة، تواصل معنا وسنقوم باستبدال المنتج أو استرجاع قيمته.
+               إذا وصلت الحقيبة ناقصة أو تالفة لا تستلمها وراسلنا لنبدلها. وإذا لم تُستخدم وبقيت على حالها، يمكن إرجاعها أو استبدالها خلال 7 أيام من الاستلام. التفاصيل في{" "}
+               <Link href="/policies/refund" className="text-[#FF6B35] underline">سياسة الاسترجاع</Link>.
              </p>
            </div>
         </div>
@@ -264,26 +291,25 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       </div>
 
       {/* 9. Cross-sells Section */}
-      <section className="py-20 md:py-32 bg-[#141414]">
+      <section className="py-20 md:py-32 bg-[#0B1B3D]">
         <div className="container mx-auto px-4 max-w-5xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-black text-white">منتجات أخرى من أوريندا</h2>
-            <p className="text-gray-400 mt-3 font-medium">كل مشكلة تركيبة حلها متخصصة — اختر ما يناسبك</p>
+            <h2 className="text-3xl font-black text-white">منتجات أخرى قد تعجبك</h2>
+            <p className="text-gray-400 mt-3 font-medium">اختر المقاس المناسب لاحتياجاتك في الصيد</p>
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
             {crossSells.map((p) => (
-              <Link href={`/product/${p.slug}`} key={p.id} className="group bg-[#1a1a1a] rounded-3xl p-6 border border-[#333333] shadow-lg shadow-black/50 hover:border-[#D4AF37]/40 hover:-translate-y-1 transition-all flex flex-col">
-                <div className={`w-full aspect-square rounded-2xl bg-[#0a0a0a] border border-[#333333] flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300 relative overflow-hidden mb-6`}>
-                  <div className="absolute inset-0 opacity-10 flex items-center justify-center text-8xl text-[#D4AF37]">{p.theme.icon}</div>
-                  <Image src={p.image_url} alt={p.name_ar} fill className="object-contain p-8 relative z-10" />
+              <Link href={`/product/${p.slug}`} key={p.id} className="group bg-[#1A365D] rounded-3xl overflow-hidden border border-[#FF6B35]/20 shadow-lg shadow-black/50 hover:border-[#FF6B35]/50 hover:-translate-y-1 transition-all flex flex-col">
+                <div className={`w-full aspect-[4/5] relative overflow-hidden border-b border-[#FF6B35]/20`}>
+                  <Image src={p.image_url} alt={p.name_ar} fill className="object-cover object-top group-hover:scale-105 transition-transform duration-500 relative z-10" />
                 </div>
-                <div className="flex-1 flex flex-col">
+                <div className="p-6 flex-1 flex flex-col">
                   <h4 className="text-xl font-bold text-gray-200 mb-2">{p.name_ar}</h4>
                   <p className="text-sm text-gray-400 mb-6 line-clamp-2 leading-relaxed flex-1">{p.description_ar}</p>
                   <div className="flex items-center justify-between mt-auto">
-                    <span className="font-black text-xl text-[#D4AF37]">{p.price} ر.س</span>
-                    <span className="text-sm font-bold bg-[#0a0a0a] border border-[#D4AF37]/30 text-[#D4AF37] px-4 py-2 rounded-xl group-hover:bg-gradient-to-r group-hover:from-[#D4AF37] group-hover:to-[#B8860B] group-hover:text-[#0a0a0a] transition-all">
+                    <span className="font-black text-xl text-[#FF6B35]">{p.price} ر.س</span>
+                    <span className="text-sm font-bold bg-[#0B1B3D] border border-[#FF6B35]/30 text-[#FF6B35] px-4 py-2 rounded-xl group-hover:bg-[#FF6B35] group-hover:text-white transition-all">
                       اكتشف المزيد
                     </span>
                   </div>
@@ -300,28 +326,28 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           
           {/* Right side: Product Info */}
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-lg bg-[#1a1a1a] border border-[#333333] p-1 hidden sm:block flex-shrink-0">
+            <div className="w-12 h-12 rounded-lg bg-[#1A365D] border border-[#FF6B35]/20 overflow-hidden hidden sm:block flex-shrink-0">
               <Image 
                 src={product.image_url} 
                 alt={product.name_ar}
                 width={48}
                 height={48}
-                className="object-contain w-full h-full"
+                className="object-cover w-full h-full"
               />
             </div>
             <div>
               <div className="font-bold text-sm md:text-base line-clamp-1 text-white">{product.name_ar}</div>
-              <div className="text-xs text-[#D4AF37] font-medium mt-0.5" dir="rtl">يبدأ من 199 ريال سعودي • الدفع عند الاستلام</div>
+              <div className="text-xs text-[#FF6B35] font-medium mt-0.5" dir="rtl">يبدأ من {product.price} ريال سعودي • الدفع عند الاستلام</div>
             </div>
           </div>
 
           {/* Left side: Button */}
           <a 
-            href="#"
-            className="px-5 py-2.5 md:px-8 md:py-3 bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-[#0a0a0a] font-black rounded-xl shadow-[0_0_15px_rgba(212,175,55,0.3)] hover:opacity-90 transition-opacity flex items-center gap-2 text-sm md:text-base flex-shrink-0"
+            href="#product-options"
+            className="px-5 py-2.5 md:px-8 md:py-3 bg-[#FF6B35] text-white font-black rounded-xl shadow-[0_0_15px_rgba(255,107,53,0.3)] hover:opacity-90 transition-opacity flex items-center gap-2 text-sm md:text-base flex-shrink-0"
           >
             <ChevronDown className="w-4 h-4 rotate-180" />
-            ابدأ روتينك الآن
+            اطلب الآن
           </a>
 
         </div>

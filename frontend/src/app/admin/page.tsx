@@ -16,12 +16,15 @@ import {
   createProduct,
   updateProduct,
   deleteProduct,
+  getSiteSettings,
+  updateSiteSettings,
   type DashboardMetrics,
   type DailyStats,
   type TopProduct,
   type OrderDetail,
   type OrdersListResponse,
   type Product,
+  type SiteSettings,
 } from "@/lib/adminApi";
 
 // ────────────────────────────────────────────────
@@ -276,7 +279,7 @@ function OrderPreview({
 // ────────────────────────────────────────────────
 export default function AdminDashboard() {
   const router = useRouter();
-  const [tab, setTab] = useState<"dashboard" | "orders" | "products">("dashboard");
+  const [tab, setTab] = useState<"dashboard" | "orders" | "products" | "site">("dashboard");
   const [loading, setLoading] = useState(true);
 
   // Date range
@@ -297,6 +300,7 @@ export default function AdminDashboard() {
 
   // Products data
   const [productsData, setProductsData] = useState<Product[]>([]);
+  const [siteData, setSiteData] = useState<SiteSettings | null>(null);
 
   // Auth check
   useEffect(() => {
@@ -348,6 +352,15 @@ export default function AdminDashboard() {
     }
   }, []);
 
+  const fetchSite = useCallback(async () => {
+    try {
+      const data = await getSiteSettings();
+      setSiteData(data);
+    } catch {
+      /* ignore */
+    }
+  }, []);
+
   useEffect(() => {
     if (!loading && tab === "dashboard") fetchDashboard();
   }, [loading, tab, fetchDashboard]);
@@ -359,6 +372,10 @@ export default function AdminDashboard() {
   useEffect(() => {
     if (!loading && tab === "products") fetchProducts();
   }, [loading, tab, fetchProducts]);
+
+  useEffect(() => {
+    if (!loading && tab === "site") fetchSite();
+  }, [loading, tab, fetchSite]);
 
   async function handleStatusChange(orderId: number, status: string) {
     try {
@@ -412,7 +429,7 @@ export default function AdminDashboard() {
               <div className="w-8 h-8 bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg flex items-center justify-center">
                 <span className="text-white text-sm font-bold">O</span>
               </div>
-              <span className="text-white font-semibold hidden sm:block">لوحة تحكم أوريندا</span>
+              <span className="text-white font-semibold hidden sm:block">لوحة تحكم حداق الخليج</span>
             </div>
             <nav className="flex gap-1">
               <button
@@ -432,6 +449,12 @@ export default function AdminDashboard() {
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition ${tab === "products" ? "bg-gray-800 text-white" : "text-gray-400 hover:text-white hover:bg-gray-800/50"}`}
               >
                 المنتجات
+              </button>
+              <button
+                onClick={() => setTab("site")}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition ${tab === "site" ? "bg-gray-800 text-white" : "text-gray-400 hover:text-white hover:bg-gray-800/50"}`}
+              >
+                الموقع
               </button>
             </nav>
           </div>
@@ -491,6 +514,12 @@ export default function AdminDashboard() {
           <ProductsTab
             products={productsData}
             onRefresh={fetchProducts}
+          />
+        )}
+        {tab === "site" && siteData && (
+          <SiteTab
+            site={siteData}
+            onRefresh={fetchSite}
           />
         )}
       </main>
@@ -603,6 +632,81 @@ function DashboardTab({ metrics, dailyStats, topProducts }: { metrics: Dashboard
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+// ────────────────────────────────────────────────
+// SITE SETTINGS TAB
+// ────────────────────────────────────────────────
+function SiteTab({ site, onRefresh }: { site: SiteSettings; onRefresh: () => void }) {
+  const [form, setForm] = useState(site);
+  const [saving, setSaving] = useState(false);
+  const [msg, setMsg] = useState("");
+
+  useEffect(() => {
+    setForm(site);
+  }, [site]);
+
+  async function handleSave(e: React.FormEvent) {
+    e.preventDefault();
+    setSaving(true);
+    setMsg("");
+    try {
+      await updateSiteSettings(form);
+      setMsg("تم الحفظ بنجاح");
+      onRefresh();
+    } catch (err: unknown) {
+      setMsg(err instanceof Error ? err.message : "فشل الحفظ");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  const fields: { key: keyof SiteSettings; label: string }[] = [
+    { key: "brand_ar", label: "اسم المتجر (عربي)" },
+    { key: "brand_en", label: "اسم المتجر (إنجليزي)" },
+    { key: "logo_url", label: "رابط الشعار" },
+    { key: "announcement", label: "شريط الإعلان" },
+    { key: "hero_title", label: "عنوان الواجهة" },
+    { key: "hero_description", label: "وصف الواجهة" },
+    { key: "hero_image", label: "صورة الواجهة" },
+  ];
+
+  return (
+    <div dir="rtl" className="max-w-2xl space-y-6">
+      <h2 className="text-xl font-bold text-white">إعدادات الموقع</h2>
+      <p className="text-sm text-gray-400">عدّل الشعار والنصوص الرئيسية. التغييرات تُحفظ في قاعدة البيانات.</p>
+      <form onSubmit={handleSave} className="space-y-4 bg-gray-900 border border-gray-800 rounded-2xl p-6">
+        {fields.map((f) => (
+          <div key={f.key}>
+            <label className="block text-sm text-gray-400 mb-1.5">{f.label}</label>
+            {f.key === "hero_description" || f.key === "announcement" ? (
+              <textarea
+                value={form[f.key]}
+                onChange={(e) => setForm({ ...form, [f.key]: e.target.value })}
+                rows={3}
+                className="w-full px-4 py-2.5 bg-gray-800 border border-gray-700 rounded-lg text-white text-sm focus:outline-none focus:ring-1 focus:ring-amber-500"
+              />
+            ) : (
+              <input
+                type="text"
+                value={form[f.key]}
+                onChange={(e) => setForm({ ...form, [f.key]: e.target.value })}
+                className="w-full px-4 py-2.5 bg-gray-800 border border-gray-700 rounded-lg text-white text-sm focus:outline-none focus:ring-1 focus:ring-amber-500"
+              />
+            )}
+          </div>
+        ))}
+        {msg && <p className="text-sm text-amber-400">{msg}</p>}
+        <button
+          type="submit"
+          disabled={saving}
+          className="px-6 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-lg disabled:opacity-50"
+        >
+          {saving ? "جاري الحفظ..." : "حفظ التغييرات"}
+        </button>
+      </form>
     </div>
   );
 }

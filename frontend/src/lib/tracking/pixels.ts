@@ -1,9 +1,8 @@
 "use client";
 
 /**
- * Orenda Web Pixel Tracking
- * All pixel fires are deferred via requestIdleCallback for performance.
- * Event IDs are generated per-session for Meta/TikTok/Snap CAPI deduplication.
+ * Pixel tracking for Meta, TikTok, and Snapchat.
+ * Events fire immediately so test tools and ad platforms receive them reliably.
  */
 
 type WindowWithPixels = Window & {
@@ -11,15 +10,6 @@ type WindowWithPixels = Window & {
   ttq?: { track: (...args: unknown[]) => void; identify: (...args: unknown[]) => void };
   snaptr?: (...args: unknown[]) => void;
 };
-
-function defer(fn: () => void): void {
-  if (typeof window === "undefined") return;
-  if ("requestIdleCallback" in window) {
-    requestIdleCallback(fn, { timeout: 3000 });
-  } else {
-    setTimeout(fn, 300);
-  }
-}
 
 export function generateEventId(): string {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
@@ -38,161 +28,157 @@ interface TrackPayload {
 // ──────────── Meta Pixel ────────────
 
 export function metaViewContent(payload: TrackPayload = {}): void {
-  defer(() => {
-    const w = window as WindowWithPixels;
-    if (!w.fbq) return;
-    w.fbq("track", "ViewContent", {
-      value: payload.value,
-      currency: payload.currency || "SAR",
-      content_ids: payload.contentIds,
-      content_name: payload.contentName,
-      content_type: "product",
-    }, { eventID: payload.eventId || generateEventId() });
-  });
+  const w = window as WindowWithPixels;
+  if (!w.fbq) return;
+  w.fbq("track", "ViewContent", {
+    value: payload.value,
+    currency: payload.currency || "SAR",
+    content_ids: payload.contentIds,
+    content_name: payload.contentName,
+    content_type: "product",
+  }, { eventID: payload.eventId || generateEventId() });
 }
 
 export function metaAddToCart(payload: TrackPayload): void {
-  defer(() => {
-    const w = window as WindowWithPixels;
-    if (!w.fbq) return;
-    w.fbq("track", "AddToCart", {
-      value: payload.value,
-      currency: payload.currency || "SAR",
-      content_ids: payload.contentIds,
-      content_type: "product",
-    }, { eventID: payload.eventId || generateEventId() });
-  });
+  const w = window as WindowWithPixels;
+  if (!w.fbq) return;
+  w.fbq("track", "AddToCart", {
+    value: payload.value,
+    currency: payload.currency || "SAR",
+    content_ids: payload.contentIds,
+    content_type: "product",
+  }, { eventID: payload.eventId || generateEventId() });
 }
 
 export function metaInitiateCheckout(payload: TrackPayload): void {
-  defer(() => {
-    const w = window as WindowWithPixels;
-    if (!w.fbq) return;
-    w.fbq("track", "InitiateCheckout", {
-      value: payload.value,
-      currency: payload.currency || "SAR",
-      num_items: payload.numItems,
-    }, { eventID: payload.eventId || generateEventId() });
-  });
+  const w = window as WindowWithPixels;
+  if (!w.fbq) return;
+  w.fbq("track", "InitiateCheckout", {
+    value: payload.value,
+    currency: payload.currency || "SAR",
+    num_items: payload.numItems,
+  }, { eventID: payload.eventId || generateEventId() });
 }
 
 export function metaPurchase(payload: TrackPayload): void {
-  defer(() => {
-    const w = window as WindowWithPixels;
-    if (!w.fbq) return;
-    w.fbq("track", "Purchase", {
-      value: payload.value,
-      currency: payload.currency || "SAR",
-      content_ids: payload.contentIds,
-      content_type: "product",
-      num_items: payload.numItems,
-    }, { eventID: payload.eventId || generateEventId() });
-  });
+  const w = window as WindowWithPixels;
+  if (!w.fbq) return;
+  w.fbq("track", "Purchase", {
+    value: payload.value,
+    currency: payload.currency || "SAR",
+    content_ids: payload.contentIds,
+    content_type: "product",
+    num_items: payload.numItems,
+  }, { eventID: payload.eventId || generateEventId() });
 }
 
 // ──────────── TikTok Pixel ────────────
 
+export function tiktokViewContent(payload: TrackPayload = {}): void {
+  const w = window as WindowWithPixels;
+  if (!w.ttq) return;
+  w.ttq.track("ViewContent", {
+    event_id: payload.eventId,
+    value: payload.value,
+    currency: payload.currency || "SAR",
+    content_id: payload.contentIds?.[0],
+    content_name: payload.contentName,
+  });
+}
+
 export function tiktokAddToCart(payload: TrackPayload): void {
-  defer(() => {
-    const w = window as WindowWithPixels;
-    if (!w.ttq) return;
-    w.ttq.track("AddToCart", {
-      event_id: payload.eventId,
-      value: payload.value,
-      currency: payload.currency || "SAR",
-      content_id: payload.contentIds?.[0],
-      content_name: payload.contentName,
-    });
+  const w = window as WindowWithPixels;
+  if (!w.ttq) return;
+  w.ttq.track("AddToCart", {
+    event_id: payload.eventId,
+    value: payload.value,
+    currency: payload.currency || "SAR",
+    content_id: payload.contentIds?.[0],
+    content_name: payload.contentName,
   });
 }
 
 export function tiktokInitiateCheckout(payload: TrackPayload): void {
-  defer(() => {
-    const w = window as WindowWithPixels;
-    if (!w.ttq) return;
-    w.ttq.track("InitiateCheckout", {
-      event_id: payload.eventId,
-      value: payload.value,
-      currency: payload.currency || "SAR",
-    });
+  const w = window as WindowWithPixels;
+  if (!w.ttq) return;
+  w.ttq.track("InitiateCheckout", {
+    event_id: payload.eventId,
+    value: payload.value,
+    currency: payload.currency || "SAR",
   });
 }
 
 export function tiktokPurchase(payload: TrackPayload): void {
-  defer(() => {
-    const w = window as WindowWithPixels;
-    if (!w.ttq) return;
-    w.ttq.track("PlaceAnOrder", {
-      event_id: payload.eventId,
-      value: payload.value,
-      currency: payload.currency || "SAR",
-      order_id: payload.orderId,
-    });
+  const w = window as WindowWithPixels;
+  if (!w.ttq) return;
+  w.ttq.track("PlaceAnOrder", {
+    event_id: payload.eventId,
+    value: payload.value,
+    currency: payload.currency || "SAR",
+    order_id: payload.orderId,
   });
 }
 
 // ──────────── Snapchat Pixel ────────────
 
 export function snapAddToCart(payload: TrackPayload): void {
-  defer(() => {
-    const w = window as WindowWithPixels;
-    if (!w.snaptr) return;
-    w.snaptr("track", "ADD_CART", {
-      price: payload.value,
-      currency: payload.currency || "SAR",
-      item_ids: payload.contentIds,
-    });
+  const w = window as WindowWithPixels;
+  if (!w.snaptr) return;
+  w.snaptr("track", "ADD_CART", {
+    price: payload.value,
+    currency: payload.currency || "SAR",
+    item_ids: payload.contentIds,
   });
 }
 
 export function snapPurchase(payload: TrackPayload): void {
-  defer(() => {
-    const w = window as WindowWithPixels;
-    if (!w.snaptr) return;
-    w.snaptr("track", "PURCHASE", {
-      price: payload.value,
-      currency: payload.currency || "SAR",
-      transaction_id: payload.orderId,
-      item_ids: payload.contentIds,
-      number_items: payload.numItems,
-    });
+  const w = window as WindowWithPixels;
+  if (!w.snaptr) return;
+  w.snaptr("track", "PURCHASE", {
+    price: payload.value,
+    currency: payload.currency || "SAR",
+    transaction_id: payload.orderId,
+    item_ids: payload.contentIds,
+    number_items: payload.numItems,
   });
 }
 
 export function snapPageView(): void {
-  defer(() => {
-    const w = window as WindowWithPixels;
-    if (!w.snaptr) return;
-    w.snaptr("track", "PAGE_VIEW");
-  });
+  const w = window as WindowWithPixels;
+  if (!w.snaptr) return;
+  w.snaptr("track", "PAGE_VIEW");
 }
 
 export function snapViewContent(payload: TrackPayload = {}): void {
-  defer(() => {
-    const w = window as WindowWithPixels;
-    if (!w.snaptr) return;
-    w.snaptr("track", "VIEW_CONTENT", {
-      price: payload.value,
-      currency: payload.currency || "SAR",
-      item_ids: payload.contentIds,
-      item_category: payload.contentName,
-    });
+  const w = window as WindowWithPixels;
+  if (!w.snaptr) return;
+  w.snaptr("track", "VIEW_CONTENT", {
+    price: payload.value,
+    currency: payload.currency || "SAR",
+    item_ids: payload.contentIds,
+    item_category: payload.contentName,
   });
 }
 
 export function snapInitiateCheckout(payload: TrackPayload): void {
-  defer(() => {
-    const w = window as WindowWithPixels;
-    if (!w.snaptr) return;
-    w.snaptr("track", "START_CHECKOUT", {
-      price: payload.value,
-      currency: payload.currency || "SAR",
-      number_items: payload.numItems,
-    });
+  const w = window as WindowWithPixels;
+  if (!w.snaptr) return;
+  w.snaptr("track", "START_CHECKOUT", {
+    price: payload.value,
+    currency: payload.currency || "SAR",
+    number_items: payload.numItems,
   });
 }
 
 // ──────────── Combined helpers ────────────
+
+export function trackViewContent(productId: number, productName: string, price: number) {
+  const eventId = generateEventId();
+  const contentIds = [String(productId)];
+  metaViewContent({ value: price, contentIds, contentName: productName, eventId });
+  tiktokViewContent({ value: price, contentIds, contentName: productName, eventId });
+  snapViewContent({ value: price, contentIds, contentName: productName });
+}
 
 export function trackAddToCart(productId: number, productName: string, price: number) {
   const eventId = generateEventId();
@@ -206,6 +192,7 @@ export function trackInitiateCheckout(total: number, numItems: number) {
   const eventId = generateEventId();
   metaInitiateCheckout({ value: total, numItems, eventId });
   tiktokInitiateCheckout({ value: total, eventId });
+  snapInitiateCheckout({ value: total, numItems });
   return eventId;
 }
 

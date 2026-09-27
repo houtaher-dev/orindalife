@@ -6,7 +6,7 @@ import { Plus, Minus, ShieldCheck, CheckCircle2, Truck, CheckCircle } from "luci
 const FAQS = [
   {
     question: "وش تحتوي حقيبة الصيد المتكاملة؟",
-    answer: "تحتوي الحقيبة على قصبة صيد (بالمقاس اللي تختاره)، ماكينة صيد متوافقة، خيط نايلون، ومجموعة أساسية من الطعوم والخطاطيف، بالإضافة لحقيبة لحفظ المعدات."
+    answer: "الحقيبة صناعة كورية، وفيها عصا بالمقاس الذي تختاره، وماكينة مجهزة بخيط الصيد، وطُعم صناعي، ومدوّر، وخطافات، وثقل، وعوامة. لا توجد بكرة خيط إضافية."
   },
   {
     question: "كيف أختار مقاس القصبة المناسب لي؟",
@@ -22,7 +22,11 @@ const FAQS = [
   },
   {
     question: "أقدر أدفع عند الاستلام؟",
-    answer: "أكيد! نوفر خدمة الدفع عند الاستلام لراحتك وضمان تسوق آمن."
+    answer: "أكيد. الدفع عند الاستلام داخل السعودية، والشحن مجاني."
+  },
+  {
+    question: "كيف يشتغل الاسترجاع؟",
+    answer: "قبل الشحن يمكنك إلغاء الطلب بدون مبلغ. إذا وصلت الحقيبة ناقصة أو تالفة، لا تستلمها وراسلنا لنبدلها. وإذا لم تُستخدم وبقيت على حالها، يمكنك إرجاعها أو استبدالها خلال 7 أيام من الاستلام. بعد الاستخدام، أو بعد 7 أيام، لا يوجد استرجاع بسبب تغيير الرأي."
   }
 ];
 
@@ -94,7 +98,7 @@ export function FAQSection({ isDark = false }: { isDark?: boolean }) {
           </div>
           <div className={`${isDark ? 'bg-[#1A365D] border-[#FF6B35]/20' : 'bg-white border-gray-100'} rounded-xl border py-3 px-4 flex items-center justify-center gap-2 shadow-sm`}>
             <CheckCircle className={`w-4 h-4 ${isDark ? 'text-[#FF6B35]' : 'text-[#0B1B3D]'}`} />
-            <span className={`text-xs font-bold ${isDark ? 'text-gray-300' : 'text-gray-800'}`}>ضمان استبدال</span>
+            <span className={`text-xs font-bold ${isDark ? 'text-gray-300' : 'text-gray-800'}`}>استرجاع 7 أيام</span>
           </div>
         </div>
 

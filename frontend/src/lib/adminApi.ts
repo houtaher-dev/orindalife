@@ -1,4 +1,4 @@
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://api.orendaa.shop";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
 
 function getToken(): string | null {
   if (typeof window === "undefined") return null;
@@ -222,5 +222,26 @@ export function updateOrderNotes(id: number, notes: string) {
   return apiFetch<OrderDetail>(`/api/admin/orders/${id}/notes`, {
     method: "PATCH",
     body: JSON.stringify({ notes }),
+  });
+}
+
+export interface SiteSettings {
+  brand_ar: string;
+  brand_en: string;
+  logo_url: string;
+  hero_title: string;
+  hero_description: string;
+  hero_image: string;
+  announcement: string;
+}
+
+export function getSiteSettings() {
+  return apiFetch<SiteSettings>("/api/admin/site");
+}
+
+export function updateSiteSettings(data: Partial<SiteSettings>) {
+  return apiFetch<SiteSettings>("/api/admin/site", {
+    method: "PATCH",
+    body: JSON.stringify(data),
   });
 }
